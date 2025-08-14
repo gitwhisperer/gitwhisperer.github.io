@@ -1,4 +1,4 @@
-const CACHE_NAME = 'harshit-v3';
+const CACHE_NAME = 'harshit-v4';
 self.addEventListener('install', (e) => {
   const toCache = [
     './',
@@ -10,7 +10,11 @@ self.addEventListener('install', (e) => {
   './assets/harshit.JPG',
   './robots.txt',
   './sitemap.xml',
-  './404.html'
+  './404.html',
+  './harshit.html',
+  './tinker.html',
+  './web-dev.html',
+  './freelance.html'
   ];
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(toCache))
