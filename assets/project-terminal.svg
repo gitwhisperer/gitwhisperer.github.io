@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#0b0d10"/>
+  <rect x="40" y="40" width="560" height="280" rx="16" fill="#0f1216" stroke="#1f242a"/>
+  <g fill="#2dd4bf" font-family="monospace" font-size="14">
+    <text x="64" y="84">player@game:~$ run</text>
+    <text x="64" y="112">▶ Loading modules...</text>
+    <text x="64" y="140">▶ World: retro-grid</text>
+    <text x="64" y="168">▶ Press WASD to move</text>
+  </g>
+</svg>

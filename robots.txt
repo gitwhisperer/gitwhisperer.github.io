@@ -1,0 +1,5 @@
+# Allow everything
+User-agent: *
+Allow: /
+
+Sitemap: https://gitwhisperer.github.io/sitemap.xml
