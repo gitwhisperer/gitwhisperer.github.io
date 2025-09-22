@@ -191,7 +191,8 @@
   const rgba = (c, a) => `rgba(${c.r}, ${c.g}, ${c.b}, ${a})`;
 
   let W = 0, H = 0;
-  const setSize = () => {
+  let resizeRq = null;
+  const setSizeNow = () => {
     W = Math.floor(window.innerWidth);
     H = Math.floor(window.innerHeight);
     canvas.style.width = W + 'px';
@@ -200,8 +201,12 @@
     canvas.height = Math.floor(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   };
+  const setSize = () => {
+    if (resizeRq) cancelAnimationFrame(resizeRq);
+    resizeRq = requestAnimationFrame(() => { setSizeNow(); seed(); drawOnce(); });
+  };
   setSize();
-  window.addEventListener('resize', () => { setSize(); seed(); drawOnce(); }, { passive: true });
+  window.addEventListener('resize', setSize, { passive: true });
 
   // Graph
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
