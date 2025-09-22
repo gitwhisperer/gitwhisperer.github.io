@@ -41,22 +41,8 @@ body {
 /* WebKit */
 ::-webkit-scrollbar { width: 0; height: 0; }
 
-/* Aurora background container */
-.bg-aurora { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-.bg-aurora .a { position: absolute; width: 75vw; height: 75vw; filter: blur(90px); opacity: .75; border-radius: 50%; }
-.bg-aurora .a1 { background: radial-gradient(circle at 30% 30%, rgba(45,212,191,.85), transparent 60%); left: -12vw; top: 8vh; animation: floatA 12s ease-in-out infinite alternate; }
-.bg-aurora .a2 { background: radial-gradient(circle at 70% 70%, rgba(245,158,11,.8), transparent 60%); right: -14vw; top: -12vh; animation: floatB 13s ease-in-out infinite alternate; }
-.bg-aurora .a3 { background: radial-gradient(circle at 30% 70%, rgba(59,130,246,.7), transparent 60%); left: 18vw; bottom: -18vh; width: 60vw; height: 60vw; animation: floatC 15s ease-in-out infinite alternate; }
-.bg-aurora .a4 { background: radial-gradient(circle at 70% 30%, rgba(236,72,153,.6), transparent 60%); right: 8vw; bottom: -6vh; width: 50vw; height: 50vw; animation: floatD 16s ease-in-out infinite alternate; }
-
-@keyframes floatA { from { transform: translate3d(0,0,0); } to { transform: translate3d(4vw, -3vh, 0); } }
-@keyframes floatB { from { transform: translate3d(0,0,0); } to { transform: translate3d(-3vw, 4vh, 0); } }
-@keyframes floatC { from { transform: translate3d(0,0,0); } to { transform: translate3d(2vw, 3vh, 0); } }
-@keyframes floatD { from { transform: translate3d(0,0,0); } to { transform: translate3d(-2vw, -2vh, 0); } }
-
-@media (prefers-reduced-motion: reduce) {
-  .bg-aurora .a { animation: none; }
-}
+/* Graph canvas background */
+#bg-graph { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; display: block; }
 
 img { max-width: 100%; height: auto; display: block; }
 
