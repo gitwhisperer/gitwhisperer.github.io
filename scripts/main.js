@@ -8,13 +8,29 @@
   const y = $('#year');
   if (y) y.textContent = new Date().getFullYear();
 
-  // Mobile nav
+  // Mobile nav toggle for glassmorphism navbar
   const navToggle = $('.nav-toggle');
-  const navList = $('#nav-menu');
-  if (navToggle && navList) {
+  const navLinks = $('#nav-links');
+  if (navToggle && navLinks) {
     navToggle.addEventListener('click', () => {
-      const open = navList.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', String(open));
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close menu when clicking a link
+    $$('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Close menu when clicking outside
+    doc.addEventListener('click', (e) => {
+      if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
     });
   }
 
@@ -32,18 +48,16 @@
   );
   $$('[data-animate]').forEach((el) => io.observe(el));
 
-  // Parallax elements
+  // Parallax elements (mouse only - don't interfere with touch scrolling)
   const onMove = (e) => {
-    const { clientX: x, clientY: y } = e.touches ? e.touches[0] : e;
-    const cx = x / window.innerWidth - 0.5;
-    const cy = y / window.innerHeight - 0.5;
+    const cx = e.clientX / window.innerWidth - 0.5;
+    const cy = e.clientY / window.innerHeight - 0.5;
     $$('.parallax').forEach((el) => {
       const depth = parseFloat(el.dataset.depth || '0.2');
       el.style.transform = `translate3d(${cx * depth * 20}px, ${cy * depth * 20}px, 0)`;
     });
   };
   window.addEventListener('mousemove', onMove, { passive: true });
-  window.addEventListener('touchmove', onMove, { passive: true });
 
   // Subtle tilt on cards
   const tiltCards = $$('.tilt');
@@ -120,53 +134,57 @@
     });
   }
 
-  // Header shadow on scroll
-  const onHeaderShadow = () => {
-    document.body.classList.toggle('scrolled', window.scrollY > 10);
+  // Unified scroll handler with throttling for better performance
+  const glassNavbar = $('#glass-navbar');
+  const scrollParallax = $$('[data-parallax-scroll]');
+  
+  let scrollTicking = false;
+  const onScroll = () => {
+    if (!scrollTicking) {
+      window.requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        
+        // Navbar scroll effect
+        if (glassNavbar) {
+          glassNavbar.classList.toggle('scrolled', scrollY > 50);
+        }
+        document.body.classList.toggle('scrolled', scrollY > 10);
+        
+        // Parallax on scroll
+        scrollParallax.forEach((el) => {
+          const speed = parseFloat(el.dataset.speed || '0.2');
+          el.style.transform = `translate3d(0, ${scrollY * speed * 0.15}px, 0)`;
+        });
+        
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
   };
-  window.addEventListener('scroll', onHeaderShadow, { passive: true });
-  onHeaderShadow();
+  
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
   // Register service worker for PWA niceties
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      // Use relative path so it registers correctly from subfolders
       navigator.serviceWorker.register('./sw.js').catch(() => {});
     });
   }
 
-  // Parallax on scroll (in addition to mouse parallax)
-  const scrollParallax = $$('[data-parallax-scroll]');
-  const onScrollParallax = () => {
-    const y = window.scrollY;
-    scrollParallax.forEach((el) => {
-      const speed = parseFloat(el.dataset.speed || '0.2');
-      el.style.transform = `translate3d(0, ${y * speed * 0.15}px, 0)`;
-    });
-  };
-  window.addEventListener('scroll', onScrollParallax, { passive: true });
-  onScrollParallax();
-
-  // Scroll progress bar
-  const bar = $('.scroll-progress');
-  const onScroll = () => {
-    const h = doc.documentElement;
-    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
-    if (bar) bar.style.width = `${Math.max(0, Math.min(1, scrolled)) * 100}%`;
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  // Active section highlighting
+  // Active section highlighting for glassmorphism navbar
   const sections = ['home','work','services','about','contact'];
-  const navLinks = sections.map((id) => $(`.nav-list a[href="#${id}"]`)).filter(Boolean);
+  const navLinkElements = sections.map((id) => $(`.nav-link[data-section="${id}"]`)).filter(Boolean);
   const so = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (e.isIntersecting) {
-        navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === `#${e.target.id}`));
+        navLinkElements.forEach((a) => {
+          const section = a.getAttribute('data-section');
+          a.classList.toggle('active', section === e.target.id);
+        });
       }
     });
-  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0.01 });
+  }, { rootMargin: '-20% 0px -60% 0px', threshold: 0.1 });
   sections.forEach((id) => { const el = doc.getElementById(id); if (el) so.observe(el); });
 })();
 
