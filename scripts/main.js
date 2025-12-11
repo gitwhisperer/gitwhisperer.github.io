@@ -76,7 +76,7 @@
   // Contact form handler — mailto fallback
   const form = $('[data-form]');
   const mailtoLink = $('[data-mailto]');
-  if (form && mailtoLink) {
+  if (form) {
   form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const fd = new FormData(form);
@@ -84,7 +84,7 @@
       if ((fd.get('_gotcha') || '').toString().trim() !== '') return;
 
       const name = (fd.get('name') || '').toString();
-      const email = (fd.get('email') || '').toString();
+      const email = (fd.get('_replyto') || '').toString();
       const message = (fd.get('message') || '').toString();
       const subject = `New project inquiry from ${name}`;
       const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
@@ -127,7 +127,9 @@
         if (submitBtn) { submitBtn.disabled = false; form.classList.remove('is-sending'); }
       }
     });
-  mailtoLink.addEventListener('click', (e) => {
+  }
+  if (mailtoLink) {
+    mailtoLink.addEventListener('click', (e) => {
       e.preventDefault();
   const href = `mailto:harshittinker1979@gmail.com?subject=${encodeURIComponent('Project inquiry for Harshit')}`;
       window.location.href = href;

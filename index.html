@@ -319,7 +319,7 @@
             <p class="lead">Have a project in mind? I’d love to hear about it. Send me a message and I’ll get back to you within 24 hours.</p>
             
             <div class="contact-methods">
-              <a href="mailto:harshittinker1979@gmail.com" class="contact-method">
+              <a data-mailto href="mailto:harshittinker1979@gmail.com" class="contact-method">
                 <div class="icon-box">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 </div>
@@ -340,7 +340,7 @@
             </div>
           </div>
 
-          <form class="contact-form" aria-label="Contact form" method="post" data-form data-endpoint="https://formspree.io/f/xblkbdpg">
+          <form class="contact-form" aria-label="Contact form" method="post" action="https://formspree.io/f/xblkbdpg" data-form data-endpoint="https://formspree.io/f/xblkbdpg">
             <div class="fields">
               <label>
                 <span>Name</span>
@@ -348,7 +348,7 @@
               </label>
               <label>
                 <span>Email</span>
-                <input type="email" name="email" autocomplete="email" required placeholder="jane@example.com" />
+                <input type="email" name="_replyto" autocomplete="email" required placeholder="jane@example.com" />
               </label>
             </div>
             <label class="full">
