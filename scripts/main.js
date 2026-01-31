@@ -17,12 +17,39 @@
   document.addEventListener('DOMContentLoaded', init);
 
   function init() {
+    initLoader();
     initYear();
     initNavigation();
     initScrollEffects();
     initRevealAnimations();
     initContactForm();
     initSmoothScroll();
+    initBackToTop();
+    initTypingAnimation();
+    initTiltEffect();
+  }
+
+  // ============================================
+  // LOADING SCREEN
+  // ============================================
+  
+  function initLoader() {
+    const loader = $('#loader');
+    if (!loader) return;
+    
+    // Hide loader after animations complete
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        loader.classList.add('loaded');
+      }, 1600); // Match the CSS animation duration
+    });
+    
+    // Fallback in case load event already fired
+    if (document.readyState === 'complete') {
+      setTimeout(() => {
+        loader.classList.add('loaded');
+      }, 1600);
+    }
   }
 
   // ============================================
@@ -344,6 +371,111 @@
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
+  }
+
+  // ============================================
+  // BACK TO TOP BUTTON
+  // ============================================
+  
+  function initBackToTop() {
+    const backToTop = $('#back-to-top');
+    if (!backToTop) return;
+    
+    const showThreshold = 400;
+    
+    const updateVisibility = () => {
+      const shouldShow = window.scrollY > showThreshold;
+      backToTop.hidden = !shouldShow;
+    };
+    
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    updateVisibility();
+  }
+
+  // ============================================
+  // TYPING ANIMATION
+  // ============================================
+  
+  function initTypingAnimation() {
+    const typedElement = $('#typed-role');
+    if (!typedElement) return;
+    
+    const roles = [
+      'Full-Stack Developer',
+      'Open Source Enthusiast',
+      'Backend Architect',
+      'API Designer',
+      'Problem Solver'
+    ];
+    
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingSpeed = 100;
+    
+    function typeRole() {
+      const currentRole = roles[roleIndex];
+      
+      if (isDeleting) {
+        typedElement.textContent = currentRole.substring(0, charIndex - 1);
+        charIndex--;
+        typingSpeed = 50;
+      } else {
+        typedElement.textContent = currentRole.substring(0, charIndex + 1);
+        charIndex++;
+        typingSpeed = 100;
+      }
+      
+      if (!isDeleting && charIndex === currentRole.length) {
+        typingSpeed = 2000; // Pause at end
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+        typingSpeed = 500; // Pause before next word
+      }
+      
+      setTimeout(typeRole, typingSpeed);
+    }
+    
+    setTimeout(typeRole, 1000); // Initial delay
+  }
+
+  // ============================================
+  // TILT EFFECT ON PROJECT CARDS
+  // ============================================
+  
+  function initTiltEffect() {
+    const cards = $$('.bento-card');
+    if (!cards.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (centerX - x) / 20;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+      });
     });
   }
 

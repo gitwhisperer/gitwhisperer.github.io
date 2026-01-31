@@ -65,11 +65,28 @@
   </script>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <div class="loader-logo">HT</div>
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+    </div>
+  </div>
+
   <a class="skip-link" href="#main">Skip to content</a>
   
   <!-- Background Effects -->
   <div class="bg-mesh" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top" hidden>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
 
   <!-- Navigation -->
   <nav class="nav" id="nav" aria-label="Main navigation">
@@ -108,6 +125,12 @@
                 <span class="line"><span class="word">Experiences</span></span>
               </h1>
               
+              <div class="hero-roles" aria-label="My roles">
+                <span class="hero-role-prefix">I'm a</span>
+                <span class="hero-role-text" id="typed-role"></span>
+                <span class="hero-role-cursor">|</span>
+              </div>
+              
               <p class="hero-description">
                 I'm Harshit — a full-stack developer who transforms complex problems into elegant, 
                 performant solutions. Specializing in modern web technologies and clean architecture.
@@ -141,6 +164,64 @@
       </div>
     </section>
 
+    <!-- Tech Stack Marquee -->
+    <section class="marquee-section" aria-label="Technologies I work with">
+      <div class="marquee">
+        <div class="marquee-content">
+          <span class="marquee-item">JavaScript</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">TypeScript</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">React</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">Node.js</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">Python</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">MongoDB</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">PostgreSQL</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">Express</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">Next.js</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">Docker</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">Git</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">REST APIs</span>
+          <span class="marquee-divider">✦</span>
+        </div>
+        <div class="marquee-content" aria-hidden="true">
+          <span class="marquee-item">JavaScript</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">TypeScript</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">React</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">Node.js</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">Python</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">MongoDB</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">PostgreSQL</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">Express</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">Next.js</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">Docker</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">Git</span>
+          <span class="marquee-divider">✦</span>
+          <span class="marquee-item">REST APIs</span>
+          <span class="marquee-divider">✦</span>
+        </div>
+      </div>
+    </section>
+
     <!-- Work Section -->
     <section class="work section" id="work" aria-labelledby="work-title">
       <div class="container">
@@ -156,10 +237,16 @@
           <!-- Featured Project -->
           <article class="bento-card bento-card--large">
             <div class="project-card">
-              <div class="project-image">
-                <img src="assets/marwari-basket.png" alt="Marwari Basket e-commerce platform" loading="lazy">
+              <div class="project-image project-image--showcase">
+                <div class="device-mockup">
+                  <img src="assets/marwari-basket.png" alt="Marwari Basket desktop view" class="mockup-desktop" loading="lazy">
+                  <div class="mockup-phone">
+                    <img src="assets/marwari-basket-mobile.png" alt="Marwari Basket mobile view" loading="lazy">
+                  </div>
+                </div>
               </div>
               <div class="project-content">
+                <span class="project-featured-badge">Featured Project</span>
                 <div class="project-tags">
                   <span class="project-tag">React</span>
                   <span class="project-tag">Node.js</span>
@@ -170,12 +257,22 @@
                   Full-stack e-commerce platform with product management, secure checkout, and an admin dashboard. 
                   Built for scale with modern UI/UX principles.
                 </p>
-                <a href="https://marwari-basket.vercel.app" class="project-link" target="_blank" rel="noopener">
-                  View Live
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                  </svg>
-                </a>
+                <div class="project-links">
+                  <a href="https://marwari-basket.vercel.app" class="project-link" target="_blank" rel="noopener">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <line x1="2" y1="12" x2="22" y2="12"/>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                    Live Demo
+                  </a>
+                  <a href="https://github.com/gitwhisperer/marwari-basket" class="project-link project-link--secondary" target="_blank" rel="noopener">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    Source
+                  </a>
+                </div>
               </div>
             </div>
           </article>
@@ -320,6 +417,61 @@
               Python tooling to automate workflows, scrape data, and streamline your operations. Save time with custom solutions.
             </p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience/Process Section -->
+    <section class="section" id="process" aria-labelledby="process-title">
+      <div class="container">
+        <header class="section-header" data-reveal>
+          <p class="eyebrow">How I Work</p>
+          <h2 id="process-title" class="heading-lg section-title">My Process</h2>
+          <p class="section-description">
+            A streamlined approach to turn your ideas into reality.
+          </p>
+        </header>
+        
+        <div class="process-timeline" data-reveal-stagger>
+          <div class="process-step">
+            <div class="process-step-number">01</div>
+            <div class="process-step-content">
+              <h3 class="process-step-title">Discovery</h3>
+              <p class="process-step-description">
+                Understanding your goals, requirements, and target audience to create a solid foundation for the project.
+              </p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="process-step-number">02</div>
+            <div class="process-step-content">
+              <h3 class="process-step-title">Design & Architecture</h3>
+              <p class="process-step-description">
+                Creating wireframes, system architecture, and choosing the right tech stack for optimal performance.
+              </p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="process-step-number">03</div>
+            <div class="process-step-content">
+              <h3 class="process-step-title">Development</h3>
+              <p class="process-step-description">
+                Building with clean, maintainable code. Regular updates and iterative improvements based on feedback.
+              </p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="process-step-number">04</div>
+            <div class="process-step-content">
+              <h3 class="process-step-title">Launch & Support</h3>
+              <p class="process-step-description">
+                Deploying to production with proper testing, documentation, and ongoing maintenance support.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
