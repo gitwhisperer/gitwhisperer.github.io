@@ -21,6 +21,7 @@
     initYear();
     initNavigation();
     initScrollEffects();
+    initScrollProgress();
     initRevealAnimations();
     initContactForm();
     initSmoothScroll();
@@ -155,6 +156,25 @@
     
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll(); // Initial call
+  }
+
+  // ============================================
+  // SCROLL PROGRESS INDICATOR
+  // ============================================
+  
+  function initScrollProgress() {
+    const progressBar = $('#scroll-progress');
+    if (!progressBar) return;
+    
+    const updateProgress = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      progressBar.style.width = progress + '%';
+    };
+    
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
   }
 
   // ============================================
