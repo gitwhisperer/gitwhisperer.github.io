@@ -1838,9 +1838,10 @@ h1, h2, h3, h4, h5, h6 {
   transition: all var(--duration-normal) var(--ease-out);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
 }
 
-.back-to-top:not([hidden]) {
+.back-to-top.visible {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -1851,6 +1852,10 @@ h1, h2, h3, h4, h5, h6 {
   border-color: transparent;
   transform: translateY(-3px);
   box-shadow: var(--shadow-glow-cyan);
+}
+
+.back-to-top.visible:hover {
+  transform: translateY(-3px);
 }
 
 .back-to-top:active {

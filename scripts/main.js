@@ -37,18 +37,18 @@
     const loader = $('#loader');
     if (!loader) return;
     
-    // Hide loader after animations complete
-    window.addEventListener('load', () => {
+    const hideLoader = () => {
       setTimeout(() => {
         loader.classList.add('loaded');
       }, 1600); // Match the CSS animation duration
-    });
+    };
     
-    // Fallback in case load event already fired
+    // Check if page is already loaded
     if (document.readyState === 'complete') {
-      setTimeout(() => {
-        loader.classList.add('loaded');
-      }, 1600);
+      hideLoader();
+    } else {
+      // Wait for load event
+      window.addEventListener('load', hideLoader);
     }
   }
 
@@ -384,9 +384,12 @@
     
     const showThreshold = 400;
     
+    // Remove hidden attribute and use class-based visibility
+    backToTop.removeAttribute('hidden');
+    
     const updateVisibility = () => {
       const shouldShow = window.scrollY > showThreshold;
-      backToTop.hidden = !shouldShow;
+      backToTop.classList.toggle('visible', shouldShow);
     };
     
     window.addEventListener('scroll', updateVisibility, { passive: true });
@@ -398,7 +401,7 @@
       });
     });
     
-    updateVisibility();
+    updateVisibility();    updateVisibility();
   }
 
   // ============================================
