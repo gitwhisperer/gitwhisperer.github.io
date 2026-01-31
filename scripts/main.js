@@ -21,13 +21,13 @@
     initYear();
     initNavigation();
     initScrollEffects();
-    initScrollProgress();
     initRevealAnimations();
     initContactForm();
     initSmoothScroll();
     initBackToTop();
     initTypingAnimation();
     initTiltEffect();
+    initEmailProtection();
   }
 
   // ============================================
@@ -159,22 +159,36 @@
   }
 
   // ============================================
-  // SCROLL PROGRESS INDICATOR
+  // EMAIL PROTECTION (Anti-Spam)
   // ============================================
   
-  function initScrollProgress() {
-    const progressBar = $('#scroll-progress');
-    if (!progressBar) return;
+  function initEmailProtection() {
+    const emailLinks = $$('.email-link');
     
-    const updateProgress = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrollTop / docHeight) * 100;
-      progressBar.style.width = progress + '%';
-    };
-    
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    updateProgress();
+    emailLinks.forEach(link => {
+      const user = link.dataset.user;
+      const domain = link.dataset.domain;
+      
+      if (!user || !domain) return;
+      
+      // Construct email only when needed
+      const constructEmail = () => user + '@' + domain;
+      
+      // Update display text if present
+      const emailText = link.querySelector('.email-text');
+      if (emailText) {
+        emailText.textContent = constructEmail();
+      }
+      
+      // Handle click - open mail client
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'mailto:' + constructEmail();
+      });
+      
+      // Set href for right-click copy
+      link.href = 'mailto:' + constructEmail();
+    });
   }
 
   // ============================================

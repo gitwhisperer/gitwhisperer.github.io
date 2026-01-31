@@ -333,21 +333,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
-   SCROLL PROGRESS INDICATOR
-   ============================================ */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0%;
-  height: 3px;
-  background: var(--gradient-primary);
-  z-index: 101;
-  transition: width 0.1s linear;
-  box-shadow: 0 0 10px var(--accent-cyan);
-}
-
-/* ============================================
    NAVIGATION
    ============================================ */
 .nav {
@@ -1727,13 +1712,27 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
-  transition: all var(--duration-fast);
+  transition: all var(--duration-normal) var(--ease-out);
 }
 
 .footer-social:hover {
   color: var(--accent-cyan);
   border-color: var(--accent-cyan);
   transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 245, 212, 0.2);
+}
+
+/* Email link hover animation */
+.email-link {
+  cursor: pointer;
+}
+
+.email-link .email-text {
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.contact-method.email-link:hover .email-text {
+  color: var(--accent-cyan);
 }
 
 .footer-bottom {
