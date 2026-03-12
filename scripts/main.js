@@ -435,7 +435,7 @@
       });
     });
     
-    updateVisibility();    updateVisibility();
+    updateVisibility();
   }
 
   // ============================================
@@ -447,11 +447,12 @@
     if (!typedElement) return;
     
     const roles = [
-      'Full-Stack Developer',
-      'Open Source Enthusiast',
-      'Backend Architect',
-      'API Designer',
-      'Problem Solver'
+      'websites that convert',
+      'scalable REST APIs',
+      'e-commerce platforms',
+      'automation pipelines',
+      'full-stack solutions',
+      'apps that scale'
     ];
     
     let roleIndex = 0;
@@ -488,7 +489,7 @@
   }
 
   // ============================================
-  // TILT EFFECT ON PROJECT CARDS
+  // SMOOTH HOVER GLOW ON PROJECT CARDS
   // ============================================
   
   function initTiltEffect() {
@@ -498,20 +499,10 @@
     cards.forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mouse-x', x + '%');
+        card.style.setProperty('--mouse-y', y + '%');
       });
     });
   }
