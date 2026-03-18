@@ -1,0 +1,49 @@
+{
+	"redirects": [
+		{
+			"source": "/index.html",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/harshit",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/harshit.html",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/tinker",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/tinker.html",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/web-dev",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/web-dev.html",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/freelance",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/freelance.html",
+			"destination": "/",
+			"permanent": true
+		}
+	]
+}

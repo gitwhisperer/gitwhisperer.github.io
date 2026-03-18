@@ -1,4 +1,4 @@
-const CACHE_NAME = 'harshit-v11';
+const CACHE_NAME = 'harshit-v12';
 self.addEventListener('install', (e) => {
   self.skipWaiting();
   const toCache = [

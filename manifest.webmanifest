@@ -1,6 +1,9 @@
 {
   "name": "Harshit Tinker — Web Developer",
   "short_name": "Harshit",
+  "description": "Freelance full-stack developer portfolio: React, Node.js, Python, APIs, and e-commerce development.",
+  "id": "/",
+  "scope": "/",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#faf8f5",
