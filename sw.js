@@ -1,4 +1,4 @@
-const CACHE_NAME = 'harshit-v12';
+const CACHE_NAME = 'harshit-v13';
 self.addEventListener('install', (e) => {
   self.skipWaiting();
   const toCache = [
@@ -15,7 +15,10 @@ self.addEventListener('install', (e) => {
   './harshit.html',
   './tinker.html',
   './web-dev.html',
-  './freelance.html'
+  './freelance.html',
+  './hire-react-developer.html',
+  './nodejs-api-developer.html',
+  './freelance-web-developer-india.html'
   ];
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(toCache))

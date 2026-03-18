@@ -44,6 +44,21 @@
 			"source": "/freelance.html",
 			"destination": "/",
 			"permanent": true
+		},
+		{
+			"source": "/hire-react-developer",
+			"destination": "/hire-react-developer.html",
+			"permanent": true
+		},
+		{
+			"source": "/nodejs-api-developer",
+			"destination": "/nodejs-api-developer.html",
+			"permanent": true
+		},
+		{
+			"source": "/freelance-web-developer-india",
+			"destination": "/freelance-web-developer-india.html",
+			"permanent": true
 		}
 	]
 }
