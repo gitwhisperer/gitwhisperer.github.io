@@ -1,0 +1,725 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harshit Tinker // CMD.CENTER</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter+Tight:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #050505;
+            --surface: #0a0a0a;
+            --surface-bright: #121212;
+            --border: #1a1a1a;
+            --border-bright: #333333;
+            --fg: #f0f0f0;
+            --muted: #666666;
+            --accent: #E8FF47; /* Acid Yellow */
+            --accent-dim: rgba(232, 255, 71, 0.1);
+            
+            --font-display: 'Inter Tight', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --grid-line: 2px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: var(--font-mono);
+            line-height: 1.4;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            font-size: 13px;
+        }
+
+        /* --- Scanlines & Noise --- */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0.15;
+        }
+
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* --- UI Elements --- */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .highlight { color: var(--accent); }
+        .dim { color: var(--muted); }
+        .bold { font-weight: 800; }
+
+        /* --- Dynamic Island --- */
+        .nav-container {
+            position: fixed;
+            top: 32px;
+            left: 0;
+            right: 0;
+            z-index: 5000;
+            display: flex;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .dynamic-island {
+            width: 80%;
+            max-width: 900px;
+            height: 56px;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            pointer-events: auto;
+            transition: var(--transition);
+        }
+
+        .island-brand {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 18px;
+            text-decoration: none;
+            color: var(--fg);
+            letter-spacing: -0.05em;
+        }
+
+        .island-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .island-links a {
+            color: var(--fg);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            opacity: 0.5;
+            transition: var(--transition);
+        }
+
+        .island-links a:hover {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            background: var(--accent-dim);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-weight: 800;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        /* --- Dashboard Grid --- */
+        .dashboard {
+            padding-top: 140px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding-bottom: 60px;
+        }
+
+        .module {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+        }
+
+        .module-label {
+            font-size: 10px;
+            color: var(--muted);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* --- Hero Module --- */
+        .hero-mod {
+            grid-column: span 8;
+            background: var(--surface-bright);
+        }
+
+        .hero-mod h1 {
+            font-family: var(--font-display);
+            font-size: clamp(48px, 8vw, 110px);
+            font-weight: 900;
+            line-height: 0.85;
+            letter-spacing: -0.06em;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+
+        .hero-mod h1 span {
+            color: var(--accent);
+            display: block;
+        }
+
+        .hero-mod p {
+            max-width: 500px;
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* --- System Specs Module --- */
+        .specs-mod {
+            grid-column: span 4;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+        }
+
+        .spec-label { color: var(--muted); font-size: 11px; }
+        .spec-value { font-weight: 700; color: var(--fg); }
+
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: var(--border);
+            margin-top: 8px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        /* --- Ticker --- */
+        .ticker-mod {
+            grid-column: span 12;
+            padding: 20px 0;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+        }
+
+        .ticker {
+            display: flex;
+            white-space: nowrap;
+            animation: ticker-kf 30s linear infinite;
+        }
+
+        .ticker-item {
+            font-weight: 800;
+            font-size: 18px;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        @keyframes ticker-kf {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- Projects --- */
+        .section-label {
+            grid-column: span 12;
+            padding: 16px 40px;
+            background: var(--border);
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            font-size: 11px;
+        }
+
+        .project-card {
+            grid-column: span 6;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            background: var(--surface-bright);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .project-header h3 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1;
+        }
+
+        .project-desc {
+            color: var(--muted);
+            margin-bottom: 32px;
+            min-height: 60px;
+        }
+
+        .project-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .tag-list {
+            display: flex;
+            gap: 12px;
+        }
+
+        .tag {
+            font-size: 10px;
+            padding: 4px 10px;
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        .project-link {
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 11px;
+        }
+
+        /* --- Services --- */
+        .service-mod {
+            grid-column: span 3;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .service-icon {
+            font-size: 32px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .service-mod h4 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .service-mod p {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* --- Contact --- */
+        .contact-mod {
+            grid-column: span 12;
+            padding: 100px 40px;
+            text-align: center;
+            background: linear-gradient(rgba(232, 255, 71, 0.05), transparent);
+        }
+
+        .contact-mod h2 {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 6vw, 80px);
+            font-weight: 900;
+            margin-bottom: 40px;
+            letter-spacing: -0.05em;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 24px 48px;
+            background: var(--accent);
+            color: var(--bg);
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(232, 255, 71, 0.3);
+        }
+
+        /* --- Footer --- */
+        .footer-mod {
+            grid-column: span 12;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 60px 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-logo { font-family: var(--font-display); font-weight: 900; font-size: 24px; }
+        
+        .footer-nav { display: flex; gap: 48px; }
+        .footer-nav-col h5 { margin-bottom: 16px; color: var(--muted); font-size: 10px; }
+        .footer-nav-col ul { list-style: none; }
+        .footer-nav-col li { margin-bottom: 8px; }
+        .footer-nav-col a { color: var(--fg); text-decoration: none; font-size: 12px; transition: var(--transition); }
+        .footer-nav-col a:hover { color: var(--accent); }
+
+        /* --- Responsive --- */
+        @media (max-width: 1200px) {
+            .hero-mod { grid-column: span 12; }
+            .specs-mod { grid-column: span 12; flex-direction: row; }
+            .spec-row { flex: 1; border-right: 1px solid var(--border); border-bottom: none; padding: 0 20px; }
+            .spec-row:last-child { border-right: none; }
+            .service-mod { grid-column: span 6; }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard { padding: 120px 20px 40px; display: block; }
+            .module { margin-bottom: 20px; padding: 32px 24px; }
+            .dynamic-island { width: 95%; padding: 0 16px; }
+            .island-links { display: none; }
+            .hero-mod h1 { font-size: 48px; }
+            .specs-mod { display: block; }
+            .spec-row { border-right: none; border-bottom: 1px solid var(--border); padding: 16px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scanlines"></div>
+    <div class="noise"></div>
+
+    <div class="nav-container">
+        <nav class="dynamic-island" id="island">
+            <a href="#" class="island-brand">HT//CMD</a>
+            <div class="island-links">
+                <a href="#work">PROJECTS</a>
+                <a href="#services">SERVICES</a>
+                <a href="#about">ABOUT</a>
+                <a href="#contact">CONTACT</a>
+            </div>
+            <div class="status-badge">
+                <div class="status-dot"></div>
+                SYSTEM_ONLINE
+            </div>
+        </nav>
+    </div>
+
+    <main class="container">
+        <div class="dashboard">
+            
+            <!-- Hero Module -->
+            <section class="module hero-mod">
+                <div class="module-label">
+                    <span>ID: 001 // PRIMARY_CORE</span>
+                    <span>LOC: 26.9124° N, 75.7873° E</span>
+                </div>
+                <h1>CRAFTING <span>SYSTEMS</span> FOR THE FUTURE.</h1>
+                <p>Senior Full-Stack Developer specialized in building scalable web architecture, high-performance APIs, and conversion-ready interfaces.</p>
+                <div style="margin-top: 48px;">
+                    <a href="#contact" class="btn">Initialize Project</a>
+                </div>
+            </section>
+
+            <!-- Specs Module -->
+            <aside class="module specs-mod">
+                <div class="module-label">SYS_METRICS</div>
+                
+                <div class="spec-group">
+                    <div class="spec-row">
+                        <span class="spec-label">UPTIME</span>
+                        <span class="spec-value" id="uptime">00:00:00</span>
+                    </div>
+                    <div class="progress-container"><div class="progress-bar" style="width: 100%;"></div></div>
+                </div>
+
+                <div class="spec-group">
+                    <div class="spec-row">
+                        <span class="spec-label">LOAD</span>
+                        <span class="spec-value" id="load">1.2%</span>
+                    </div>
+                    <div class="progress-container"><div class="progress-bar" id="load-bar" style="width: 12%;"></div></div>
+                </div>
+
+                <div class="spec-group">
+                    <div class="spec-row">
+                        <span class="spec-label">CORE_VERSION</span>
+                        <span class="spec-value">HT_v4.2.0</span>
+                    </div>
+                </div>
+
+                <div class="spec-group">
+                    <div class="spec-row">
+                        <span class="spec-label">DATABASE</span>
+                        <span class="spec-value">CONNECTED</span>
+                    </div>
+                    <div class="progress-container"><div class="progress-bar" style="width: 100%; background: #00FF94; box-shadow: 0 0 10px #00FF94;"></div></div>
+                </div>
+            </aside>
+
+            <!-- Ticker -->
+            <div class="module ticker-mod">
+                <div class="ticker">
+                    <div class="ticker-item">REACT</div>
+                    <div class="ticker-item">NODE.JS</div>
+                    <div class="ticker-item">PYTHON</div>
+                    <div class="ticker-item">MONGODB</div>
+                    <div class="ticker-item">TYPESCRIPT</div>
+                    <div class="ticker-item">NEXT.JS</div>
+                    <div class="ticker-item">DOCKER</div>
+                    <div class="ticker-item">POSTGRESQL</div>
+                    <!-- Duplicate -->
+                    <div class="ticker-item">REACT</div>
+                    <div class="ticker-item">NODE.JS</div>
+                    <div class="ticker-item">PYTHON</div>
+                    <div class="ticker-item">MONGODB</div>
+                    <div class="ticker-item">TYPESCRIPT</div>
+                    <div class="ticker-item">NEXT.JS</div>
+                    <div class="ticker-item">DOCKER</div>
+                    <div class="ticker-item">POSTGRESQL</div>
+                </div>
+            </div>
+
+            <!-- Work Section -->
+            <div class="section-label" id="work">01 // SELECTED_OPERATIONS</div>
+
+            <article class="module project-card">
+                <div class="module-label">PROJECT_01 // FULL-STACK</div>
+                <div class="project-header">
+                    <h3>MARWARI BASKET</h3>
+                    <div class="mono highlight">2024</div>
+                </div>
+                <p class="project-desc">Complete e-commerce infrastructure serving 500+ products with real-time inventory and secure Razorpay integration.</p>
+                <div class="project-footer">
+                    <div class="tag-list">
+                        <span class="tag">REACT</span>
+                        <span class="tag">NODE.JS</span>
+                        <span class="tag">MONGODB</span>
+                    </div>
+                    <a href="https://marwari-basket.vercel.app" class="project-link">VIEW_LIVE ↗</a>
+                </div>
+            </article>
+
+            <article class="module project-card">
+                <div class="module-label">PROJECT_02 // BACKEND</div>
+                <div class="project-header">
+                    <h3>E-COMMERCE API</h3>
+                    <div class="mono highlight">2023</div>
+                </div>
+                <p class="project-desc">Production-grade REST API featuring JWT auth, Stripe integration, and comprehensive Swagger documentation.</p>
+                <div class="project-footer">
+                    <div class="tag-list">
+                        <span class="tag">EXPRESS</span>
+                        <span class="tag">STRIPE</span>
+                    </div>
+                    <a href="https://github.com/gitwhisperer/ecommerce-backend-api" class="project-link">VIEW_CODE ↗</a>
+                </div>
+            </article>
+
+            <article class="module project-card">
+                <div class="module-label">PROJECT_03 // TOOLING</div>
+                <div class="project-header">
+                    <h3>PENTEST SIM</h3>
+                    <div class="mono highlight">2023</div>
+                </div>
+                <p class="project-desc">Specialized Python CLI toolkit engineered for simulating security penetration testing workflows.</p>
+                <div class="project-footer">
+                    <div class="tag-list">
+                        <span class="tag">PYTHON</span>
+                        <span class="tag">CLI</span>
+                    </div>
+                    <a href="https://github.com/gitwhisperer/pentest-simulation" class="project-link">VIEW_CODE ↗</a>
+                </div>
+            </article>
+
+            <article class="module project-card">
+                <div class="module-label">PROJECT_04 // GAME_LOGIC</div>
+                <div class="project-header">
+                    <h3>SUPER TIC-TAC-TOE</h3>
+                    <div class="mono highlight">2022</div>
+                </div>
+                <p class="project-desc">Strategic game engine featuring Minimax AI and seamless board transitions. Technical study in game logic.</p>
+                <div class="project-footer">
+                    <div class="tag-list">
+                        <span class="tag">PYTHON</span>
+                        <span class="tag">AI</span>
+                    </div>
+                    <a href="https://github.com/gitwhisperer/Super-Tic-Tac-Toe" class="project-link">VIEW_CODE ↗</a>
+                </div>
+            </article>
+
+            <!-- Services -->
+            <div class="section-label" id="services">02 // SERVICE_CAPABILITIES</div>
+
+            <div class="module service-mod">
+                <div class="service-icon">✦</div>
+                <h4>WEB APPS</h4>
+                <p>Fast, SEO-ready interfaces built for conversion.</p>
+            </div>
+            <div class="module service-mod">
+                <div class="service-icon">✦</div>
+                <h4>BACKEND / API</h4>
+                <p>Scalable infrastructure with robust security.</p>
+            </div>
+            <div class="module service-mod">
+                <div class="service-icon">✦</div>
+                <h4>AUTOMATION</h4>
+                <p>Custom scripts to eliminate manual friction.</p>
+            </div>
+            <div class="module service-mod">
+                <div class="service-icon">✦</div>
+                <h4>E-COMMERCE</h4>
+                <p>Complete stores built for transactional scale.</p>
+            </div>
+
+            <!-- About -->
+            <div class="section-label" id="about">03 // ABOUT_SYSTEM</div>
+
+            <div class="module" style="grid-column: span 12;">
+                <p style="font-family: var(--font-display); font-size: 32px; font-weight: 700; line-height: 1.2; letter-spacing: -0.03em;">
+                    I DON'T JUST WRITE CODE — I BUILD SOLUTIONS THAT DRIVE <span class="highlight">REVENUE</span>. EVERY LINE IS EVALUATED FOR <span class="highlight">PERFORMANCE</span> AND LONGEVITY.
+                </p>
+                <p style="margin-top: 32px; font-size: 16px; color: var(--muted); max-width: 800px;">
+                    From launching MVPs for startups to scaling platforms that handle thousands of daily transactions, I bring architectural clarity to every project. Based in Jaipur, India, working with global clients.
+                </p>
+            </div>
+
+            <!-- Contact -->
+            <section class="module contact-mod" id="contact">
+                <h2>READY TO INITIALIZE?</h2>
+                <a href="mailto:harshittinker1979@gmail.com" class="btn">Send Transmission</a>
+            </section>
+
+            <!-- Footer -->
+            <footer class="module footer-mod">
+                <div class="footer-logo">HARSHIT.DEV</div>
+                <div class="footer-nav">
+                    <div class="footer-nav-col">
+                        <h5>SYSTEM</h5>
+                        <ul>
+                            <li><a href="#work">WORK</a></li>
+                            <li><a href="#services">SERVICES</a></li>
+                            <li><a href="#about">ABOUT</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-col">
+                        <h5>SOCIALS</h5>
+                        <ul>
+                            <li><a href="https://github.com/gitwhisperer">GITHUB</a></li>
+                            <li><a href="https://linkedin.com/in/harshit-tinker/">LINKEDIN</a></li>
+                            <li><a href="https://x.com/gitwhisperer">TWITTER</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <script>
+        // Dynamic Island Scroll
+        const island = document.getElementById('island');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                island.style.width = '70%';
+                island.style.maxWidth = '600px';
+                island.style.height = '48px';
+                island.style.background = 'rgba(5, 5, 5, 0.95)';
+            } else {
+                island.style.width = '80%';
+                island.style.maxWidth = '800px';
+                island.style.height = '56px';
+                island.style.background = 'rgba(10, 10, 10, 0.85)';
+            }
+        });
+
+        // Uptime & Load Simulation
+        const startTime = Date.now();
+        const uptimeEl = document.getElementById('uptime');
+        const loadEl = document.getElementById('load');
+        const loadBar = document.getElementById('load-bar');
+
+        setInterval(() => {
+            const diff = Date.now() - startTime;
+            const h = Math.floor(diff / 3600000).toString().padStart(2, '0');
+            const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+            const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+            uptimeEl.innerText = `${h}:${m}:${s}`;
+
+            const load = (1 + Math.random() * 2).toFixed(1);
+            loadEl.innerText = `${load}%`;
+            loadBar.style.width = `${load * 10}%`;
+        }, 1000);
+    </script>
+</body>
+</html>

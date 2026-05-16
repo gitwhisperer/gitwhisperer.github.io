@@ -6,13 +6,26 @@
   <meta name="theme-color" content="#0a0a0b">
   <meta name="color-scheme" content="dark">
   
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1GP93MKJ7B"></script>
+  <!-- Google Analytics: load after first interaction/idle so it does not block the first view -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-1GP93MKJ7B');
+    (function() {
+      var loaded = false;
+      function loadAnalytics() {
+        if (loaded) return;
+        loaded = true;
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-1GP93MKJ7B';
+        document.head.appendChild(script);
+        gtag('js', new Date());
+        gtag('config', 'G-1GP93MKJ7B');
+      }
+      ['pointerdown', 'keydown', 'touchstart'].forEach(function(eventName) {
+        window.addEventListener(eventName, loadAnalytics, { once: true, passive: true });
+      });
+    })();
   </script>
   
   <title>Harshit Tinker — Freelance Full-Stack Developer | Hire for Web, API & E-commerce Projects</title>
@@ -22,19 +35,21 @@
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <link rel="canonical" href="https://gitwhisperer.github.io/">
-  <link rel="alternate" href="https://gitwhisperer.github.io/" hreflang="en-IN">
-  <link rel="alternate" href="https://gitwhisperer.github.io/" hreflang="en">
-  <link rel="alternate" href="https://gitwhisperer.github.io/" hreflang="x-default">
+  <link rel="canonical" href="https://bytinker.me/">
+  <link rel="alternate" href="https://bytinker.me/" hreflang="en-IN">
+  <link rel="alternate" href="https://bytinker.me/" hreflang="en">
+  <link rel="alternate" href="https://bytinker.me/" hreflang="x-default">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
 
   <!-- Favicon & Icons -->
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preload" as="image" type="image/webp" href="assets/harshit-480.webp" imagesrcset="assets/harshit-380.webp 380w, assets/harshit-480.webp 480w, assets/harshit-760.webp 760w" imagesizes="(max-width: 640px) 240px, (max-width: 960px) 280px, 380px" fetchpriority="high">
 
   <!-- Styles -->
   <link rel="stylesheet" href="styles/style.css">
@@ -43,8 +58,8 @@
   <meta property="og:title" content="Hire Harshit Tinker — Freelance Full-Stack Developer">
   <meta property="og:description" content="I build websites that convert. React, Node.js, Python — fast delivery, clean code, results-driven. Available for hire now.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://gitwhisperer.github.io/">
-  <meta property="og:image" content="https://gitwhisperer.github.io/assets/harshit.JPG">
+  <meta property="og:url" content="https://bytinker.me/">
+  <meta property="og:image" content="https://bytinker.me/assets/harshit.JPG">
   <meta property="og:image:alt" content="Harshit Tinker, freelance full-stack developer">
   <meta property="og:locale" content="en_IN">
   <meta property="og:site_name" content="Harshit Tinker - Developer for Hire">
@@ -53,7 +68,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hire Harshit Tinker — Full-Stack Developer">
   <meta name="twitter:description" content="I build websites that convert. React, Node.js, Python — available for freelance projects worldwide.">
-  <meta name="twitter:image" content="https://gitwhisperer.github.io/assets/harshit.JPG">
+  <meta name="twitter:image" content="https://bytinker.me/assets/harshit.JPG">
   <meta name="twitter:image:alt" content="Harshit Tinker, freelance full-stack developer">
   <meta name="twitter:creator" content="@gitwhisperer">
   <meta name="twitter:site" content="@gitwhisperer">
@@ -65,40 +80,40 @@
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://gitwhisperer.github.io/#website",
-        "url": "https://gitwhisperer.github.io/",
+        "@id": "https://bytinker.me/#website",
+        "url": "https://bytinker.me/",
         "name": "Harshit Tinker - Freelance Full-Stack Developer",
         "description": "Portfolio and services for Harshit Tinker, freelance full-stack developer for web apps, APIs, and e-commerce projects.",
         "publisher": {
-          "@id": "https://gitwhisperer.github.io/#person"
+          "@id": "https://bytinker.me/#person"
         }
       },
       {
         "@type": "WebPage",
-        "@id": "https://gitwhisperer.github.io/#webpage",
-        "url": "https://gitwhisperer.github.io/",
+        "@id": "https://bytinker.me/#webpage",
+        "url": "https://bytinker.me/",
         "name": "Harshit Tinker — Freelance Full-Stack Developer",
         "isPartOf": {
-          "@id": "https://gitwhisperer.github.io/#website"
+          "@id": "https://bytinker.me/#website"
         },
         "about": {
-          "@id": "https://gitwhisperer.github.io/#person"
+          "@id": "https://bytinker.me/#person"
         },
         "primaryImageOfPage": {
           "@type": "ImageObject",
-          "url": "https://gitwhisperer.github.io/assets/harshit.JPG"
+          "url": "https://bytinker.me/assets/harshit.JPG"
         },
         "inLanguage": "en-IN",
-        "dateModified": "2026-03-18"
+        "dateModified": "2026-05-16"
       },
       {
         "@type": "Person",
-        "@id": "https://gitwhisperer.github.io/#person",
+        "@id": "https://bytinker.me/#person",
         "name": "Harshit Tinker",
         "alternateName": ["Harshit", "gitwhisperer"],
         "jobTitle": "Freelance Full-Stack Developer",
-        "url": "https://gitwhisperer.github.io/",
-        "image": "https://gitwhisperer.github.io/assets/harshit.JPG",
+        "url": "https://bytinker.me/",
+        "image": "https://bytinker.me/assets/harshit.JPG",
         "email": "mailto:harshittinker1979@gmail.com",
         "description": "Freelance full-stack developer building high-performance websites, scalable APIs, and e-commerce solutions for global clients.",
         "address": {
@@ -130,7 +145,7 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://gitwhisperer.github.io/"
+            "item": "https://bytinker.me/"
           }
         ]
       }
@@ -155,7 +170,7 @@
       var loader = document.getElementById('loader');
       if (!loader) return;
       function hideLoader() {
-        setTimeout(function() { loader.classList.add('loaded'); }, 1600);
+        loader.classList.add('loaded');
       }
       if (document.readyState === 'complete') {
         hideLoader();
@@ -173,7 +188,7 @@
 
   <!-- Back to Top Button -->
   <button class="back-to-top" id="back-to-top" aria-label="Back to top">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M18 15l-6-6-6 6"/>
     </svg>
   </button>
@@ -218,19 +233,18 @@
               <div class="hero-tagline">
                 <span class="hero-tagline-static">I build</span>
                 <span class="hero-tagline-dynamic">
-                  <span class="hero-role-text" id="typed-role"></span>
-                  <span class="hero-role-cursor">|</span>
+                  <span class="hero-role-text" id="typed-role">web applications</span>
+                  <span class="hero-role-cursor" aria-hidden="true">|</span>
                 </span>
               </div>
               
               <p class="hero-description">
                 Full-stack developer turning business ideas into high-performance 
-                web apps — pixel-perfect frontends, bulletproof backends, and 
-                solutions that actually drive growth.
+                web apps — clean frontends, robust backends, and solutions built for scale.
               </p>
               
               <div class="hero-ctas">
-                <a href="#contact" class="btn btn-primary">Hire Me Today</a>
+                <a href="#contact" class="btn btn-primary">Contact Me</a>
                 <a href="#work" class="btn btn-secondary">See My Work</a>
                 <a href="assets/resume.pdf" class="btn btn-ghost" download>Download CV</a>
               </div>
@@ -247,7 +261,10 @@
             
             <div class="hero-visual">
               <div class="hero-portrait">
-                <img src="assets/harshit.JPG" alt="Harshit Tinker" width="380" height="380">
+                <picture>
+                  <source type="image/webp" srcset="assets/harshit-380.webp 380w, assets/harshit-480.webp 480w, assets/harshit-760.webp 760w" sizes="(max-width: 640px) 240px, (max-width: 960px) 280px, 380px">
+                  <img src="assets/harshit.JPG" alt="Harshit Tinker" width="380" height="380" fetchpriority="high" decoding="async">
+                </picture>
                 <div class="hero-orb hero-orb--cyan" aria-hidden="true"></div>
                 <div class="hero-orb hero-orb--magenta" aria-hidden="true"></div>
               </div>
@@ -322,8 +339,7 @@
           <p class="eyebrow">Selected Projects</p>
           <h2 id="work-title" class="heading-lg section-title">Work That Speaks for Itself</h2>
           <p class="section-description">
-            Real-world projects built for real businesses. Each one designed to solve problems, 
-            drive revenue, and deliver measurable results.
+            Real-world projects built for real businesses. Each one designed to solve problems and deliver practical value.
           </p>
         </header>
         
@@ -333,9 +349,15 @@
             <div class="project-card">
               <div class="project-image project-image--showcase">
                 <div class="device-mockup">
-                  <img src="assets/marwari-basket.png" alt="Marwari Basket desktop view" class="mockup-desktop" loading="lazy">
+                  <picture>
+                    <source type="image/webp" srcset="assets/marwari-basket-640.webp 640w, assets/marwari-basket-960.webp 960w" sizes="(max-width: 768px) 330px, 500px">
+                    <img src="assets/marwari-basket.png" alt="Marwari Basket desktop view" class="mockup-desktop" loading="lazy" decoding="async" width="1888" height="969">
+                  </picture>
                   <div class="mockup-phone">
-                    <img src="assets/marwari-basket-mobile.png" alt="Marwari Basket mobile view" loading="lazy">
+                    <picture>
+                      <source type="image/webp" srcset="assets/marwari-basket-mobile-120.webp 120w, assets/marwari-basket-mobile-180.webp 180w" sizes="100px">
+                      <img src="assets/marwari-basket-mobile.png" alt="Marwari Basket mobile view" loading="lazy" decoding="async" width="519" height="969">
+                    </picture>
                   </div>
                 </div>
               </div>
@@ -354,18 +376,12 @@
                 </p>
                 <div class="project-links">
                   <a href="https://marwari-basket.vercel.app" class="project-link" target="_blank" rel="noopener">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                       <circle cx="12" cy="12" r="10"/>
                       <line x1="2" y1="12" x2="22" y2="12"/>
                       <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
                     </svg>
                     Live Demo
-                  </a>
-                  <a href="https://github.com/gitwhisperer/marwari-basket" class="project-link project-link--secondary" target="_blank" rel="noopener">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                    Source
                   </a>
                 </div>
               </div>
@@ -389,7 +405,7 @@
                 </p>
                 <a href="https://github.com/gitwhisperer/ecommerce-backend-api" class="project-link" target="_blank" rel="noopener">
                   View Code
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M7 17L17 7M17 7H7M17 7V17"/>
                   </svg>
                 </a>
@@ -414,7 +430,7 @@
                 </p>
                 <a href="https://github.com/gitwhisperer/pentest-simulation" class="project-link" target="_blank" rel="noopener">
                   View Code
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M7 17L17 7M17 7H7M17 7V17"/>
                   </svg>
                 </a>
@@ -435,11 +451,11 @@
                 </div>
                 <h3 class="project-title">Super Tic-Tac-Toe</h3>
                 <p class="project-description">
-                  Strategic twist on the classic game with minimax AI, animated board transitions, and multiplayer support. Over 200 GitHub stars.
+                  Strategic twist on the classic game with minimax AI, animated board transitions, and multiplayer support.
                 </p>
                 <a href="https://github.com/gitwhisperer/Super-Tic-Tac-Toe" class="project-link" target="_blank" rel="noopener">
                   View Code
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M7 17L17 7M17 7H7M17 7V17"/>
                   </svg>
                 </a>
@@ -450,7 +466,7 @@
           <!-- GitHub CTA -->
           <article class="bento-card bento-card--wide" style="display: flex; align-items: center; justify-content: center; padding: 2rem;">
             <a href="https://github.com/gitwhisperer" class="btn btn-secondary" target="_blank" rel="noopener">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
               </svg>
               See More on GitHub
@@ -474,7 +490,7 @@
         <div class="services-grid" data-reveal-stagger>
           <article class="service-card">
             <div class="service-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
                 <line x1="3" y1="9" x2="21" y2="9"/>
                 <line x1="9" y1="21" x2="9" y2="9"/>
@@ -484,12 +500,11 @@
             <p class="service-description">
               Lightning-fast, SEO-optimized websites that rank on Google and convert visitors into customers. From landing pages to full web apps.
             </p>
-            <span class="service-price">From $500</span>
           </article>
           
           <article class="service-card">
             <div class="service-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
                 <line x1="12" y1="22.08" x2="12" y2="12"/>
@@ -499,12 +514,11 @@
             <p class="service-description">
               Scalable REST APIs with Node.js, Express, and MongoDB. JWT auth, payment integration, rate limiting, and full documentation included.
             </p>
-            <span class="service-price">From $800</span>
           </article>
           
           <article class="service-card">
             <div class="service-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="4 17 10 11 4 5"/>
                 <line x1="12" y1="19" x2="20" y2="19"/>
               </svg>
@@ -513,12 +527,11 @@
             <p class="service-description">
               Custom Python tooling to automate repetitive workflows, scrape data at scale, and eliminate manual bottlenecks. Save 10+ hours per week.
             </p>
-            <span class="service-price">From $300</span>
           </article>
           
           <article class="service-card">
             <div class="service-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
                 <line x1="8" y1="21" x2="16" y2="21"/>
                 <line x1="12" y1="17" x2="12" y2="21"/>
@@ -528,7 +541,6 @@
             <p class="service-description">
               Complete online stores with product catalogs, payment gateways, inventory management, and admin dashboards. Launch and start selling fast.
             </p>
-            <span class="service-price">From $1,200</span>
           </article>
         </div>
       </div>
@@ -604,15 +616,14 @@
             </p>
             
             <p>
-              I've helped startups launch MVPs in weeks, automated manual workflows that saved teams 
-              hours daily, and built e-commerce platforms that handle thousands of orders. 
+              I've helped startups launch MVPs efficiently, automated manual workflows, and built scalable e-commerce platforms. 
               I treat every project like my own.
             </p>
             
             <ul class="about-list">
               <li class="about-list-item">
                 <div class="about-list-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
                   </svg>
                 </div>
@@ -623,7 +634,7 @@
               </li>
               <li class="about-list-item">
                 <div class="about-list-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                   </svg>
                 </div>
@@ -634,7 +645,7 @@
               </li>
               <li class="about-list-item">
                 <div class="about-list-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
                   </svg>
                 </div>
@@ -648,17 +659,17 @@
           
           <aside class="about-sidebar" data-reveal="right">
             <div class="status-card">
-              <h4>Currently</h4>
+              <p class="status-label">Currently</p>
               <p class="status-available">Available for hire — accepting new projects</p>
             </div>
             
             <div class="status-card">
-              <h4>Location</h4>
+              <p class="status-label">Location</p>
               <p>Jaipur, India • Worldwide Remote</p>
             </div>
             
             <div class="status-card">
-              <h4>Tech Stack</h4>
+              <p class="status-label">Tech Stack</p>
               <div class="tech-grid">
                 <span class="tech-chip">Node.js</span>
                 <span class="tech-chip">Express</span>
@@ -687,7 +698,7 @@
             I work with clients across India, the US, Europe, and remote-first teams worldwide.
           </p>
         </header>
-        <div class="services-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="services-grid services-grid--three">
           <article class="service-card">
             <h3 class="service-title">Hire React Developer</h3>
             <p class="service-description">Frontend-focused React development for fast and conversion-ready web interfaces.</p>
@@ -716,14 +727,13 @@
               <p class="eyebrow">Get in Touch</p>
               <h2 id="contact-title" class="heading-lg">Ready to Build<br>Something Great?</h2>
               <p>
-                Have a project in mind? Let's talk. I typically respond within 2 hours during business hours. 
-                No commitment needed — just a friendly conversation about your goals.
+                Have a project in mind? Let's talk. No commitment needed — just a friendly conversation about your goals.
               </p>
               
               <div class="contact-methods">
                 <a href="#" class="contact-method email-link" data-user="harshittinker1979" data-domain="gmail.com">
                   <div class="contact-method-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                       <polyline points="22,6 12,13 2,6"/>
                     </svg>
@@ -736,7 +746,7 @@
                 
                 <div class="contact-method">
                   <div class="contact-method-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                       <circle cx="12" cy="10" r="3"/>
                     </svg>
@@ -773,14 +783,14 @@
               <div class="form-submit">
                 <button type="submit" class="btn btn-primary">
                   Send Message
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <line x1="22" y1="2" x2="11" y2="13"/>
                     <polygon points="22 2 15 22 11 13 2 9 22 2"/>
                   </svg>
                 </button>
               </div>
               
-              <div class="form-status" id="form-status" hidden></div>
+              <div class="form-status" id="form-status" role="status" aria-live="polite" hidden></div>
             </form>
           </div>
         </div>
@@ -803,22 +813,22 @@
         
         <div class="footer-socials">
           <a href="https://github.com/gitwhisperer" class="footer-social" target="_blank" rel="noopener" aria-label="GitHub">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
             </svg>
           </a>
           <a href="https://linkedin.com/in/harshit-tinker/" class="footer-social" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
             </svg>
           </a>
           <a href="https://x.com/gitwhisperer" class="footer-social" target="_blank" rel="noopener" aria-label="X (Twitter)">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
             </svg>
           </a>
           <a href="#" class="footer-social email-link" data-user="harshittinker1979" data-domain="gmail.com" aria-label="Email">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
               <polyline points="22,6 12,13 2,6"/>
             </svg>

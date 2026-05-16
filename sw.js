@@ -1,4 +1,4 @@
-const CACHE_NAME = 'harshit-v13';
+const CACHE_NAME = 'harshit-v14';
 self.addEventListener('install', (e) => {
   self.skipWaiting();
   const toCache = [
@@ -9,6 +9,13 @@ self.addEventListener('install', (e) => {
     './assets/favicon.svg',
     './assets/portrait-placeholder.svg',
   './assets/harshit.JPG',
+  './assets/harshit-380.webp',
+  './assets/harshit-480.webp',
+  './assets/harshit-760.webp',
+  './assets/marwari-basket-640.webp',
+  './assets/marwari-basket-960.webp',
+  './assets/marwari-basket-mobile-120.webp',
+  './assets/marwari-basket-mobile-180.webp',
   './robots.txt',
   './sitemap.xml',
   './404.html',

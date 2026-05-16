@@ -1,0 +1,6 @@
+- [x] 1. Bind editorial-monocle tokens with Acid Yellow accent
+- [x] 2. Define 12-column asymmetric grid layout
+- [x] 3. Implement massive serif hero and editorial sections
+- [x] 4. Refine Dynamic Island for light paper theme
+- [x] 5. Self-check P0 requirements and 5-dim critique
+- [x] 6. Emit high-fidelity editorial artifact

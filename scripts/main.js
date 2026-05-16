@@ -21,13 +21,11 @@
     initYear();
     initNavigation();
     initScrollEffects();
-    initRevealAnimations();
     initContactForm();
     initSmoothScroll();
     initBackToTop();
-    initTypingAnimation();
-    initTiltEffect();
     initEmailProtection();
+    initTypingAnimation();
   }
 
   // ============================================
@@ -39,9 +37,7 @@
     if (!loader) return;
     
     const hideLoader = () => {
-      setTimeout(() => {
-        loader.classList.add('loaded');
-      }, 1600); // Match the CSS animation duration
+      loader.classList.add('loaded');
     };
     
     // Check if page is already loaded
@@ -418,9 +414,6 @@
     
     const showThreshold = 400;
     
-    // Remove hidden attribute and use class-based visibility
-    backToTop.removeAttribute('hidden');
-    
     const updateVisibility = () => {
       const shouldShow = window.scrollY > showThreshold;
       backToTop.classList.toggle('visible', shouldShow);
@@ -446,46 +439,29 @@
     const typedElement = $('#typed-role');
     if (!typedElement) return;
     
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      typedElement.textContent = 'modern web apps';
+      const cursor = $('.hero-role-cursor');
+      if (cursor) cursor.style.display = 'none';
+      return;
+    }
+    
     const roles = [
-      'websites that convert',
-      'scalable REST APIs',
-      'e-commerce platforms',
-      'automation pipelines',
-      'full-stack solutions',
-      'apps that scale'
+      'web applications',
+      'scalable APIs',
+      'e-commerce sites',
+      'custom scripts',
+      'full-stack apps'
     ];
     
     let roleIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typingSpeed = 100;
-    
-    function typeRole() {
-      const currentRole = roles[roleIndex];
-      
-      if (isDeleting) {
-        typedElement.textContent = currentRole.substring(0, charIndex - 1);
-        charIndex--;
-        typingSpeed = 50;
-      } else {
-        typedElement.textContent = currentRole.substring(0, charIndex + 1);
-        charIndex++;
-        typingSpeed = 100;
-      }
-      
-      if (!isDeleting && charIndex === currentRole.length) {
-        typingSpeed = 2000; // Pause at end
-        isDeleting = true;
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        roleIndex = (roleIndex + 1) % roles.length;
-        typingSpeed = 500; // Pause before next word
-      }
-      
-      setTimeout(typeRole, typingSpeed);
-    }
-    
-    setTimeout(typeRole, 1000); // Initial delay
+
+    typedElement.textContent = roles[roleIndex];
+
+    setInterval(() => {
+      roleIndex = (roleIndex + 1) % roles.length;
+      typedElement.textContent = roles[roleIndex];
+    }, 2800);
   }
 
   // ============================================

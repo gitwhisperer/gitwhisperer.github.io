@@ -9,6 +9,6 @@ Disallow: /tinker.html
 Disallow: /web-dev.html
 Disallow: /freelance.html
 
-Host: gitwhisperer.github.io
+Host: bytinker.me
 
-Sitemap: https://gitwhisperer.github.io/sitemap.xml
+Sitemap: https://bytinker.me/sitemap.xml
