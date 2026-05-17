@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Harshit Tinker - Full-Stack Developer</title>
+  
+  <!-- SEO Meta Tags -->
+  <title>Harshit Tinker — Software Engineer | Neo-Brutalist Portfolio</title>
+  <meta name="description" content="Hire Harshit Tinker — software engineer specializing in React, Node.js, Python, and scalable architecture. Brutalist, high-performance web development.">
+  <meta name="keywords" content="hire software engineer, full-stack developer, neo-brutalist portfolio, Harshit Tinker, web developer Jaipur">
+  <meta name="author" content="Harshit Tinker">
+  <meta property="og:title" content="Harshit Tinker — Software Engineer">
+  <meta property="og:description" content="I engineer robust software solutions. Not just a full-stack dev, but a problem solver who builds scalable digital assets.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://bytinker.me/assets/harshit.JPG">
+  
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,45 +22,62 @@
 </head>
 <body id="top">
 
-  <!-- Fixed Header -->
-  <header class="main-header">
-    <div class="logo">HT.</div>
-    <nav class="desktop-nav">
-      <a href="#project-wrapper" class="nav-link">Work</a>
-      <a href="#tech-stack" class="nav-link">Stack</a>
-      <a href="#who" class="nav-link">About</a>
-      <a href="#contact" class="nav-link">Contact</a>
-    </nav>
-    <div class="progress-container">
-      <span class="progress-text" id="progress-text">0%</span>
-      <div class="progress-bar">
-        <div class="progress-fill" id="progress-fill"></div>
-      </div>
+  <!-- Brutalist Loader -->
+  <div id="brutal-loader" class="brutal-loader">
+    <div class="loader-panel panel-1"></div>
+    <div class="loader-panel panel-2"></div>
+    <div class="loader-panel panel-3">
+      <div class="loader-text">LOADING...</div>
     </div>
-  </header>
+  </div>
+
+  <!-- Dynamic Island Navbar -->
+  <nav class="dynamic-island retro-shadow">
+    <a href="#hero" class="nav-link">HOME</a>
+    <a href="#project-wrapper" class="nav-link">WORK</a>
+    <a href="#tech-stack" class="nav-link">STACK</a>
+    <a href="#who" class="nav-link">ABOUT</a>
+    <a href="#contact" class="nav-cta btn-red retro-shadow">HIRE</a>
+  </nav>
+
+  <!-- Circular Scroll Indicator -->
+  <div class="scroll-badge">
+    <svg viewBox="0 0 100 100" width="100" height="100">
+      <path id="circlePath" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="none"/>
+      <text><textPath href="#circlePath" startOffset="0%">SCROLL DOWN • SCROLL DOWN • SCROLL DOWN • </textPath></text>
+    </svg>
+    <div class="scroll-arrow">↓</div>
+  </div>
 
   <main>
     <!-- Vertical Hero Section -->
     <section class="vertical-section hero-section parallax-bg" id="hero">
-      <div class="hero-grid parallax-element" data-speed="0.2">
+      <div class="hero-grid parallax-element" data-speed="0.1" data-dir="y">
         <div class="hero-left">
           <h1 class="massive-text">HARSHIT<br>TINKER</h1>
-          <p class="subtitle">Turning complex problems into elegant, high-performance web solutions. Code that works hard, designs that hit harder.</p>
+          <p class="subtitle">I engineer robust software solutions. Not just a full-stack dev, but a problem solver who builds scalable, high-performance digital assets.</p>
           <div class="hero-buttons">
-            <button class="nb-btn btn-red" id="view-work-btn">VIEW WORK</button>
-            <button class="nb-btn btn-blue" id="contact-me-btn">CONTACT ME</button>
-            <a href="../assets/resume.pdf" class="nb-btn btn-yellow" download="Harshit_Tinker_Resume.pdf" target="_blank" rel="noopener">RESUME</a>
+            <button class="nb-btn btn-blue retro-shadow" id="view-work-btn">VIEW WORK</button>
+            <button class="nb-btn btn-yellow retro-shadow" id="contact-me-btn">CONTACT ME</button>
+            <a href="../assets/resume.pdf" class="nb-btn btn-white retro-shadow" download="Harshit_Tinker_Resume.pdf" target="_blank" rel="noopener">RESUME</a>
           </div>
         </div>
         <div class="hero-right">
-          <div class="hero-image-container retro-shadow">
+          <div class="hero-decor decor-1 parallax-element" data-speed="-0.3" data-dir="y">
+            <svg viewBox="0 0 100 100"><polygon points="50,0 100,50 50,100 0,50" fill="var(--blue)" stroke="var(--black)" stroke-width="6"/></svg>
+          </div>
+          <div class="hero-decor decor-2 parallax-element" data-speed="0.4" data-dir="x">
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="var(--pink)" stroke="var(--black)" stroke-width="6"/></svg>
+          </div>
+          <div class="hero-image-container retro-shadow parallax-element" data-speed="0.05" data-dir="y">
             <img src="../assets/harshit.JPG" alt="Harshit Tinker" onerror="this.src='https://via.placeholder.com/600x800/E03131/fff?text=HT'">
+            <div class="image-label">SOFTWARE ENGINEER</div>
           </div>
         </div>
       </div>
       
       <!-- Colorful Tilted Marquee Ribbon -->
-      <div class="tilted-ribbon">
+      <div class="tilted-ribbon parallax-element" data-speed="-0.15" data-dir="y">
         <div class="marquee-track">
           <span>REACT ✧ NODE.JS ✧ PYTHON ✧ MONGODB ✧ TYPESCRIPT ✧ POSTGRESQL ✧ NEXT.JS ✧ DOCKER ✧ AWS ✧ </span>
           <span>REACT ✧ NODE.JS ✧ PYTHON ✧ MONGODB ✧ TYPESCRIPT ✧ POSTGRESQL ✧ NEXT.JS ✧ DOCKER ✧ AWS ✧ </span>
@@ -59,46 +86,87 @@
     </section>
 
     <!-- Horizontal Scroll Section for Projects -->
-    <div id="project-wrapper"></div> <!-- Anchor anchor -->
+    <div id="project-wrapper"></div>
     <div id="horizontal-wrapper" class="horizontal-wrapper">
       <div class="sticky-container">
         <div class="horizontal-track" id="horizontal-track">
           
-          <!-- Screen 3: Project Alpha -->
-          <section class="h-panel project-panel" id="project-alpha">
+          <!-- Project 1: Marwari Basket -->
+          <section class="h-panel project-panel">
             <div class="project-layout">
-              <div class="project-image">
-                <img src="../assets/marwari-basket.png" alt="Marwari Basket" onerror="this.src='https://via.placeholder.com/800x600/000/fff?text=PROJECT+ALPHA'">
+              <div class="project-image combo-image-bg">
+                <div class="project-image-combo">
+                  <img src="../assets/marwari-basket.png" class="desktop-ss retro-shadow" alt="Marwari Basket Desktop">
+                  <img src="../assets/marwari-basket-mobile.png" class="mobile-ss retro-shadow" alt="Marwari Basket Mobile">
+                </div>
               </div>
               <div class="project-info">
-                <h2 class="section-title">SELECTED WORKS</h2>
-                <h3 class="project-massive-title">PROJECT<br>ALPHA</h3>
+                <h2 class="section-title">PROJECT 01</h2>
+                <h3 class="project-massive-title">MARWARI<br>BASKET</h3>
                 <h4 class="project-subtitle">E-COMMERCE PLATFORM</h4>
                 <div class="tags">
-                  <span class="tag tag-blue">NODE.JS</span>
-                  <span class="tag tag-red">REACT</span>
-                  <span class="tag tag-yellow">SCALABLE</span>
+                  <span class="tag tag-blue">REACT</span>
+                  <span class="tag tag-green">NODE.JS</span>
+                  <span class="tag tag-yellow">MONGODB</span>
                 </div>
-                <p class="project-desc">A scalable, microservices-based architecture using Node.js and React. 0.2s load time.</p>
+                <p class="project-desc">Full-stack e-commerce platform serving 500+ products with real-time inventory and secure Razorpay checkout.</p>
               </div>
             </div>
           </section>
 
-          <!-- Screen 4: Project Beta -->
-          <section class="h-panel project-panel" id="project-beta">
+          <!-- Project 2: E-commerce API -->
+          <section class="h-panel project-panel">
             <div class="project-layout">
-              <div class="project-image">
-                <img src="../assets/project-terminal.svg" alt="Data Dashboard" onerror="this.src='https://via.placeholder.com/800x600/000/fff?text=PROJECT+BETA'">
+              <div class="project-image standard-img-bg bg-pink">
+                <img src="../assets/project-ecommerce.svg" class="retro-shadow fit-img" alt="E-commerce API">
               </div>
               <div class="project-info">
-                <h2 class="section-title">SELECTED WORKS</h2>
-                <h3 class="project-massive-title">PROJECT<br>BETA</h3>
-                <h4 class="project-subtitle">DATA DASHBOARD</h4>
+                <h2 class="section-title">PROJECT 02</h2>
+                <h3 class="project-massive-title">E-COM<br>API</h3>
+                <h4 class="project-subtitle">BACKEND ARCHITECTURE</h4>
                 <div class="tags">
-                  <span class="tag tag-white">D3.JS</span>
-                  <span class="tag tag-white">PYTHON</span>
+                  <span class="tag tag-white">EXPRESS</span>
+                  <span class="tag tag-yellow">STRIPE</span>
                 </div>
-                <p class="project-desc">Real-time data processing using D3.js and Python. Optimized for big data visualization.</p>
+                <p class="project-desc">Production-grade REST API with JWT auth, payment gateways, rate limiting, and Swagger documentation.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Project 3: Pentest Sim -->
+          <section class="h-panel project-panel">
+            <div class="project-layout">
+              <div class="project-image standard-img-bg bg-blue">
+                <img src="../assets/project-pentest.svg" class="retro-shadow fit-img" alt="Pentest Simulator">
+              </div>
+              <div class="project-info">
+                <h2 class="section-title">PROJECT 03</h2>
+                <h3 class="project-massive-title">PENTEST<br>SIM</h3>
+                <h4 class="project-subtitle">CLI TOOLKIT</h4>
+                <div class="tags">
+                  <span class="tag tag-red">PYTHON</span>
+                  <span class="tag tag-white">CYBERSECURITY</span>
+                </div>
+                <p class="project-desc">Professional Python CLI toolkit for simulating penetration testing workflows in isolated environments.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Project 4: Super Tic-Tac-Toe -->
+          <section class="h-panel project-panel">
+            <div class="project-layout">
+              <div class="project-image standard-img-bg bg-orange">
+                <img src="../assets/project-tictactoe.svg" class="retro-shadow fit-img" alt="Super Tic-Tac-Toe Game">
+              </div>
+              <div class="project-info">
+                <h2 class="section-title">PROJECT 04</h2>
+                <h3 class="project-massive-title">SUPER<br>TTT</h3>
+                <h4 class="project-subtitle">GAME DEVELOPMENT</h4>
+                <div class="tags">
+                  <span class="tag tag-green">PYTHON</span>
+                  <span class="tag tag-yellow">AI/MINIMAX</span>
+                </div>
+                <p class="project-desc">Strategic twist on the classic game with minimax AI, animated board transitions, and multiplayer support.</p>
               </div>
             </div>
           </section>
@@ -109,26 +177,27 @@
 
     <!-- Tech Stack (Vertical Parallax) -->
     <section class="vertical-section tech-panel parallax-bg" id="tech-stack">
-      <h1 class="outline-text parallax-element" data-speed="0.1">TECH STACK</h1>
-      <div class="tech-scatter parallax-element" data-speed="0.3">
-        <span class="tag tag-red pos-1">REACT</span>
-        <span class="tag tag-yellow pos-2">PYTHON</span>
-        <span class="tag tag-green pos-3">AWS</span>
-        <span class="tag tag-orange pos-4">GRAPHQL</span>
-        <span class="tag tag-blue pos-5">NODE.JS</span>
-        <span class="tag tag-green pos-6">DOCKER</span>
-        <span class="tag tag-red pos-7">NEXT.JS</span>
-        <span class="tag tag-blue pos-8">TAILWIND CSS</span>
-        <span class="tag tag-yellow pos-9">MONGODB</span>
-        <span class="tag tag-red pos-10">TYPESCRIPT</span>
-        <span class="tag tag-green pos-11">POSTGRESQL</span>
-        <span class="tag tag-orange pos-12">GIT</span>
+      <h1 class="outline-text parallax-element" data-speed="0.05" data-dir="y">TECH STACK</h1>
+      <div class="tech-scatter">
+        <!-- Assign chaotic and unique parallax speeds and directions -->
+        <span class="tag tag-red pos-1 parallax-element" data-speed="-0.3" data-dir="y">REACT</span>
+        <span class="tag tag-yellow pos-2 parallax-element" data-speed="0.4" data-dir="x">PYTHON</span>
+        <span class="tag tag-green pos-3 parallax-element" data-speed="-0.2" data-dir="y">AWS</span>
+        <span class="tag tag-orange pos-4 parallax-element" data-speed="0.5" data-dir="y">GRAPHQL</span>
+        <span class="tag tag-blue pos-5 parallax-element" data-speed="-0.5" data-dir="x">NODE.JS</span>
+        <span class="tag tag-green pos-6 parallax-element" data-speed="0.3" data-dir="y">DOCKER</span>
+        <span class="tag tag-red pos-7 parallax-element" data-speed="-0.4" data-dir="x">NEXT.JS</span>
+        <span class="tag tag-blue pos-8 parallax-element" data-speed="0.6" data-dir="y">TAILWIND CSS</span>
+        <span class="tag tag-yellow pos-9 parallax-element" data-speed="-0.3" data-dir="y">MONGODB</span>
+        <span class="tag tag-white pos-10 parallax-element" data-speed="0.2" data-dir="x">TYPESCRIPT</span>
+        <span class="tag tag-purple pos-11 parallax-element" data-speed="-0.6" data-dir="y">POSTGRESQL</span>
+        <span class="tag tag-orange pos-12 parallax-element" data-speed="0.4" data-dir="x">GIT</span>
       </div>
     </section>
 
     <!-- Who (Vertical Parallax) -->
     <section class="vertical-section who-panel parallax-bg" id="who">
-      <div class="who-layout parallax-element" data-speed="0.2">
+      <div class="who-layout parallax-element" data-speed="0.15" data-dir="y">
         <div class="who-left">
           <h1 class="massive-who">WHO</h1>
         </div>
@@ -141,10 +210,10 @@
 
     <!-- Contact (Vertical Parallax) -->
     <section class="vertical-section contact-panel parallax-bg" id="contact">
-      <div class="contact-content parallax-element" data-speed="0.1">
+      <div class="contact-content parallax-element" data-speed="0.1" data-dir="y">
         <h1 class="contact-massive-title line-height-tight">LET'S BUILD<br>SOMETHING</h1>
-        <div class="contact-form-layout retro-shadow">
-          <!-- novalidate disables default browser tooltips -->
+        
+        <div class="contact-form-layout retro-shadow" id="form-container">
           <form id="neo-contact" action="https://formspree.io/f/xblkbdpg" method="POST" novalidate>
             <div class="form-row">
               <div class="input-group">
@@ -160,12 +229,14 @@
               <textarea name="message" id="message" placeholder="YOUR MESSAGE" class="retro-input retro-textarea"></textarea>
               <div class="brutal-error" id="error-message">DON'T LEAVE THIS BLANK.</div>
             </div>
-            <div class="social-links">
-              <a href="https://github.com/gitwhisperer" target="_blank">GITHUB</a>
-              <a href="https://linkedin.com/in/harshit-tinker/" target="_blank">LINKEDIN</a>
-            </div>
-            <button type="submit" class="submit-btn retro-shadow">SUBMIT</button>
+            <button type="submit" class="submit-btn retro-shadow" id="submit-btn">SUBMIT</button>
           </form>
+        </div>
+
+        <!-- Success Message (Hidden initially) -->
+        <div id="form-success" class="form-success-box retro-shadow" style="display: none;">
+          <h2 class="massive-who text-center" style="font-size: 5rem;">OK.</h2>
+          <p class="who-text text-center">MESSAGE RECEIVED. I'LL BE IN TOUCH SHORTLY.</p>
         </div>
       </div>
     </section>
@@ -174,14 +245,22 @@
   <!-- Vertical Footer Section -->
   <footer class="vertical-section main-footer">
     <div class="footer-left">
-      <h3 class="footer-title">GET IN TOUCH</h3>
-      <div class="footer-links">
-        <a href="mailto:harshittinker1979@gmail.com">harshittinker1979@gmail.com</a>
-        <a href="https://github.com/gitwhisperer" target="_blank">GITHUB</a>
-        <a href="https://linkedin.com/in/harshit-tinker/" target="_blank">LINKEDIN</a>
-      </div>
+      <h3 class="footer-title">HARSHIT TINKER</h3>
+      <a href="mailto:harshittinker1979@gmail.com" class="footer-email">harshittinker1979@gmail.com</a>
       <p class="copyright">© <span id="year"></span> HARSHIT TINKER. ALL RIGHTS RESERVED.</p>
     </div>
+    
+    <div class="footer-center">
+      <div class="footer-icons">
+        <a href="https://github.com/gitwhisperer" target="_blank" rel="noopener" class="icon-btn retro-shadow" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/harshit-tinker/" target="_blank" rel="noopener" class="icon-btn retro-shadow" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+    </div>
+
     <div class="footer-right">
       <button id="scroll-top-btn" class="arrow-up-btn retro-shadow" aria-label="Scroll to top">
         <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="4" stroke-linecap="square" fill="none"/></svg>

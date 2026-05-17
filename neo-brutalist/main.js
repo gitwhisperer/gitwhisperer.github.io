@@ -1,11 +1,18 @@
 const horizontalWrapper = document.getElementById('horizontal-wrapper');
 const horizontalTrack = document.getElementById('horizontal-track');
-const progressFill = document.getElementById('progress-fill');
-const progressText = document.getElementById('progress-text');
 const parallaxElements = document.querySelectorAll('.parallax-element');
 
 // Set Current Year
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Remove Loader
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loader = document.getElementById('brutal-loader');
+    if(loader) loader.remove();
+  }, 1200); // Wait for the 1s slideUp animation
+  updateDimensions();
+});
 
 let trackWidth = 0;
 let viewportWidth = 0;
@@ -26,22 +33,16 @@ function updateDimensions() {
   }
 }
 
-window.addEventListener('load', updateDimensions);
 window.addEventListener('resize', updateDimensions);
 
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
-  const maxScroll = document.body.scrollHeight - window.innerHeight;
-  
-  // Progress Bar
-  const progress = maxScroll > 0 ? Math.min(100, Math.max(0, (scrollY / maxScroll) * 100)) : 0;
-  if (progressFill) progressFill.style.width = `${progress}%`;
-  if (progressText) progressText.innerText = `${Math.round(progress)}%`;
 
   // Horizontal Scroll Logic
   if (horizontalWrapper && horizontalTrack) {
     const wrapperTop = horizontalWrapper.offsetTop;
-    const stickyPoint = wrapperTop - 80; // Header height
+    // We don't subtract header height because sticky container is top: 0
+    const stickyPoint = wrapperTop;
     
     let translateX = 0;
 
@@ -50,7 +51,6 @@ window.addEventListener('scroll', () => {
       const maxTranslate = trackWidth - viewportWidth;
       translateX = Math.min(scrollInsideWrapper, maxTranslate);
       
-      // If we scroll past the wrapper, keep it at max translate
       if(scrollInsideWrapper > maxTranslate) {
         translateX = maxTranslate;
       }
@@ -59,7 +59,7 @@ window.addEventListener('scroll', () => {
     horizontalTrack.style.transform = `translate3d(-${translateX}px, 0, 0)`;
   }
 
-  // Vertical Parallax Logic
+  // Vertical Parallax Logic with unique directions
   parallaxElements.forEach(el => {
     const parentSection = el.closest('.vertical-section');
     if(!parentSection) return;
@@ -67,22 +67,29 @@ window.addEventListener('scroll', () => {
     const rect = parentSection.getBoundingClientRect();
     if (rect.top < window.innerHeight && rect.bottom > 0) {
       const speed = parseFloat(el.getAttribute('data-speed')) || 0.2;
-      const yOffset = (scrollY - parentSection.offsetTop) * speed;
-      el.style.transform = `translate3d(0, ${yOffset}px, 0)`;
+      const direction = el.getAttribute('data-dir') || 'y';
+      
+      // Relative offset
+      const offset = (scrollY - parentSection.offsetTop) * speed;
+      
+      if (direction === 'x') {
+        el.style.transform = `translate3d(${offset}px, 0, 0)`;
+      } else {
+        el.style.transform = `translate3d(0, ${offset}px, 0)`;
+      }
     }
   });
 });
 
 // Navigation Links Smooth Scroll
-document.querySelectorAll('.nav-link').forEach(anchor => {
+document.querySelectorAll('.nav-link, .nav-cta').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
     const targetId = this.getAttribute('href').substring(1);
     const targetEl = document.getElementById(targetId);
     if(targetEl) {
-      const topOffset = targetEl.offsetTop - 80; // adjust for header
       window.scrollTo({
-        top: topOffset,
+        top: targetEl.offsetTop,
         behavior: 'smooth'
       });
     }
@@ -94,9 +101,8 @@ const viewWorkBtn = document.getElementById('view-work-btn');
 if (viewWorkBtn && horizontalWrapper) {
   viewWorkBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const wrapperTop = horizontalWrapper.offsetTop - 80;
     window.scrollTo({
-      top: wrapperTop,
+      top: horizontalWrapper.offsetTop,
       behavior: 'smooth'
     });
   });
@@ -109,7 +115,7 @@ if(contactBtn && contactSection) {
   contactBtn.addEventListener('click', (e) => {
     e.preventDefault();
     window.scrollTo({
-      top: contactSection.offsetTop - 80,
+      top: contactSection.offsetTop,
       behavior: 'smooth'
     });
   });
@@ -126,11 +132,15 @@ if (scrollTopBtn) {
   });
 }
 
-// Custom Brutalist Form Validation
+// Custom Brutalist Form Validation & AJAX Submission
 const form = document.getElementById('neo-contact');
+const formContainer = document.getElementById('form-container');
+const successBox = document.getElementById('form-success');
+
 if (form) {
   form.addEventListener('submit', (e) => {
-    // Basic validation flags
+    e.preventDefault(); // Stop native submission
+    
     let isValid = true;
     
     // Name validation
@@ -164,14 +174,12 @@ if (form) {
       messageError.classList.remove('active');
     }
 
-    // Stop submission if invalid
     if (!isValid) {
-      e.preventDefault();
-      // Remove and re-add active class to re-trigger the shake animation
+      // Re-trigger shake
       setTimeout(() => {
         if(nameError.classList.contains('active')) {
           nameError.classList.remove('active');
-          void nameError.offsetWidth; // trigger reflow
+          void nameError.offsetWidth;
           nameError.classList.add('active');
         }
         if(emailError.classList.contains('active')) {
@@ -185,7 +193,33 @@ if (form) {
           messageError.classList.add('active');
         }
       }, 10);
+      return;
     }
+
+    // If valid, submit via AJAX
+    const submitBtn = document.getElementById('submit-btn');
+    const originalText = submitBtn.innerText;
+    submitBtn.innerText = 'SENDING...';
+    
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        formContainer.style.display = 'none';
+        successBox.style.display = 'block';
+      } else {
+        submitBtn.innerText = 'ERROR! TRY AGAIN.';
+        setTimeout(() => submitBtn.innerText = originalText, 3000);
+      }
+    }).catch(error => {
+      submitBtn.innerText = 'ERROR! TRY AGAIN.';
+      setTimeout(() => submitBtn.innerText = originalText, 3000);
+    });
+
   });
 
   // Clear errors on input
