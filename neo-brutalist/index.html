@@ -11,8 +11,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="scroll-wrapper"></div>
 
+  <!-- Fixed Header -->
   <header class="main-header">
     <div class="logo">HARSHIT TINKER</div>
     <div class="progress-container">
@@ -23,10 +23,9 @@
     </div>
   </header>
 
-  <main class="scroll-container" id="scroll-container">
-    
-    <!-- Screen 1: Hero -->
-    <section class="panel hero-panel" id="hero">
+  <main>
+    <!-- Vertical Hero Section -->
+    <section class="vertical-section hero-section" id="hero">
       <div class="hero-content">
         <h1 class="massive-text">FULL-STACK<br>DEVELOPER</h1>
         <p class="subtitle">Harshit Tinker. Building brutalist, high-performance web experiences.</p>
@@ -38,102 +37,112 @@
       </div>
     </section>
 
-    <!-- Screen 3: Project Alpha -->
-    <section class="panel project-panel" id="project-alpha">
-      <div class="project-layout">
-        <div class="project-image">
-          <img src="../assets/marwari-basket.png" alt="Marwari Basket" onerror="this.src='https://via.placeholder.com/800x600/000/fff?text=PROJECT+ALPHA'">
-        </div>
-        <div class="project-info">
-          <h2 class="section-title">SELECTED WORKS</h2>
-          <h3 class="massive-title">PROJECT<br>ALPHA</h3>
-          <h4 class="project-subtitle">E-COMMERCE PLATFORM</h4>
-          <div class="tags">
-            <span class="tag tag-blue">NODE.JS</span>
-            <span class="tag tag-red">REACT</span>
-            <span class="tag tag-yellow">SCALABLE</span>
-          </div>
-          <p class="project-desc">A scalable, microservices-based architecture using Node.js and React. 0.2s load time.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Screen 4: Project Beta -->
-    <section class="panel project-panel" id="project-beta">
-      <div class="project-layout">
-        <div class="project-image">
-          <img src="../assets/project-terminal.svg" alt="Data Dashboard" onerror="this.src='https://via.placeholder.com/800x600/000/fff?text=PROJECT+BETA'">
-        </div>
-        <div class="project-info">
-          <h2 class="section-title">SELECTED WORKS</h2>
-          <h3 class="massive-title" style="font-size: 4rem;">PROJECT BETA: DATA ANALYSIS</h3>
-          <h4 class="project-subtitle" style="font-size: 3rem;">DATA DJJS DASHBOARD</h4>
-          <p class="project-desc big-p">Real-time data processing using D3.js and Python. Optimized for big data visualization.</p>
-          <div class="tags bottom-tags">
-            <span class="tag tag-white large-tag">D3.JS</span>
-            <span class="tag tag-white large-tag">PYTHON</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Screen 5: Tech Stack -->
-    <section class="panel tech-panel" id="tech-stack">
-      <h1 class="outline-text">TECH STACK</h1>
-      <div class="tech-scatter">
-        <span class="tag tag-red pos-1">REACT</span>
-        <span class="tag tag-yellow pos-2">PYTHON</span>
-        <span class="tag tag-green pos-3">AWS</span>
-        <span class="tag tag-orange pos-4">GRAPHQL</span>
-        <span class="tag tag-blue pos-5">NODE.JS</span>
-        <span class="tag tag-green pos-6">DOCKER</span>
-        <span class="tag tag-red pos-7">NEXT.JS</span>
-        <span class="tag tag-blue pos-8">TAILWIND CSS</span>
-        <span class="tag tag-yellow pos-9">MONGODB</span>
-        <span class="tag tag-red pos-10">TYPESCRIPT</span>
-        <span class="tag tag-green pos-11">MONGODB</span>
-        <span class="tag tag-orange pos-12">POSTGRESQL</span>
-        <span class="tag tag-yellow pos-13">NEXT.JS</span>
-        <span class="tag tag-orange pos-14">GIT</span>
-      </div>
-    </section>
-
-    <!-- Screen 6: Who -->
-    <section class="panel who-panel" id="who">
-      <div class="who-layout">
-        <div class="who-left">
-          <h1 class="massive-who">WHO</h1>
-        </div>
-        <div class="who-right">
-          <h2 class="who-title">HARSHIT TINKER.</h2>
-          <p class="who-text">My philosophy is <strong>performance-first</strong> engineering. I build robust, <strong>scalable digital experiences</strong> that prioritize <strong>efficiency</strong>, and user impact. No bloat, just functional <strong>design</strong> and code.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Screen 7: Contact -->
-    <section class="panel contact-panel" id="contact">
-      <div class="contact-content">
-        <h1 class="massive-title line-height-tight">LET'S BUILD<br>SOMETHING</h1>
-        <div class="contact-form-layout">
-          <form id="neo-contact">
-            <div class="form-row">
-              <input type="text" placeholder="YOUR NAME">
-              <input type="email" placeholder="YOUR EMAIL">
+    <!-- Horizontal Scroll Wrapper -->
+    <div id="horizontal-wrapper" class="horizontal-wrapper">
+      <div class="sticky-container">
+        <div class="horizontal-track" id="horizontal-track">
+          
+          <!-- Screen 3: Project Alpha -->
+          <section class="h-panel project-panel" id="project-alpha">
+            <div class="project-layout">
+              <div class="project-image">
+                <img src="../assets/marwari-basket.png" alt="Marwari Basket" onerror="this.src='https://via.placeholder.com/800x600/000/fff?text=PROJECT+ALPHA'">
+              </div>
+              <div class="project-info">
+                <h2 class="section-title">SELECTED WORKS</h2>
+                <h3 class="massive-title">PROJECT<br>ALPHA</h3>
+                <h4 class="project-subtitle">E-COMMERCE PLATFORM</h4>
+                <div class="tags">
+                  <span class="tag tag-blue">NODE.JS</span>
+                  <span class="tag tag-red">REACT</span>
+                  <span class="tag tag-yellow">SCALABLE</span>
+                </div>
+                <p class="project-desc">A scalable, microservices-based architecture using Node.js and React. 0.2s load time.</p>
+              </div>
             </div>
-            <textarea placeholder="YOUR MESSAGE"></textarea>
-            <div class="social-links">
-              <a href="https://github.com/gitwhisperer" target="_blank">GITHUB</a>
-              <a href="https://linkedin.com/in/harshit-tinker/" target="_blank">LINKEDIN</a>
+          </section>
+
+          <!-- Screen 4: Project Beta -->
+          <section class="h-panel project-panel" id="project-beta">
+            <div class="project-layout">
+              <div class="project-image">
+                <img src="../assets/project-terminal.svg" alt="Data Dashboard" onerror="this.src='https://via.placeholder.com/800x600/000/fff?text=PROJECT+BETA'">
+              </div>
+              <div class="project-info">
+                <h2 class="section-title">SELECTED WORKS</h2>
+                <h3 class="massive-title" style="font-size: 4rem;">PROJECT BETA: DATA ANALYSIS</h3>
+                <h4 class="project-subtitle" style="font-size: 3rem;">DATA DJJS DASHBOARD</h4>
+                <p class="project-desc big-p">Real-time data processing using D3.js and Python. Optimized for big data visualization.</p>
+                <div class="tags bottom-tags">
+                  <span class="tag tag-white large-tag">D3.JS</span>
+                  <span class="tag tag-white large-tag">PYTHON</span>
+                </div>
+              </div>
             </div>
-            <button type="button" class="submit-btn">SUBMIT</button>
-          </form>
+          </section>
+
+          <!-- Screen 5: Tech Stack -->
+          <section class="h-panel tech-panel" id="tech-stack">
+            <h1 class="outline-text">TECH STACK</h1>
+            <div class="tech-scatter">
+              <span class="tag tag-red pos-1">REACT</span>
+              <span class="tag tag-yellow pos-2">PYTHON</span>
+              <span class="tag tag-green pos-3">AWS</span>
+              <span class="tag tag-orange pos-4">GRAPHQL</span>
+              <span class="tag tag-blue pos-5">NODE.JS</span>
+              <span class="tag tag-green pos-6">DOCKER</span>
+              <span class="tag tag-red pos-7">NEXT.JS</span>
+              <span class="tag tag-blue pos-8">TAILWIND CSS</span>
+              <span class="tag tag-yellow pos-9">MONGODB</span>
+              <span class="tag tag-red pos-10">TYPESCRIPT</span>
+              <span class="tag tag-green pos-11">MONGODB</span>
+              <span class="tag tag-orange pos-12">POSTGRESQL</span>
+              <span class="tag tag-yellow pos-13">NEXT.JS</span>
+              <span class="tag tag-orange pos-14">GIT</span>
+            </div>
+          </section>
+
+          <!-- Screen 6: Who -->
+          <section class="h-panel who-panel" id="who">
+            <div class="who-layout">
+              <div class="who-left">
+                <h1 class="massive-who">WHO</h1>
+              </div>
+              <div class="who-right">
+                <h2 class="who-title">HARSHIT TINKER.</h2>
+                <p class="who-text">My philosophy is <strong>performance-first</strong> engineering. I build robust, <strong>scalable digital experiences</strong> that prioritize <strong>efficiency</strong>, and user impact. No bloat, just functional <strong>design</strong> and code.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Screen 7: Contact -->
+          <section class="h-panel contact-panel" id="contact">
+            <div class="contact-content">
+              <h1 class="massive-title line-height-tight">LET'S BUILD<br>SOMETHING</h1>
+              <div class="contact-form-layout">
+                <form id="neo-contact">
+                  <div class="form-row">
+                    <input type="text" placeholder="YOUR NAME">
+                    <input type="email" placeholder="YOUR EMAIL">
+                  </div>
+                  <textarea placeholder="YOUR MESSAGE"></textarea>
+                  <div class="social-links">
+                    <a href="https://github.com/gitwhisperer" target="_blank">GITHUB</a>
+                    <a href="https://linkedin.com/in/harshit-tinker/" target="_blank">LINKEDIN</a>
+                  </div>
+                  <button type="button" class="submit-btn">SUBMIT</button>
+                </form>
+              </div>
+            </div>
+          </section>
+
         </div>
       </div>
-    </section>
+    </div>
   </main>
 
-  <footer class="main-footer">
+  <!-- Vertical Footer Section -->
+  <footer class="vertical-section main-footer">
     <div class="footer-left">
       <h3 class="footer-title">GET IN TOUCH</h3>
       <div class="footer-links">

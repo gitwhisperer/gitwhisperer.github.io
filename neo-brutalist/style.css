@@ -71,21 +71,34 @@ body {
   transition: width 0.1s;
 }
 
+/* Vertical Sections */
+.vertical-section {
+  width: 100vw;
+  position: relative;
+  border-bottom: var(--border-width) solid var(--black);
+}
+
+.hero-section {
+  margin-top: 80px;
+  min-height: calc(100vh - 80px);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
 /* Footer */
 .main-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
   height: 120px;
   background: var(--bg-color);
-  border-top: 8px solid var(--black);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 40px;
-  z-index: 100;
+  border-bottom: none; /* Last element */
 }
+
 .footer-left {
   display: flex;
   flex-direction: column;
@@ -116,33 +129,42 @@ body {
   height: 50px;
 }
 
-/* Scroll Container */
-.scroll-container {
-  position: fixed;
-  top: 80px;
-  left: 0;
-  height: calc(100vh - 200px);
+/* Horizontal Scroll Wrapper */
+.horizontal-wrapper {
+  position: relative;
+  /* height will be set dynamically via JS */
+  border-bottom: var(--border-width) solid var(--black);
+}
+
+.sticky-container {
+  position: sticky;
+  top: 80px; /* Below the fixed header */
+  height: calc(100vh - 80px);
+  width: 100vw;
+  overflow: hidden; /* Hide overflow so track can translate inside */
+}
+
+.horizontal-track {
   display: flex;
+  height: 100%;
   will-change: transform;
 }
 
-.panel {
-  width: 100vw;
+.h-panel {
   height: 100%;
   flex-shrink: 0;
-  padding: 40px;
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 40px;
   border-right: var(--border-width) solid var(--black);
+  background: var(--bg-color);
 }
 
-.hero-panel { width: 100vw; }
 .project-panel { width: 90vw; }
 .tech-panel { width: 120vw; }
 .who-panel { width: 90vw; }
-.contact-panel { width: 90vw; }
+.contact-panel { width: 90vw; border-right: none; } /* Last panel no border */
 
 /* Typography */
 .massive-text {
@@ -171,6 +193,12 @@ body {
   box-shadow: 6px 6px 0 var(--black);
   cursor: pointer;
   text-transform: uppercase;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.nb-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 2px 2px 0 var(--black);
 }
 
 .btn-red {
@@ -287,6 +315,7 @@ body {
 .tech-panel {
   align-items: center;
   overflow: hidden;
+  position: relative;
 }
 .outline-text {
   font-family: 'Syne', sans-serif;
@@ -332,6 +361,7 @@ body {
 .who-layout {
   display: flex;
   height: 100%;
+  width: 100%;
 }
 .who-left {
   flex: 1;
@@ -424,6 +454,10 @@ body {
   color: var(--black);
   text-decoration: none;
   border-bottom: 8px solid var(--black);
+  transition: transform 0.2s;
+}
+.social-links a:hover {
+  transform: translateY(-5px);
 }
 .submit-btn {
   background: var(--red);
@@ -435,4 +469,25 @@ body {
   border: none;
   cursor: pointer;
   text-transform: uppercase;
+  transition: background 0.2s;
+}
+.submit-btn:hover {
+  background: #ff4747;
+}
+
+/* Animations */
+@media (max-width: 1024px) {
+  .project-layout, .who-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    flex-direction: column;
+  }
+  .project-image {
+    height: 300px;
+    border-right: none;
+    border-bottom: var(--border-width) solid var(--black);
+  }
+  .massive-title { font-size: 3rem; }
+  .massive-who { font-size: 5rem; }
+  .hero-scroll-indicator { display: none; }
 }
