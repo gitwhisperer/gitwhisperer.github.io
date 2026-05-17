@@ -22,12 +22,10 @@
 </head>
 <body id="top">
 
-  <!-- Brutalist Loader -->
+  <!-- Brutalist Unwrangling Paper Loader -->
   <div id="brutal-loader" class="brutal-loader">
-    <div class="loader-panel panel-1"></div>
-    <div class="loader-panel panel-2"></div>
-    <div class="loader-panel panel-3">
-      <div class="loader-text">LOADING...</div>
+    <div class="paper-ball" id="paper-ball">
+      <h1 class="massive-text" style="color: var(--black);">LOADING</h1>
     </div>
   </div>
 
@@ -38,7 +36,7 @@
     <a href="#tech-stack" class="nav-link">STACK</a>
     <a href="#who" class="nav-link">ABOUT</a>
     <a href="resume.html" class="nav-link">RESUME</a>
-    <a href="#contact" class="nav-cta btn-red retro-shadow">HIRE</a>
+    <a href="#contact" class="nav-cta btn-red retro-shadow">CONTACT</a>
   </nav>
 
   <!-- Circular Scroll Indicator -->
@@ -60,25 +58,19 @@
           <div class="hero-buttons">
             <button class="nb-btn btn-blue retro-shadow" id="view-work-btn">VIEW WORK</button>
             <button class="nb-btn btn-yellow retro-shadow" id="contact-me-btn">CONTACT ME</button>
-            <a href="../assets/resume.pdf" class="nb-btn btn-white retro-shadow" download="Harshit_Tinker_Resume.pdf" target="_blank" rel="noopener">RESUME</a>
+            <a href="resume.html" class="nb-btn btn-white retro-shadow">RESUME</a>
           </div>
         </div>
         <div class="hero-right">
-          <div class="hero-decor decor-1 parallax-element" data-speed="-0.3" data-dir="y">
-            <svg viewBox="0 0 100 100"><polygon points="50,0 100,50 50,100 0,50" fill="var(--blue)" stroke="var(--black)" stroke-width="6"/></svg>
-          </div>
-          <div class="hero-decor decor-2 parallax-element" data-speed="0.4" data-dir="x">
-            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="var(--pink)" stroke="var(--black)" stroke-width="6"/></svg>
-          </div>
           <div class="hero-image-container retro-shadow parallax-element" data-speed="0.05" data-dir="y">
             <img src="../assets/harshit.JPG" alt="Harshit Tinker" onerror="this.src='https://via.placeholder.com/600x800/E03131/fff?text=HT'">
-            <div class="image-label">SOFTWARE ENGINEER</div>
+            <div class="image-label" id="dynamic-role">SOFTWARE ENGINEER</div>
           </div>
         </div>
       </div>
       
       <!-- Colorful Tilted Marquee Ribbon -->
-      <div class="tilted-ribbon parallax-element" data-speed="-0.15" data-dir="y">
+      <div class="tilted-ribbon">
         <div class="marquee-track">
           <span>REACT ✧ NODE.JS ✧ PYTHON ✧ MONGODB ✧ TYPESCRIPT ✧ POSTGRESQL ✧ NEXT.JS ✧ DOCKER ✧ AWS ✧ </span>
           <span>REACT ✧ NODE.JS ✧ PYTHON ✧ MONGODB ✧ TYPESCRIPT ✧ POSTGRESQL ✧ NEXT.JS ✧ DOCKER ✧ AWS ✧ </span>
@@ -176,31 +168,34 @@
       </div>
     </div>
 
-    <!-- Tech Stack (Vertical Parallax) -->
-    <section class="vertical-section tech-panel parallax-bg" id="tech-stack">
+    <!-- Tech Stack: Converging elements -->
+    <section class="vertical-section tech-panel" id="tech-stack">
       <h1 class="outline-text parallax-element" data-speed="0.05" data-dir="y">TECH STACK</h1>
-      <div class="tech-scatter">
-        <!-- Assign chaotic and unique parallax speeds and directions -->
-        <span class="tag tag-red pos-1 parallax-element" data-speed="-0.3" data-dir="y">REACT</span>
-        <span class="tag tag-yellow pos-2 parallax-element" data-speed="0.4" data-dir="x">PYTHON</span>
-        <span class="tag tag-green pos-3 parallax-element" data-speed="-0.2" data-dir="y">AWS</span>
-        <span class="tag tag-orange pos-4 parallax-element" data-speed="0.5" data-dir="y">GRAPHQL</span>
-        <span class="tag tag-blue pos-5 parallax-element" data-speed="-0.5" data-dir="x">NODE.JS</span>
-        <span class="tag tag-green pos-6 parallax-element" data-speed="0.3" data-dir="y">DOCKER</span>
-        <span class="tag tag-red pos-7 parallax-element" data-speed="-0.4" data-dir="x">NEXT.JS</span>
-        <span class="tag tag-blue pos-8 parallax-element" data-speed="0.6" data-dir="y">TAILWIND CSS</span>
-        <span class="tag tag-yellow pos-9 parallax-element" data-speed="-0.3" data-dir="y">MONGODB</span>
-        <span class="tag tag-white pos-10 parallax-element" data-speed="0.2" data-dir="x">TYPESCRIPT</span>
-        <span class="tag tag-purple pos-11 parallax-element" data-speed="-0.6" data-dir="y">POSTGRESQL</span>
-        <span class="tag tag-orange pos-12 parallax-element" data-speed="0.4" data-dir="x">GIT</span>
+      <div class="tech-scatter" id="tech-scatter-container">
+        <!-- Converge items: they start scattered out of bounds and slide into position when in view -->
+        <span class="tag tag-red pos-1 converge-item" data-x="-500" data-y="-500">REACT</span>
+        <span class="tag tag-yellow pos-2 converge-item" data-x="500" data-y="-800">PYTHON</span>
+        <span class="tag tag-green pos-3 converge-item" data-x="800" data-y="-200">AWS</span>
+        <span class="tag tag-orange pos-4 converge-item" data-x="1000" data-y="0">GRAPHQL</span>
+        <span class="tag tag-blue pos-5 converge-item" data-x="-800" data-y="300">NODE.JS</span>
+        <span class="tag tag-green pos-6 converge-item" data-x="0" data-y="800">DOCKER</span>
+        <span class="tag tag-red pos-7 converge-item" data-x="500" data-y="500">NEXT.JS</span>
+        <span class="tag tag-blue pos-8 converge-item" data-x="-600" data-y="600">TAILWIND CSS</span>
+        <span class="tag tag-yellow pos-9 converge-item" data-x="-300" data-y="1000">MONGODB</span>
+        <span class="tag tag-white pos-10 converge-item" data-x="600" data-y="800">TYPESCRIPT</span>
+        <span class="tag tag-purple pos-11 converge-item" data-x="-900" data-y="800">POSTGRESQL</span>
+        <span class="tag tag-orange pos-12 converge-item" data-x="900" data-y="400">GIT</span>
       </div>
     </section>
 
-    <!-- Who (Vertical Parallax) -->
+    <!-- Who -->
     <section class="vertical-section who-panel parallax-bg" id="who">
       <div class="who-layout parallax-element" data-speed="0.15" data-dir="y">
         <div class="who-left">
-          <h1 class="massive-who">WHO</h1>
+          <!-- Tilted Sticker Style -->
+          <div class="sticker-wrapper">
+            <div class="sticker retro-shadow">WHO?</div>
+          </div>
         </div>
         <div class="who-right">
           <h2 class="who-title">HARSHIT TINKER.</h2>
@@ -209,7 +204,7 @@
       </div>
     </section>
 
-    <!-- Contact (Vertical Parallax) -->
+    <!-- Contact -->
     <section class="vertical-section contact-panel parallax-bg" id="contact">
       <div class="contact-content parallax-element" data-speed="0.1" data-dir="y">
         <h1 class="contact-massive-title line-height-tight">LET'S BUILD<br>SOMETHING</h1>
@@ -234,10 +229,11 @@
           </form>
         </div>
 
-        <!-- Success Message (Hidden initially) -->
+        <!-- Success Message -->
         <div id="form-success" class="form-success-box retro-shadow" style="display: none;">
-          <h2 class="massive-who text-center" style="font-size: 5rem;">OK.</h2>
+          <h2 class="massive-who text-center" style="font-size: 5rem; margin-bottom: 20px;">OK.</h2>
           <p class="who-text text-center">MESSAGE RECEIVED. I'LL BE IN TOUCH SHORTLY.</p>
+          <button class="nb-btn btn-white retro-shadow" id="reset-form-btn" style="margin-top: 30px;">SEND ANOTHER MESSAGE</button>
         </div>
       </div>
     </section>

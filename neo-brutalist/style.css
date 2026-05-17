@@ -34,42 +34,31 @@ body {
   color: var(--white);
 }
 
-/* Brutalist Loader */
+/* Brutalist Paper Unfold Loader */
 .brutal-loader {
   position: fixed;
   inset: 0;
   z-index: 9999;
   display: flex;
-  pointer-events: none;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--black);
+  transition: opacity 0.5s ease-out;
 }
-.loader-panel {
-  flex: 1;
+.paper-ball {
+  width: 100vw;
   height: 100vh;
-  transform-origin: top;
-  animation: slideUp 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-  border-right: var(--border-width) solid var(--black);
+  background: var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.1) rotate(45deg) skewX(20deg) skewY(20deg);
+  border: var(--border-width) solid var(--black);
+  animation: unwrangle 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 0.2s;
 }
-.loader-panel:last-child { border-right: none; }
-.panel-1 { background: var(--yellow); animation-delay: 0.2s; }
-.panel-2 { background: var(--pink, #FF66C4); animation-delay: 0.4s; }
-.panel-3 { 
-  background: var(--blue); 
-  animation-delay: 0.6s; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  overflow: hidden;
-}
-.loader-text {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: clamp(2rem, 5vw, 4rem);
-  color: var(--white);
-  transform: rotate(-90deg);
-}
-@keyframes slideUp {
-  0% { transform: scaleY(1); }
-  100% { transform: scaleY(0); }
+@keyframes unwrangle {
+  100% { transform: scale(1) rotate(0deg) skewX(0deg) skewY(0deg); border-width: 0; }
 }
 
 /* Dynamic Island Navbar */
@@ -134,7 +123,7 @@ body {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
   font-size: 16px;
-  fill: var(--black);
+  fill: var(--white); /* So difference makes it visible */
   letter-spacing: 2px;
 }
 .scroll-arrow {
@@ -144,7 +133,7 @@ body {
   transform: translate(-50%, -50%);
   font-size: 2rem;
   font-weight: 800;
-  color: var(--black);
+  color: var(--white);
   /* Reverse spin to keep arrow straight */
   animation: spin-reverse 10s linear infinite;
 }
@@ -215,13 +204,6 @@ body {
   position: relative;
 }
 
-.hero-decor {
-  position: absolute;
-  z-index: 10;
-}
-.decor-1 { top: -20px; left: -20px; width: 80px; }
-.decor-2 { bottom: -20px; right: -20px; width: 100px; }
-
 .hero-image-container {
   width: 100%;
   max-width: 500px;
@@ -258,6 +240,7 @@ body {
   padding: 10px;
   font-size: 1.2rem;
   letter-spacing: 2px;
+  transition: opacity 0.3s;
 }
 
 /* Tilted Marquee */
@@ -283,6 +266,11 @@ body {
   font-size: 2.5rem;
   font-weight: 800;
   animation: scroll-left 25s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* Footer */
@@ -448,6 +436,10 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+.btn-small {
+  padding: 8px 16px;
+  font-size: 1rem;
 }
 
 .retro-shadow {
@@ -618,6 +610,17 @@ body {
   padding: 15px 25px;
   box-shadow: 6px 6px 0 var(--black);
 }
+/* Converge Animation Styling */
+.converge-item {
+  transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 1s ease-out;
+  opacity: 0;
+  /* Starting positions are applied via JS based on data attributes */
+}
+.converge-item.in-view {
+  transform: translate(0px, 0px) !important;
+  opacity: 1;
+}
+
 .pos-1 { top: 10%; left: 5%; }
 .pos-2 { top: 15%; left: 35%; }
 .pos-3 { top: 5%; left: 65%; }
@@ -658,17 +661,20 @@ body {
   justify-content: center;
   background: var(--yellow);
   padding: 20px;
-  overflow: hidden; /* Prevent text overflow */
 }
-.massive-who {
+.sticker-wrapper {
+  perspective: 1000px;
+}
+.sticker {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(4rem, 15vw, 15rem);
+  font-size: clamp(3rem, 10vw, 8rem);
   font-weight: 800;
-  margin: 0;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  background: var(--red);
+  color: var(--white);
+  padding: 20px 40px;
+  transform: rotate(-10deg);
+  border: var(--border-width) solid var(--black);
   text-align: center;
-  line-height: 1;
 }
 .who-right {
   flex: 1.5;
@@ -808,11 +814,74 @@ body {
 /* Success Box */
 .form-success-box {
   background: var(--green);
-  border: var(--border-width) solid var(--black);
   padding: 60px 40px;
   text-align: center;
 }
 .text-center { text-align: center; }
+
+/* Resume PDF Viewer Styling */
+.pdf-viewer-body {
+  background: var(--black);
+}
+.pdf-toolbar {
+  background: var(--bg-color);
+  border-bottom: var(--border-width) solid var(--black);
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.pdf-tools-left, .pdf-tools-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.pdf-title {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 800;
+  color: var(--black);
+  font-size: 1.2rem;
+}
+.pdf-document-wrapper {
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+}
+.pdf-document {
+  max-width: 900px;
+  width: 100%;
+  background: var(--white);
+  padding: clamp(20px, 6vw, 80px);
+}
+
+/* Resume Page Specifics */
+.resume-header { margin-bottom: 40px; }
+.resume-contact { font-size: 1.1rem; font-weight: 600; margin-top: 10px; }
+.resume-contact p { margin: 5px 0; }
+.resume-section { margin-bottom: 40px; }
+.border-bottom-thick { border-bottom: 4px solid var(--black); padding-bottom: 5px; margin-bottom: 20px; }
+.resume-item { margin-bottom: 25px; }
+.resume-item-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; flex-wrap: wrap; gap: 10px; }
+.resume-role { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 800; margin: 0; }
+.resume-company { font-weight: 700; margin: 0 0 10px 0; color: #333; }
+.resume-date { font-weight: 700; }
+.resume-bullets { padding-left: 20px; margin: 0; font-weight: 500; font-size: 1.1rem; }
+.resume-bullets li { margin-bottom: 8px; }
+.resume-skills { font-size: 1.1rem; line-height: 1.6; }
+
+/* Print Styles */
+@media print {
+  @page { margin: 1.5cm; }
+  body { background: white; color: black; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .no-print { display: none !important; }
+  .pdf-document-wrapper { padding: 0; }
+  .pdf-document { border: none; box-shadow: none; max-width: 100%; padding: 0; }
+  .resume-role, .section-title, .resume-contact, .resume-company { color: black; }
+  * { box-shadow: none !important; text-shadow: none !important; }
+}
 
 /* Responsiveness overrides */
 @media (max-width: 900px) {
@@ -836,7 +905,7 @@ body {
   .who-left {
     border-right: none;
     border-bottom: var(--border-width) solid var(--black);
-    padding: 40px 0;
+    padding: 60px 0;
   }
   .form-row .input-group:first-child {
     border-right: none;
@@ -867,7 +936,7 @@ body {
   .pos-12 { top: 92%; left: 60%; }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .dynamic-island {
     gap: 10px;
     padding: 10px;
@@ -880,133 +949,7 @@ body {
   .hero-section { padding-left: 20px; padding-right: 20px; }
   .hero-buttons { justify-content: center; }
   .nb-btn { width: 100%; margin-bottom: 10px; }
-  .scroll-badge { display: none; } /* Hide on very small screens to save space */
+  .scroll-badge { display: none; } 
+  .pdf-toolbar { flex-direction: column; gap: 10px; padding: 15px; }
+  .pdf-tools-left, .pdf-tools-right { justify-content: center; width: 100%; flex-wrap: wrap; }
 }
-
-
-/* Resume Page Styles */
-.resume-main {
-  padding: 120px 40px 40px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.resume-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
-}
-
-.resume-container {
-  padding: clamp(20px, 5vw, 60px);
-  border: var(--border-width) solid var(--black);
-}
-
-.resume-header {
-  margin-bottom: 40px;
-}
-
-.resume-contact {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-top: 10px;
-}
-
-.resume-contact p {
-  margin: 5px 0;
-}
-
-.resume-section {
-  margin-bottom: 40px;
-}
-
-.border-bottom-thick {
-  border-bottom: 4px solid var(--black);
-  padding-bottom: 5px;
-  margin-bottom: 20px;
-}
-
-.resume-item {
-  margin-bottom: 25px;
-}
-
-.resume-item-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 5px;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.resume-role {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin: 0;
-}
-
-.resume-company {
-  font-weight: 700;
-  margin: 0 0 10px 0;
-  color: #333;
-}
-
-.resume-date {
-  font-weight: 700;
-}
-
-.resume-bullets {
-  padding-left: 20px;
-  margin: 0;
-  font-weight: 500;
-  font-size: 1.1rem;
-}
-
-.resume-bullets li {
-  margin-bottom: 8px;
-}
-
-.resume-skills {
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
-
-/* Print Styles */
-@media print {
-  @page {
-    margin: 1.5cm;
-  }
-  
-  body {
-    background: white;
-    color: black;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  .no-print {
-    display: none !important;
-  }
-
-  .resume-main {
-    padding: 0;
-    max-width: 100%;
-  }
-
-  .resume-container {
-    border: none;
-    box-shadow: none;
-    padding: 0;
-  }
-
-  .resume-role, .section-title, .resume-contact, .resume-company {
-    color: black;
-  }
-
-  * {
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
-}
-

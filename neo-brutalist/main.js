@@ -3,15 +3,20 @@ const horizontalTrack = document.getElementById('horizontal-track');
 const parallaxElements = document.querySelectorAll('.parallax-element');
 
 // Set Current Year
-document.getElementById('year').textContent = new Date().getFullYear();
+const yearSpan = document.getElementById('year');
+if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-// Remove Loader
+// Loader Logic (Paper Unfold)
 window.addEventListener('load', () => {
   setTimeout(() => {
     const loader = document.getElementById('brutal-loader');
-    if(loader) loader.remove();
-  }, 1200); // Wait for the 1s slideUp animation
+    if(loader) {
+      loader.style.opacity = '0';
+      setTimeout(() => loader.remove(), 500);
+    }
+  }, 1200);
   updateDimensions();
+  initTechStackConvergence();
 });
 
 let trackWidth = 0;
@@ -20,16 +25,18 @@ let viewportWidth = 0;
 function updateDimensions() {
   viewportWidth = window.innerWidth;
   const panels = document.querySelectorAll('.h-panel');
-  trackWidth = 0;
-  panels.forEach(panel => {
-    trackWidth += panel.offsetWidth;
-  });
+  if(panels.length > 0 && horizontalWrapper) {
+    trackWidth = 0;
+    panels.forEach(panel => {
+      trackWidth += panel.offsetWidth;
+    });
 
-  const scrollDistance = trackWidth - viewportWidth;
-  if (scrollDistance > 0 && horizontalWrapper) {
-    horizontalWrapper.style.height = `${scrollDistance + window.innerHeight}px`;
-  } else if (horizontalWrapper) {
-    horizontalWrapper.style.height = 'auto';
+    const scrollDistance = trackWidth - viewportWidth;
+    if (scrollDistance > 0) {
+      horizontalWrapper.style.height = `${scrollDistance + window.innerHeight}px`;
+    } else {
+      horizontalWrapper.style.height = 'auto';
+    }
   }
 }
 
@@ -41,7 +48,6 @@ window.addEventListener('scroll', () => {
   // Horizontal Scroll Logic
   if (horizontalWrapper && horizontalTrack) {
     const wrapperTop = horizontalWrapper.offsetTop;
-    // We don't subtract header height because sticky container is top: 0
     const stickyPoint = wrapperTop;
     
     let translateX = 0;
@@ -68,8 +74,6 @@ window.addEventListener('scroll', () => {
     if (rect.top < window.innerHeight && rect.bottom > 0) {
       const speed = parseFloat(el.getAttribute('data-speed')) || 0.2;
       const direction = el.getAttribute('data-dir') || 'y';
-      
-      // Relative offset
       const offset = (scrollY - parentSection.offsetTop) * speed;
       
       if (direction === 'x') {
@@ -81,22 +85,71 @@ window.addEventListener('scroll', () => {
   });
 });
 
+// Dynamic Hero Role Cycler
+const roles = ["SOFTWARE ENGINEER", "PROBLEM SOLVER", "SYSTEMS ARCHITECT", "FULL-STACK DEV"];
+const dynamicRoleEl = document.getElementById('dynamic-role');
+let roleIndex = 0;
+
+if (dynamicRoleEl) {
+  setInterval(() => {
+    dynamicRoleEl.style.opacity = '0';
+    setTimeout(() => {
+      roleIndex = (roleIndex + 1) % roles.length;
+      dynamicRoleEl.textContent = roles[roleIndex];
+      dynamicRoleEl.style.opacity = '1';
+    }, 300);
+  }, 3000);
+}
+
+// Tech Stack Convergence Animation
+function initTechStackConvergence() {
+  const convergeItems = document.querySelectorAll('.converge-item');
+  
+  // Set initial scattered positions
+  convergeItems.forEach(item => {
+    const startX = item.getAttribute('data-x') || 0;
+    const startY = item.getAttribute('data-y') || 0;
+    item.style.transform = `translate(${startX}px, ${startY}px)`;
+  });
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.2
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  convergeItems.forEach(item => observer.observe(item));
+}
+
 // Navigation Links Smooth Scroll
 document.querySelectorAll('.nav-link, .nav-cta').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    const targetId = this.getAttribute('href').substring(1);
-    const targetEl = document.getElementById(targetId);
-    if(targetEl) {
-      window.scrollTo({
-        top: targetEl.offsetTop,
-        behavior: 'smooth'
-      });
+    // Only intercept anchor links on the same page
+    const href = this.getAttribute('href');
+    if(href.startsWith('#')) {
+      e.preventDefault();
+      const targetId = href.substring(1);
+      const targetEl = document.getElementById(targetId);
+      if(targetEl) {
+        window.scrollTo({
+          top: targetEl.offsetTop,
+          behavior: 'smooth'
+        });
+      }
     }
   });
 });
 
-// View Work Button
+// Specific Buttons
 const viewWorkBtn = document.getElementById('view-work-btn');
 if (viewWorkBtn && horizontalWrapper) {
   viewWorkBtn.addEventListener('click', (e) => {
@@ -108,7 +161,6 @@ if (viewWorkBtn && horizontalWrapper) {
   });
 }
 
-// Contact Me Button
 const contactBtn = document.getElementById('contact-me-btn');
 const contactSection = document.getElementById('contact');
 if(contactBtn && contactSection) {
@@ -121,7 +173,6 @@ if(contactBtn && contactSection) {
   });
 }
 
-// Scroll to Top Button
 const scrollTopBtn = document.getElementById('scroll-top-btn');
 if (scrollTopBtn) {
   scrollTopBtn.addEventListener('click', () => {
@@ -132,18 +183,17 @@ if (scrollTopBtn) {
   });
 }
 
-// Custom Brutalist Form Validation & AJAX Submission
+// Form Logic
 const form = document.getElementById('neo-contact');
 const formContainer = document.getElementById('form-container');
 const successBox = document.getElementById('form-success');
+const resetBtn = document.getElementById('reset-form-btn');
 
 if (form) {
   form.addEventListener('submit', (e) => {
-    e.preventDefault(); // Stop native submission
-    
+    e.preventDefault(); 
     let isValid = true;
     
-    // Name validation
     const nameInput = document.getElementById('name');
     const nameError = document.getElementById('error-name');
     if (!nameInput.value.trim()) {
@@ -153,7 +203,6 @@ if (form) {
       nameError.classList.remove('active');
     }
 
-    // Email validation
     const emailInput = document.getElementById('email');
     const emailError = document.getElementById('error-email');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -164,7 +213,6 @@ if (form) {
       emailError.classList.remove('active');
     }
 
-    // Message validation
     const messageInput = document.getElementById('message');
     const messageError = document.getElementById('error-message');
     if (!messageInput.value.trim()) {
@@ -175,28 +223,20 @@ if (form) {
     }
 
     if (!isValid) {
-      // Re-trigger shake
       setTimeout(() => {
         if(nameError.classList.contains('active')) {
-          nameError.classList.remove('active');
-          void nameError.offsetWidth;
-          nameError.classList.add('active');
+          nameError.classList.remove('active'); void nameError.offsetWidth; nameError.classList.add('active');
         }
         if(emailError.classList.contains('active')) {
-          emailError.classList.remove('active');
-          void emailError.offsetWidth;
-          emailError.classList.add('active');
+          emailError.classList.remove('active'); void emailError.offsetWidth; emailError.classList.add('active');
         }
         if(messageError.classList.contains('active')) {
-          messageError.classList.remove('active');
-          void messageError.offsetWidth;
-          messageError.classList.add('active');
+          messageError.classList.remove('active'); void messageError.offsetWidth; messageError.classList.add('active');
         }
       }, 10);
       return;
     }
 
-    // If valid, submit via AJAX
     const submitBtn = document.getElementById('submit-btn');
     const originalText = submitBtn.innerText;
     submitBtn.innerText = 'SENDING...';
@@ -204,25 +244,22 @@ if (form) {
     fetch(form.action, {
       method: 'POST',
       body: new FormData(form),
-      headers: {
-        'Accept': 'application/json'
-      }
+      headers: { 'Accept': 'application/json' }
     }).then(response => {
       if (response.ok) {
         formContainer.style.display = 'none';
         successBox.style.display = 'block';
+        submitBtn.innerText = originalText;
       } else {
         submitBtn.innerText = 'ERROR! TRY AGAIN.';
         setTimeout(() => submitBtn.innerText = originalText, 3000);
       }
-    }).catch(error => {
+    }).catch(() => {
       submitBtn.innerText = 'ERROR! TRY AGAIN.';
       setTimeout(() => submitBtn.innerText = originalText, 3000);
     });
-
   });
 
-  // Clear errors on input
   const inputs = form.querySelectorAll('.retro-input');
   inputs.forEach(input => {
     input.addEventListener('input', () => {
@@ -231,5 +268,13 @@ if (form) {
         errorDiv.classList.remove('active');
       }
     });
+  });
+}
+
+if (resetBtn) {
+  resetBtn.addEventListener('click', () => {
+    if (form) form.reset();
+    if (successBox) successBox.style.display = 'none';
+    if (formContainer) formContainer.style.display = 'block';
   });
 }
