@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" fill="#E03131" />
+  <rect width="90" height="90" x="5" y="5" fill="#F4F1E1" stroke="#050505" stroke-width="6"/>
+  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="50" fill="#050505">HT</text>
+</svg>
