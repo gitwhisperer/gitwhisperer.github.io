@@ -163,7 +163,7 @@ body {
 .hero-section {
   padding-top: 120px; /* space for island */
   min-height: 100vh;
-  padding-bottom: 40px;
+  padding-bottom: 120px; /* space for ribbon so it doesn't overlap */
   padding-left: 40px;
   padding-right: 40px;
   display: flex;
