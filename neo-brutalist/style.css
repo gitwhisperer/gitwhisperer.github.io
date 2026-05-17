@@ -882,3 +882,131 @@ body {
   .nb-btn { width: 100%; margin-bottom: 10px; }
   .scroll-badge { display: none; } /* Hide on very small screens to save space */
 }
+
+
+/* Resume Page Styles */
+.resume-main {
+  padding: 120px 40px 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.resume-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.resume-container {
+  padding: clamp(20px, 5vw, 60px);
+  border: var(--border-width) solid var(--black);
+}
+
+.resume-header {
+  margin-bottom: 40px;
+}
+
+.resume-contact {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.resume-contact p {
+  margin: 5px 0;
+}
+
+.resume-section {
+  margin-bottom: 40px;
+}
+
+.border-bottom-thick {
+  border-bottom: 4px solid var(--black);
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+
+.resume-item {
+  margin-bottom: 25px;
+}
+
+.resume-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.resume-role {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.resume-company {
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.resume-date {
+  font-weight: 700;
+}
+
+.resume-bullets {
+  padding-left: 20px;
+  margin: 0;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.resume-bullets li {
+  margin-bottom: 8px;
+}
+
+.resume-skills {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Print Styles */
+@media print {
+  @page {
+    margin: 1.5cm;
+  }
+  
+  body {
+    background: white;
+    color: black;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .resume-main {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .resume-container {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .resume-role, .section-title, .resume-contact, .resume-company {
+    color: black;
+  }
+
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
+
