@@ -1,9 +1,0 @@
-- [ ] 1. Define Kinetic Design System: Cobalt (#2D5BFF) + Midnight (#0A0D14) + Syne/Inter type stack.
-- [ ] 2. Create Floating Corner Hub (Experimental Nav) with expansion physics.
-- [ ] 3. Implement Modular Dashboard: 4-column layout with "magnetic" grid cells.
-- [ ] 4. Build Hero Module: Kinetic text that reacts to mouse velocity.
-- [ ] 5. Build Work Module: Draggable or shift-on-hover project cards.
-- [ ] 6. Build Services & About: Compact kinetic modules with stateful transitions.
-- [ ] 7. Integrate Ticker: A vertical or multi-directional kinetic marquee.
-- [ ] 8. Self-Check: 5-dim critique (Movement / Impact / Clarity / Taste / Execution).
-- [ ] 9. Emit Portfolio V3 Artifact.
