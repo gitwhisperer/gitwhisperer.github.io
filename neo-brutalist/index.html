@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Harshit Tinker - Software Engineer</title>
+  <title>Harshit Tinker - Full-Stack Developer</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +15,12 @@
   <!-- Fixed Header -->
   <header class="main-header">
     <div class="logo">HT.</div>
+    <nav class="desktop-nav">
+      <a href="#project-wrapper" class="nav-link">Work</a>
+      <a href="#tech-stack" class="nav-link">Stack</a>
+      <a href="#who" class="nav-link">About</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
     <div class="progress-container">
       <span class="progress-text" id="progress-text">0%</span>
       <div class="progress-bar">
@@ -26,10 +32,21 @@
   <main>
     <!-- Vertical Hero Section -->
     <section class="vertical-section hero-section parallax-bg" id="hero">
-      <div class="hero-content parallax-element" data-speed="0.2">
-        <h1 class="massive-text">SOFTWARE<br>ENGINEER</h1>
-        <p class="subtitle">Harshit Tinker. Building brutalist, high-performance web experiences.</p>
-        <button class="nb-btn btn-red" id="view-work-btn">VIEW WORK</button>
+      <div class="hero-grid parallax-element" data-speed="0.2">
+        <div class="hero-left">
+          <h1 class="massive-text">HARSHIT<br>TINKER</h1>
+          <p class="subtitle">Turning complex problems into elegant, high-performance web solutions. Code that works hard, designs that hit harder.</p>
+          <div class="hero-buttons">
+            <button class="nb-btn btn-red" id="view-work-btn">VIEW WORK</button>
+            <button class="nb-btn btn-blue" id="contact-me-btn">CONTACT ME</button>
+            <a href="../assets/resume.pdf" class="nb-btn btn-yellow" download="Harshit_Tinker_Resume.pdf" target="_blank" rel="noopener">RESUME</a>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="hero-image-container retro-shadow">
+            <img src="../assets/harshit.JPG" alt="Harshit Tinker" onerror="this.src='https://via.placeholder.com/600x800/E03131/fff?text=HT'">
+          </div>
+        </div>
       </div>
       
       <!-- Colorful Tilted Marquee Ribbon -->
@@ -42,6 +59,7 @@
     </section>
 
     <!-- Horizontal Scroll Section for Projects -->
+    <div id="project-wrapper"></div> <!-- Anchor anchor -->
     <div id="horizontal-wrapper" class="horizontal-wrapper">
       <div class="sticky-container">
         <div class="horizontal-track" id="horizontal-track">
@@ -126,12 +144,22 @@
       <div class="contact-content parallax-element" data-speed="0.1">
         <h1 class="contact-massive-title line-height-tight">LET'S BUILD<br>SOMETHING</h1>
         <div class="contact-form-layout retro-shadow">
-          <form id="neo-contact" action="https://formspree.io/f/xblkbdpg" method="POST">
+          <!-- novalidate disables default browser tooltips -->
+          <form id="neo-contact" action="https://formspree.io/f/xblkbdpg" method="POST" novalidate>
             <div class="form-row">
-              <input type="text" name="name" placeholder="YOUR NAME" class="retro-input" required>
-              <input type="email" name="_replyto" placeholder="YOUR EMAIL" class="retro-input" required>
+              <div class="input-group">
+                <input type="text" name="name" id="name" placeholder="YOUR NAME" class="retro-input">
+                <div class="brutal-error" id="error-name">HEY! WE NEED YOUR NAME.</div>
+              </div>
+              <div class="input-group">
+                <input type="email" name="_replyto" id="email" placeholder="YOUR EMAIL" class="retro-input">
+                <div class="brutal-error" id="error-email">GIVE US A VALID EMAIL.</div>
+              </div>
             </div>
-            <textarea name="message" placeholder="YOUR MESSAGE" class="retro-input retro-textarea" required></textarea>
+            <div class="input-group textarea-group">
+              <textarea name="message" id="message" placeholder="YOUR MESSAGE" class="retro-input retro-textarea"></textarea>
+              <div class="brutal-error" id="error-message">DON'T LEAVE THIS BLANK.</div>
+            </div>
             <div class="social-links">
               <a href="https://github.com/gitwhisperer" target="_blank">GITHUB</a>
               <a href="https://linkedin.com/in/harshit-tinker/" target="_blank">LINKEDIN</a>
