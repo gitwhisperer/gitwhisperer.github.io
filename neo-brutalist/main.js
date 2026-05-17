@@ -104,7 +104,10 @@ if (dynamicRoleEl) {
 // Tech Stack Convergence Animation
 function initTechStackConvergence() {
   const convergeItems = document.querySelectorAll('.converge-item');
+  const container = document.getElementById('tech-scatter-container');
   
+  if (!container) return;
+
   // Set initial scattered positions
   convergeItems.forEach(item => {
     const startX = item.getAttribute('data-x') || 0;
@@ -115,19 +118,19 @@ function initTechStackConvergence() {
   const observerOptions = {
     root: null,
     rootMargin: '0px',
-    threshold: 0.2
+    threshold: 0.1
   };
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
+        convergeItems.forEach(item => item.classList.add('in-view'));
         observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
-  convergeItems.forEach(item => observer.observe(item));
+  observer.observe(container);
 }
 
 // Navigation Links Smooth Scroll
