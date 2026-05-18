@@ -16,7 +16,6 @@ window.addEventListener('load', () => {
     }
   }, 1200);
   updateDimensions();
-  initTechStackConvergence();
 });
 
 let trackWidth = 0;
@@ -26,6 +25,11 @@ function updateDimensions() {
   viewportWidth = window.innerWidth;
   const panels = document.querySelectorAll('.h-panel');
   if(panels.length > 0 && horizontalWrapper) {
+    if (viewportWidth <= 900) {
+      horizontalWrapper.style.height = 'auto';
+      trackWidth = 0;
+      return;
+    }
     trackWidth = 0;
     panels.forEach(panel => {
       trackWidth += panel.offsetWidth;
@@ -47,22 +51,26 @@ window.addEventListener('scroll', () => {
 
   // Horizontal Scroll Logic
   if (horizontalWrapper && horizontalTrack) {
-    const wrapperTop = horizontalWrapper.offsetTop;
-    const stickyPoint = wrapperTop;
-    
-    let translateX = 0;
-
-    if (scrollY >= stickyPoint) {
-      const scrollInsideWrapper = scrollY - stickyPoint;
-      const maxTranslate = trackWidth - viewportWidth;
-      translateX = Math.min(scrollInsideWrapper, maxTranslate);
+    if (viewportWidth <= 900) {
+      horizontalTrack.style.transform = `translate3d(0, 0, 0)`;
+    } else {
+      const wrapperTop = horizontalWrapper.offsetTop;
+      const stickyPoint = wrapperTop;
       
-      if(scrollInsideWrapper > maxTranslate) {
-        translateX = maxTranslate;
-      }
-    }
+      let translateX = 0;
 
-    horizontalTrack.style.transform = `translate3d(-${translateX}px, 0, 0)`;
+      if (scrollY >= stickyPoint) {
+        const scrollInsideWrapper = scrollY - stickyPoint;
+        const maxTranslate = trackWidth - viewportWidth;
+        translateX = Math.min(scrollInsideWrapper, maxTranslate);
+        
+        if(scrollInsideWrapper > maxTranslate) {
+          translateX = maxTranslate;
+        }
+      }
+
+      horizontalTrack.style.transform = `translate3d(-${translateX}px, 0, 0)`;
+    }
   }
 
   // Vertical Parallax Logic with unique directions
@@ -101,49 +109,17 @@ if (dynamicRoleEl) {
   }, 3000);
 }
 
-// Tech Stack Convergence Animation
-function initTechStackConvergence() {
-  const convergeItems = document.querySelectorAll('.converge-item');
-  const container = document.getElementById('tech-scatter-container');
-  
-  if (!container) return;
-
-  // Set initial scattered positions
-  convergeItems.forEach(item => {
-    const startX = item.getAttribute('data-x') || 0;
-    const startY = item.getAttribute('data-y') || 0;
-    item.style.transform = `translate(${startX}px, ${startY}px)`;
-  });
-
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        convergeItems.forEach(item => item.classList.add('in-view'));
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  observer.observe(container);
-}
-
 // Navigation Links Smooth Scroll
 document.querySelectorAll('.nav-link, .nav-cta').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
-    // Only intercept anchor links on the same page
     const href = this.getAttribute('href');
     if(href.startsWith('#')) {
       e.preventDefault();
       const targetId = href.substring(1);
       const targetEl = document.getElementById(targetId);
       if(targetEl) {
-        const topPosition = targetEl.getBoundingClientRect().top + window.scrollY;
+        // Offset by 80px to account for the dynamic island height
+        const topPosition = targetEl.getBoundingClientRect().top + window.scrollY - 80;
         window.scrollTo({
           top: topPosition,
           behavior: 'smooth'
@@ -158,7 +134,7 @@ const viewWorkBtn = document.getElementById('view-work-btn');
 if (viewWorkBtn && horizontalWrapper) {
   viewWorkBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const topPosition = horizontalWrapper.getBoundingClientRect().top + window.scrollY;
+    const topPosition = horizontalWrapper.getBoundingClientRect().top + window.scrollY - 80;
     window.scrollTo({
       top: topPosition,
       behavior: 'smooth'
@@ -171,7 +147,7 @@ const contactSection = document.getElementById('contact');
 if(contactBtn && contactSection) {
   contactBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const topPosition = contactSection.getBoundingClientRect().top + window.scrollY;
+    const topPosition = contactSection.getBoundingClientRect().top + window.scrollY - 80;
     window.scrollTo({
       top: topPosition,
       behavior: 'smooth'

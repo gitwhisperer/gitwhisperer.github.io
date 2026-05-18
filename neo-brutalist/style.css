@@ -683,7 +683,6 @@ body {
   flex-direction: column;
   justify-content: center;
 }
-.who-title {
   font-family: 'Syne', sans-serif;
   font-size: clamp(2.5rem, 5vw, 5rem);
   font-weight: 800;
