@@ -11,9 +11,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../style.css?v=20260518">
 </head>
-<body id="top" class="resume-page bg-white">
+<body id="top" class="resume-page pdf-viewer-body">
 
   <!-- Brutalist Unwrangling Paper Loader -->
   <div id="brutal-loader" class="brutal-loader no-print">
@@ -22,94 +22,47 @@
     </div>
   </div>
 
-  <!-- Dynamic Island Navbar -->
-  <nav class="dynamic-island retro-shadow no-print">
-    <a href="../index.html#hero" class="nav-link">HOME</a>
-    <a href="../index.html#project-wrapper" class="nav-link">WORK</a>
-    <a href="../index.html#tech-stack" class="nav-link">STACK</a>
-    <a href="../index.html#who" class="nav-link">ABOUT</a>
-    <a href="#" class="nav-link">RESUME</a>
-    <a href="../index.html#contact" class="nav-cta btn-red retro-shadow">CONTACT</a>
+  <!-- Command Bar Navbar -->
+  <nav class="site-nav retro-shadow no-print" aria-label="Primary">
+    <a href="../index.html#hero" class="site-nav-brand">
+      <span class="site-nav-mark">HT</span>
+      <span class="site-nav-copy">
+        <span class="site-nav-title">Harshit Tinker</span>
+        <span class="site-nav-subtitle">Resume PDF / 2026</span>
+      </span>
+    </a>
+
+    <div class="site-nav-links" aria-label="Section links">
+      <a href="../index.html#project-wrapper" class="site-nav-link">Work</a>
+      <a href="../index.html#tech-stack" class="site-nav-link">Stack</a>
+      <a href="../index.html#who" class="site-nav-link">About</a>
+      <a href="#top" class="site-nav-link">Resume</a>
+    </div>
+
+    <a href="../index.html#contact" class="site-nav-cta">Contact</a>
   </nav>
 
   <main class="resume-main">
-    <div class="resume-actions no-print">
-      <a href="../../assets/resume.pdf" download="Harshit_Tinker_Resume.pdf" class="nb-btn btn-blue retro-shadow" style="text-decoration: none; display: inline-block;">DOWNLOAD PDF</a>
-    </div>
-    
-    <div class="resume-container retro-shadow bg-white">
-      <header class="resume-header">
-        <h1 class="massive-who" style="font-size: clamp(3rem, 8vw, 6rem); text-align: left; line-height: 1;">HARSHIT TINKER</h1>
-        <h2 class="project-subtitle">SOFTWARE ENGINEER</h2>
-        <div class="resume-contact">
-          <p>harshittinker1979@gmail.com | github.com/gitwhisperer | linkedin.com/in/harshit-tinker</p>
-          <p>Jaipur, India</p>
-        </div>
-      </header>
+    <section class="pdf-toolbar retro-shadow no-print" aria-label="Resume actions">
+      <div class="pdf-tools-left">
+        <span class="pdf-kicker">In-site resume</span>
+        <h1 class="pdf-title">Harshit Tinker Resume PDF</h1>
+      </div>
 
-      <section class="resume-section">
-        <h3 class="section-title border-bottom-thick">EXPERIENCE</h3>
-        
-        <div class="resume-item">
-          <div class="resume-item-header">
-            <h4 class="resume-role">Freelance Software Engineer</h4>
-            <span class="resume-date">2023 – Present</span>
-          </div>
-          <p class="resume-company">Self-Employed</p>
-          <ul class="resume-bullets">
-            <li>Architected and developed full-stack web applications for global clients using React, Node.js, and Python.</li>
-            <li>Built scalable REST APIs with Express and integrated third-party services like Stripe for secure payments.</li>
-            <li>Optimized database queries and implemented caching strategies to improve application performance and reduce load times.</li>
-          </ul>
-        </div>
-      </section>
+      <div class="pdf-tools-right">
+        <a href="../assets/resume.pdf" download="Harshit_Tinker_Resume.pdf" class="nb-btn btn-blue retro-shadow">Download PDF</a>
+        <a href="../index.html#contact" class="nb-btn btn-white retro-shadow">Hire Me</a>
+      </div>
+    </section>
 
-      <section class="resume-section">
-        <h3 class="section-title border-bottom-thick">PROJECTS</h3>
-        
-        <div class="resume-item">
-          <div class="resume-item-header">
-            <h4 class="resume-role">Marwari Basket (E-Commerce Platform)</h4>
-          </div>
-          <ul class="resume-bullets">
-            <li>Developed a full-stack platform serving 500+ products with real-time inventory management.</li>
-            <li>Integrated secure checkout processes with Razorpay, reducing cart abandonment.</li>
-            <li>Built with React, Node.js, and MongoDB, achieving a robust and scalable architecture.</li>
-          </ul>
+    <div class="pdf-document-wrapper">
+      <object class="pdf-document" data="../assets/resume.pdf" type="application/pdf">
+        <div class="pdf-fallback">
+          <h2 class="section-title">PDF preview unavailable</h2>
+          <p class="pdf-fallback-copy">Your browser cannot display the embedded resume. Use the download button above instead.</p>
+          <a href="../assets/resume.pdf" download="Harshit_Tinker_Resume.pdf" class="nb-btn btn-blue retro-shadow">Download PDF</a>
         </div>
-
-        <div class="resume-item">
-          <div class="resume-item-header">
-            <h4 class="resume-role">Pentest Simulation Toolkit</h4>
-          </div>
-          <ul class="resume-bullets">
-            <li>Created a professional-grade Python CLI toolkit for simulating penetration testing workflows.</li>
-            <li>Designed isolated environments for secure training and testing operations.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="resume-section">
-        <h3 class="section-title border-bottom-thick">SKILLS</h3>
-        <div class="resume-skills">
-          <strong>Languages:</strong> JavaScript, TypeScript, Python, HTML/CSS<br>
-          <strong>Frontend:</strong> React, Next.js, Tailwind CSS<br>
-          <strong>Backend:</strong> Node.js, Express, REST APIs, GraphQL<br>
-          <strong>Databases:</strong> MongoDB, PostgreSQL<br>
-          <strong>Tools & Cloud:</strong> Git, Docker, AWS
-        </div>
-      </section>
-      
-      <section class="resume-section">
-        <h3 class="section-title border-bottom-thick">EDUCATION</h3>
-        <div class="resume-item">
-          <div class="resume-item-header">
-            <h4 class="resume-role">Bachelor of Technology</h4>
-            <span class="resume-date">2020 – 2024</span>
-          </div>
-          <p class="resume-company">Relevant University Name</p>
-        </div>
-      </section>
+      </object>
     </div>
   </main>
 
@@ -133,12 +86,12 @@
     </div>
 
     <div class="footer-right">
-      <button id="scroll-top-btn" class="arrow-up-btn retro-shadow" aria-label="Scroll to top">
+      <a href="#top" class="arrow-up-btn retro-shadow" aria-label="Scroll to top">
         <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="4" stroke-linecap="square" fill="none"/></svg>
-      </button>
+      </a>
     </div>
   </footer>
 
-  <script src="../main.js"></script>
+  <script src="../main.js?v=20260518"></script>
 </body>
 </html>

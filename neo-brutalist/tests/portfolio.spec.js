@@ -8,28 +8,35 @@ test.describe('Neo-Brutalist Portfolio', () => {
     await expect(page).toHaveTitle(/Neo-Brutalist Portfolio/);
 
     // Hero section checks
-    const heroTitle = page.locator('.nb-title');
+    const heroTitle = page.locator('.massive-text').first();
     await expect(heroTitle).toBeVisible();
-    await expect(heroTitle).toContainText('Harshit');
+    await expect(heroTitle).toContainText('HARSHIT');
   });
 
   test('horizontal scroll wrapper exists', async ({ page }) => {
     await page.goto('/');
     
-    const wrapper = page.locator('.horizontal-scroll-wrapper');
+    const wrapper = page.locator('.horizontal-wrapper');
     await expect(wrapper).toBeVisible();
     
-    const items = page.locator('.horizontal-item');
-    await expect(items).toHaveCount(4); // We added 4 projects
+    const panels = page.locator('.h-panel');
+    await expect(panels).toHaveCount(4); // We have 4 projects in index.html
   });
 
   test('navigation works', async ({ page }) => {
     await page.goto('/');
     
-    // Click on work
-    await page.click('a[href="#projects"]');
+    // Check Work link
+    const workLink = page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Work' });
+    await expect(workLink).toBeVisible();
+    await workLink.click();
     
-    // URL should have #projects
-    await expect(page).toHaveURL(/.*#projects/);
+    // The smooth scroll takes time. We can check if we moved.
+    // However, Playwright click() on an anchor usually waits for navigation or does nothing if it's an internal link.
+    // Since we have e.preventDefault() and JS scroll, we should verify the scroll position.
+    
+    await page.waitForTimeout(1000); // Wait for smooth scroll
+    const scrollY = await page.evaluate(() => window.scrollY);
+    expect(scrollY).toBeGreaterThan(100);
   });
 });

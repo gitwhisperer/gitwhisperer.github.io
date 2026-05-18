@@ -1,35 +1,72 @@
 const horizontalWrapper = document.getElementById('horizontal-wrapper');
 const horizontalTrack = document.getElementById('horizontal-track');
 const parallaxElements = document.querySelectorAll('.parallax-element');
+const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+let prefersReducedMotion = reducedMotionQuery.matches;
+
+const syncMotionPreference = (event) => {
+  prefersReducedMotion = event.matches;
+  updateDimensions();
+};
+
+if (typeof reducedMotionQuery.addEventListener === 'function') {
+  reducedMotionQuery.addEventListener('change', syncMotionPreference);
+} else if (typeof reducedMotionQuery.addListener === 'function') {
+  reducedMotionQuery.addListener(syncMotionPreference);
+}
 
 // Set Current Year
 const yearSpan = document.getElementById('year');
 if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-// Loader Logic (Paper Unfold)
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const loader = document.getElementById('brutal-loader');
-    if(loader) {
-      loader.style.opacity = '0';
-      setTimeout(() => loader.remove(), 500);
-    }
-  }, 1200);
+let loaderDismissed = false;
+
+function hideLoader() {
+  if (loaderDismissed) return;
+
+  const loader = document.getElementById('brutal-loader');
+  loaderDismissed = true;
+
+  if (!loader) return;
+
+  loader.classList.add('hidden');
+  setTimeout(() => loader.remove(), 600);
+}
+
+function revealPage() {
+  hideLoader();
   updateDimensions();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', revealPage, { once: true });
+} else {
+  requestAnimationFrame(revealPage);
+}
+
+window.addEventListener('load', revealPage, { once: true });
 
 let trackWidth = 0;
 let viewportWidth = 0;
+let ticking = false;
+
+function shouldUseParallax() {
+  return viewportWidth > 900 && !prefersReducedMotion;
+}
 
 function updateDimensions() {
   viewportWidth = window.innerWidth;
   const panels = document.querySelectorAll('.h-panel');
   if(panels.length > 0 && horizontalWrapper) {
-    if (viewportWidth <= 900) {
+    if (!shouldUseParallax()) {
       horizontalWrapper.style.height = 'auto';
       trackWidth = 0;
+      if (horizontalTrack) {
+        horizontalTrack.style.transform = 'translate3d(0, 0, 0)';
+      }
       return;
     }
+    
     trackWidth = 0;
     panels.forEach(panel => {
       trackWidth += panel.offsetWidth;
@@ -37,46 +74,51 @@ function updateDimensions() {
 
     const scrollDistance = trackWidth - viewportWidth;
     if (scrollDistance > 0) {
-      horizontalWrapper.style.height = `${scrollDistance + window.innerHeight}px`;
+      const newHeight = `${scrollDistance + window.innerHeight}px`;
+      if (horizontalWrapper.style.height !== newHeight) {
+        horizontalWrapper.style.height = newHeight;
+      }
     } else {
       horizontalWrapper.style.height = 'auto';
     }
   }
+
+  handleScroll();
 }
 
+updateDimensions();
 window.addEventListener('resize', updateDimensions);
 
-window.addEventListener('scroll', () => {
+function handleScroll() {
   const scrollY = window.scrollY;
+  const useParallax = shouldUseParallax();
 
   // Horizontal Scroll Logic
   if (horizontalWrapper && horizontalTrack) {
-    if (viewportWidth <= 900) {
-      horizontalTrack.style.transform = `translate3d(0, 0, 0)`;
+    if (!useParallax) {
+      horizontalTrack.style.transform = 'translate3d(0, 0, 0)';
     } else {
-      const wrapperTop = horizontalWrapper.offsetTop;
-      const stickyPoint = wrapperTop;
-      
-      let translateX = 0;
-
-      if (scrollY >= stickyPoint) {
-        const scrollInsideWrapper = scrollY - stickyPoint;
-        const maxTranslate = trackWidth - viewportWidth;
-        translateX = Math.min(scrollInsideWrapper, maxTranslate);
-        
-        if(scrollInsideWrapper > maxTranslate) {
-          translateX = maxTranslate;
-        }
-      }
-
-      horizontalTrack.style.transform = `translate3d(-${translateX}px, 0, 0)`;
+    const stickyPoint = horizontalWrapper.offsetTop;
+    const maxTranslate = trackWidth - viewportWidth;
+    
+    let translateX = 0;
+    if (scrollY >= stickyPoint) {
+      translateX = Math.min(scrollY - stickyPoint, maxTranslate);
+    }
+    
+    horizontalTrack.style.transform = `translate3d(-${translateX}px, 0, 0)`;
     }
   }
 
-  // Vertical Parallax Logic with unique directions
+  // Vertical Parallax Logic
   parallaxElements.forEach(el => {
     const parentSection = el.closest('.vertical-section');
     if(!parentSection) return;
+
+    if (!useParallax) {
+      el.style.transform = 'none';
+      return;
+    }
     
     const rect = parentSection.getBoundingClientRect();
     if (rect.top < window.innerHeight && rect.bottom > 0) {
@@ -91,7 +133,16 @@ window.addEventListener('scroll', () => {
       }
     }
   });
-});
+
+  ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    window.requestAnimationFrame(handleScroll);
+    ticking = true;
+  }
+}, { passive: true });
 
 // Dynamic Hero Role Cycler
 const roles = ["SOFTWARE ENGINEER", "PROBLEM SOLVER", "SYSTEMS ARCHITECT", "FULL-STACK DEV"];
@@ -107,62 +158,6 @@ if (dynamicRoleEl) {
       dynamicRoleEl.style.opacity = '1';
     }, 300);
   }, 3000);
-}
-
-// Navigation Links Smooth Scroll
-document.querySelectorAll('.nav-link, .nav-cta').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    const href = this.getAttribute('href');
-    if(href.startsWith('#')) {
-      e.preventDefault();
-      const targetId = href.substring(1);
-      const targetEl = document.getElementById(targetId);
-      if(targetEl) {
-        // Offset by 80px to account for the dynamic island height
-        const topPosition = targetEl.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({
-          top: topPosition,
-          behavior: 'smooth'
-        });
-      }
-    }
-  });
-});
-
-// Specific Buttons
-const viewWorkBtn = document.getElementById('view-work-btn');
-if (viewWorkBtn && horizontalWrapper) {
-  viewWorkBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    const topPosition = horizontalWrapper.getBoundingClientRect().top + window.scrollY - 80;
-    window.scrollTo({
-      top: topPosition,
-      behavior: 'smooth'
-    });
-  });
-}
-
-const contactBtn = document.getElementById('contact-me-btn');
-const contactSection = document.getElementById('contact');
-if(contactBtn && contactSection) {
-  contactBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    const topPosition = contactSection.getBoundingClientRect().top + window.scrollY - 80;
-    window.scrollTo({
-      top: topPosition,
-      behavior: 'smooth'
-    });
-  });
-}
-
-const scrollTopBtn = document.getElementById('scroll-top-btn');
-if (scrollTopBtn) {
-  scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
 }
 
 // Form Logic

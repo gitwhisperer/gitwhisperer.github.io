@@ -1,0 +1,14 @@
+[     499ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8080/assets/harshit.JPG:0
+[     500ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8080/assets/marwari-basket.png:0
+[     501ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8080/assets/marwari-basket-mobile.png:0
+[     502ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8080/assets/project-ecommerce.svg:0
+[     503ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8080/assets/project-pentest.svg:0
+[     504ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8080/assets/project-tictactoe.svg:0
+[     801ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://via.placeholder.com/600x800/E03131/fff?text=HT:0
+[  135345ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8080/assets/harshit.JPG:0
+[  135346ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8080/assets/marwari-basket.png:0
+[  135365ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8080/assets/marwari-basket-mobile.png:0
+[  135417ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8080/assets/project-ecommerce.svg:0
+[  135418ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8080/assets/project-pentest.svg:0
+[  135421ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8080/assets/project-tictactoe.svg:0
+[  135573ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://via.placeholder.com/600x800/E03131/fff?text=HT:0
