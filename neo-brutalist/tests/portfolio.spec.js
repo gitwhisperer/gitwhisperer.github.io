@@ -13,14 +13,24 @@ test.describe('Neo-Brutalist Portfolio', () => {
     await expect(heroTitle).toContainText('HARSHIT');
   });
 
-  test('horizontal scroll wrapper exists', async ({ page }) => {
+  test('projects stack vertically', async ({ page }) => {
     await page.goto('/');
     
     const wrapper = page.locator('.horizontal-wrapper');
     await expect(wrapper).toBeVisible();
     
+    const track = page.locator('.horizontal-track');
+    await expect(track).toHaveCSS('display', 'block');
+
     const panels = page.locator('.h-panel');
     await expect(panels).toHaveCount(4); // We have 4 projects in index.html
+  });
+
+  test('resume navbar includes the title block inline', async ({ page }) => {
+    await page.goto('/resume/');
+
+    await expect(page.locator('.resume-nav-copy')).toBeVisible();
+    await expect(page.locator('.pdf-toolbar')).toHaveCount(0);
   });
 
   test('navigation works', async ({ page }) => {

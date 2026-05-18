@@ -1,5 +1,3 @@
-const horizontalWrapper = document.getElementById('horizontal-wrapper');
-const horizontalTrack = document.getElementById('horizontal-track');
 const parallaxElements = document.querySelectorAll('.parallax-element');
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 let prefersReducedMotion = reducedMotionQuery.matches;
@@ -46,76 +44,113 @@ if (document.readyState === 'loading') {
 
 window.addEventListener('load', revealPage, { once: true });
 
-let trackWidth = 0;
-let viewportWidth = 0;
+const hoverPalette = {
+  'nav-hover-red': {
+    background: getComputedStyle(document.documentElement).getPropertyValue('--red').trim(),
+    color: getComputedStyle(document.documentElement).getPropertyValue('--white').trim(),
+  },
+  'nav-hover-yellow': {
+    background: getComputedStyle(document.documentElement).getPropertyValue('--yellow').trim(),
+    color: getComputedStyle(document.documentElement).getPropertyValue('--black').trim(),
+  },
+  'nav-hover-green': {
+    background: getComputedStyle(document.documentElement).getPropertyValue('--green').trim(),
+    color: getComputedStyle(document.documentElement).getPropertyValue('--white').trim(),
+  },
+  'nav-hover-blue': {
+    background: getComputedStyle(document.documentElement).getPropertyValue('--blue').trim(),
+    color: getComputedStyle(document.documentElement).getPropertyValue('--white').trim(),
+  },
+  'nav-hover-orange': {
+    background: getComputedStyle(document.documentElement).getPropertyValue('--orange').trim(),
+    color: getComputedStyle(document.documentElement).getPropertyValue('--white').trim(),
+  },
+};
+
+function initHoverPalette() {
+  document.querySelectorAll('.site-nav-link, .site-nav-cta').forEach((el) => {
+    const hoverClass = Array.from(el.classList).find((className) => className.startsWith('nav-hover-'));
+    const palette = hoverClass ? hoverPalette[hoverClass] : null;
+
+    if (!palette) return;
+
+    const applyHoverTint = () => {
+      el.style.setProperty('background-color', palette.background, 'important');
+      el.style.setProperty('color', palette.color, 'important');
+    };
+
+    const clearHoverTint = () => {
+      el.style.removeProperty('background-color');
+      el.style.removeProperty('color');
+    };
+
+    el.addEventListener('mouseenter', applyHoverTint);
+    el.addEventListener('mouseleave', clearHoverTint);
+    el.addEventListener('pointerenter', applyHoverTint);
+    el.addEventListener('pointerleave', clearHoverTint);
+    el.addEventListener('focus', applyHoverTint);
+    el.addEventListener('blur', clearHoverTint);
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHoverPalette, { once: true });
+} else {
+  initHoverPalette();
+}
+
 let ticking = false;
 
-function shouldUseParallax() {
-  return viewportWidth > 900 && !prefersReducedMotion;
+function shouldUseVerticalParallax() {
+  return !prefersReducedMotion;
 }
 
 function updateDimensions() {
-  viewportWidth = window.innerWidth;
-  const panels = document.querySelectorAll('.h-panel');
-  if(panels.length > 0 && horizontalWrapper) {
-    if (!shouldUseParallax()) {
-      horizontalWrapper.style.height = 'auto';
-      trackWidth = 0;
-      if (horizontalTrack) {
-        horizontalTrack.style.transform = 'translate3d(0, 0, 0)';
-      }
-      return;
-    }
-    
-    trackWidth = 0;
-    panels.forEach(panel => {
-      trackWidth += panel.offsetWidth;
-    });
-
-    const scrollDistance = trackWidth - viewportWidth;
-    if (scrollDistance > 0) {
-      const newHeight = `${scrollDistance + window.innerHeight}px`;
-      if (horizontalWrapper.style.height !== newHeight) {
-        horizontalWrapper.style.height = newHeight;
-      }
-    } else {
-      horizontalWrapper.style.height = 'auto';
-    }
-  }
-
   handleScroll();
 }
 
 updateDimensions();
 window.addEventListener('resize', updateDimensions);
 
+const horizontalWrapper = document.getElementById('horizontal-wrapper');
+const horizontalTrack = document.getElementById('horizontal-track');
+
 function handleScroll() {
   const scrollY = window.scrollY;
-  const useParallax = shouldUseParallax();
+  const useVerticalParallax = shouldUseVerticalParallax();
 
   // Horizontal Scroll Logic
   if (horizontalWrapper && horizontalTrack) {
-    if (!useParallax) {
-      horizontalTrack.style.transform = 'translate3d(0, 0, 0)';
+    const rect = horizontalWrapper.getBoundingClientRect();
+    const wrapperTop = rect.top;
+    
+    // Check if we are in desktop layout (assuming max-width 900px breakpoint)
+    const isDesktop = window.innerWidth > 900;
+    
+    if (isDesktop) {
+      if (wrapperTop <= 0 && rect.bottom >= window.innerHeight) {
+        const scrollableHeight = rect.height - window.innerHeight;
+        const scrolled = -wrapperTop;
+        const progress = Math.min(Math.max(scrolled / scrollableHeight, 0), 1);
+        const maxTranslate = horizontalTrack.scrollWidth - window.innerWidth;
+        horizontalTrack.style.transform = `translate3d(-${progress * maxTranslate}px, 0, 0)`;
+      } else if (wrapperTop > 0) {
+        horizontalTrack.style.transform = `translate3d(0, 0, 0)`;
+      } else {
+        const maxTranslate = horizontalTrack.scrollWidth - window.innerWidth;
+        horizontalTrack.style.transform = `translate3d(-${maxTranslate}px, 0, 0)`;
+      }
     } else {
-    const stickyPoint = horizontalWrapper.offsetTop;
-    const maxTranslate = trackWidth - viewportWidth;
-    
-    let translateX = 0;
-    if (scrollY >= stickyPoint) {
-      translateX = Math.min(scrollY - stickyPoint, maxTranslate);
-    }
-    
-    horizontalTrack.style.transform = `translate3d(-${translateX}px, 0, 0)`;
+      horizontalTrack.style.transform = 'none';
     }
   }
 
   // Vertical Parallax Logic
   parallaxElements.forEach(el => {
-    const parentSection = el.closest('.vertical-section');
+    const parentSection = el.closest('.vertical-section, .resume-main');
     if(!parentSection) return;
 
-    if (!useParallax) {
+    if (!useVerticalParallax) {
       el.style.transform = 'none';
       return;
     }

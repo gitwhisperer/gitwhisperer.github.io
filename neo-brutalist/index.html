@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260518">
+  <link rel="stylesheet" href="style.css?v=20260518.10">
 </head>
 <body id="top">
 
@@ -40,13 +40,13 @@
     </a>
 
     <div class="site-nav-links" aria-label="Section links">
-      <a href="#project-wrapper" class="site-nav-link">Work</a>
-      <a href="#tech-stack" class="site-nav-link">Stack</a>
-      <a href="#who" class="site-nav-link">About</a>
-      <a href="resume/" class="site-nav-link">Resume</a>
+      <a href="#project-wrapper" class="site-nav-link nav-hover-red">Work</a>
+      <a href="#tech-stack" class="site-nav-link nav-hover-yellow">Stack</a>
+      <a href="#who" class="site-nav-link nav-hover-green">About</a>
+      <a href="resume/" class="site-nav-link nav-hover-blue">Resume</a>
     </div>
 
-    <a href="#contact" class="site-nav-cta">Contact</a>
+    <a href="#contact" class="site-nav-cta nav-hover-orange">Contact Me</a>
   </nav>
 
   <main>
@@ -79,7 +79,7 @@
       </div>
     </section>
 
-    <!-- Horizontal Scroll Section for Projects -->
+    <!-- Projects Section -->
     <div id="project-wrapper"></div>
     <div id="horizontal-wrapper" class="horizontal-wrapper">
       <div class="sticky-container">
@@ -169,63 +169,26 @@
       </div>
     </div>
 
-    <!-- Tech Stack -->
+    <!-- Tech Stack
+         The grid version squeezed the long labels into narrow cards, so words like
+         TAILWIND CSS and TYPESCRIPT wrapped mid-word. Restore the scattered tags,
+         keep the title behind them with z-index, and give each tag its own parallax
+         speed so the boxes move independently instead of riding the same background layer. -->
     <section class="vertical-section tech-panel parallax-bg" id="tech-stack">
-      <div class="tech-panel-header">
-        <p class="section-kicker">Tools I keep in rotation</p>
-        <h1 class="outline-text">TECH STACK</h1>
-        <p class="tech-panel-copy">Simple boxes, aligned in place.</p>
-      </div>
-
-      <div class="tech-grid" id="tech-grid-container">
-        <article class="tech-card tech-card-red">
-          <span class="tech-card-label">Frontend</span>
-          <strong>REACT</strong>
-        </article>
-        <article class="tech-card tech-card-yellow">
-          <span class="tech-card-label">Automation</span>
-          <strong>PYTHON</strong>
-        </article>
-        <article class="tech-card tech-card-green">
-          <span class="tech-card-label">Cloud</span>
-          <strong>AWS</strong>
-        </article>
-        <article class="tech-card tech-card-orange">
-          <span class="tech-card-label">API Layer</span>
-          <strong>GRAPHQL</strong>
-        </article>
-        <article class="tech-card tech-card-blue">
-          <span class="tech-card-label">Backend</span>
-          <strong>NODE.JS</strong>
-        </article>
-        <article class="tech-card tech-card-green">
-          <span class="tech-card-label">Containers</span>
-          <strong>DOCKER</strong>
-        </article>
-        <article class="tech-card tech-card-red">
-          <span class="tech-card-label">Web App</span>
-          <strong>NEXT.JS</strong>
-        </article>
-        <article class="tech-card tech-card-blue">
-          <span class="tech-card-label">Styling</span>
-          <strong>TAILWIND CSS</strong>
-        </article>
-        <article class="tech-card tech-card-yellow">
-          <span class="tech-card-label">Database</span>
-          <strong>MONGODB</strong>
-        </article>
-        <article class="tech-card tech-card-white">
-          <span class="tech-card-label">Types</span>
-          <strong>TYPESCRIPT</strong>
-        </article>
-        <article class="tech-card tech-card-purple">
-          <span class="tech-card-label">SQL</span>
-          <strong>POSTGRESQL</strong>
-        </article>
-        <article class="tech-card tech-card-orange">
-          <span class="tech-card-label">Workflow</span>
-          <strong>GIT</strong>
-        </article>
+      <h1 class="outline-text parallax-element" data-speed="0.02" data-dir="y">TECH STACK</h1>
+      <div class="tech-scatter" id="tech-scatter-container">
+        <span class="tag tag-red pos-1 parallax-element" data-speed="0.04" data-dir="y">REACT</span>
+        <span class="tag tag-yellow pos-2 parallax-element" data-speed="0.06" data-dir="y">PYTHON</span>
+        <span class="tag tag-green pos-3 parallax-element" data-speed="0.08" data-dir="y">AWS</span>
+        <span class="tag tag-orange pos-4 parallax-element" data-speed="0.1" data-dir="y">GRAPHQL</span>
+        <span class="tag tag-blue pos-5 parallax-element" data-speed="0.12" data-dir="y">NODE.JS</span>
+        <span class="tag tag-green pos-6 parallax-element" data-speed="0.14" data-dir="y">DOCKER</span>
+        <span class="tag tag-red pos-7 parallax-element" data-speed="0.05" data-dir="y">NEXT.JS</span>
+        <span class="tag tag-blue pos-8 parallax-element" data-speed="0.09" data-dir="y">TAILWIND CSS</span>
+        <span class="tag tag-yellow pos-9 parallax-element" data-speed="0.11" data-dir="y">MONGODB</span>
+        <span class="tag tag-white pos-10 parallax-element" data-speed="0.13" data-dir="y">TYPESCRIPT</span>
+        <span class="tag tag-purple pos-11 parallax-element" data-speed="0.15" data-dir="y">POSTGRESQL</span>
+        <span class="tag tag-orange pos-12 parallax-element" data-speed="0.07" data-dir="y">GIT</span>
       </div>
     </section>
 
@@ -306,6 +269,6 @@
     </div>
   </footer>
 
-  <script src="main.js?v=20260518"></script>
+  <script src="main.js?v=20260518.10"></script>
 </body>
 </html>
