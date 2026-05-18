@@ -143,8 +143,9 @@ document.querySelectorAll('.nav-link, .nav-cta').forEach(anchor => {
       const targetId = href.substring(1);
       const targetEl = document.getElementById(targetId);
       if(targetEl) {
+        const topPosition = targetEl.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({
-          top: targetEl.offsetTop,
+          top: topPosition,
           behavior: 'smooth'
         });
       }
@@ -157,8 +158,9 @@ const viewWorkBtn = document.getElementById('view-work-btn');
 if (viewWorkBtn && horizontalWrapper) {
   viewWorkBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    const topPosition = horizontalWrapper.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({
-      top: horizontalWrapper.offsetTop,
+      top: topPosition,
       behavior: 'smooth'
     });
   });
@@ -169,8 +171,9 @@ const contactSection = document.getElementById('contact');
 if(contactBtn && contactSection) {
   contactBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    const topPosition = contactSection.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({
-      top: contactSection.offsetTop,
+      top: topPosition,
       behavior: 'smooth'
     });
   });
