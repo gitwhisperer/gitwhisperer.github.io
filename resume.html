@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0b">
+  <meta name="color-scheme" content="dark">
+  
+  <title>Harshit Tinker — Resume</title>
+  <meta name="description" content="Resume of Harshit Tinker — Full-Stack Developer">
+  <meta name="author" content="Harshit Tinker">
+  
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/favicon.svg">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles/style.css">
+  
+  <style>
+    .resume-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--space-4xl) var(--space-2xl);
+      background: var(--bg-card-solid);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    @media (max-width: 768px) {
+      .resume-wrapper {
+        padding: var(--space-2xl) var(--space-lg);
+      }
+    }
+    
+    .resume-header {
+      margin-bottom: var(--space-3xl);
+    }
+    
+    .resume-name {
+      margin-bottom: var(--space-xs);
+    }
+    
+    .resume-contact {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      margin-top: var(--space-md);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+    
+    .resume-section {
+      margin-bottom: var(--space-3xl);
+    }
+    
+    .resume-section-title {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .resume-item {
+      margin-bottom: var(--space-xl);
+    }
+    
+    .resume-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .resume-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: var(--space-xs);
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    
+    .resume-role {
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: var(--text-primary);
+    }
+    
+    .resume-date {
+      color: var(--accent-cyan);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .resume-company {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-sm);
+      font-weight: 500;
+    }
+    
+    .resume-bullets {
+      list-style-type: disc;
+      padding-left: var(--space-lg);
+      color: var(--text-muted);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    
+    .resume-skills {
+      color: var(--text-muted);
+      line-height: 1.8;
+      display: grid;
+      gap: var(--space-sm);
+    }
+    
+    .resume-skills strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .resume-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: var(--space-2xl);
+    }
+    
+    .pt-32 {
+      padding-top: 120px;
+    }
+  </style>
+</head>
+<body id="top">
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <div class="loader-logo">HT.</div>
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Effects -->
+  <div class="bg-mesh" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Harshit Tinker</a>
+      
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#work" class="nav-link">Work</a></li>
+        <li><a href="index.html#services" class="nav-link">Services</a></li>
+        <li><a href="index.html#about" class="nav-link">About</a></li>
+        <li><a href="index.html#contact" class="nav-link nav-cta">Hire Me</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="section pt-32">
+    <div class="container">
+      
+      <div class="resume-wrapper bento-card">
+        <div class="resume-actions">
+          <a href="assets/resume.pdf" class="btn btn-primary" download="Harshit_Tinker_Resume.pdf">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download PDF
+          </a>
+        </div>
+        
+        <header class="resume-header">
+          <h1 class="heading-xl text-gradient resume-name">HARSHIT TINKER</h1>
+          <h2 class="heading-sm text-secondary eyebrow">SOFTWARE ENGINEER</h2>
+          <div class="resume-contact">
+            <span>harshittinker1979@gmail.com</span>
+            <span class="text-subtle">•</span>
+            <span>github.com/gitwhisperer</span>
+            <span class="text-subtle">•</span>
+            <span>linkedin.com/in/harshit-tinker</span>
+            <span class="text-subtle">•</span>
+            <span>Jaipur, India</span>
+          </div>
+        </header>
+
+        <section class="resume-section">
+          <h3 class="heading-sm text-gradient resume-section-title">EXPERIENCE</h3>
+          
+          <div class="resume-item">
+            <div class="resume-item-header">
+              <h4 class="resume-role">Freelance Software Engineer</h4>
+              <span class="resume-date">2023 – Present</span>
+            </div>
+            <p class="resume-company">Self-Employed</p>
+            <ul class="resume-bullets">
+              <li>Architected and developed full-stack web applications for global clients using React, Node.js, and Python.</li>
+              <li>Built scalable REST APIs with Express and integrated third-party services like Stripe for secure payments.</li>
+              <li>Optimized database queries and implemented caching strategies to improve application performance and reduce load times.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="resume-section">
+          <h3 class="heading-sm text-gradient resume-section-title">PROJECTS</h3>
+          
+          <div class="resume-item">
+            <div class="resume-item-header">
+              <h4 class="resume-role">Marwari Basket (E-Commerce Platform)</h4>
+            </div>
+            <ul class="resume-bullets">
+              <li>Developed a full-stack platform serving 500+ products with real-time inventory management.</li>
+              <li>Integrated secure checkout processes with Razorpay, reducing cart abandonment.</li>
+              <li>Built with React, Node.js, and MongoDB, achieving a robust and scalable architecture.</li>
+            </ul>
+          </div>
+
+          <div class="resume-item">
+            <div class="resume-item-header">
+              <h4 class="resume-role">Pentest Simulation Toolkit</h4>
+            </div>
+            <ul class="resume-bullets">
+              <li>Created a professional-grade Python CLI toolkit for simulating penetration testing workflows.</li>
+              <li>Designed isolated environments for secure training and testing operations.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="resume-section">
+          <h3 class="heading-sm text-gradient resume-section-title">SKILLS</h3>
+          <div class="resume-skills">
+            <div><strong>Languages:</strong> JavaScript, TypeScript, Python, HTML/CSS</div>
+            <div><strong>Frontend:</strong> React, Next.js, Tailwind CSS</div>
+            <div><strong>Backend:</strong> Node.js, Express, REST APIs, GraphQL</div>
+            <div><strong>Databases:</strong> MongoDB, PostgreSQL</div>
+            <div><strong>Tools & Cloud:</strong> Git, Docker, AWS</div>
+          </div>
+        </section>
+        
+        <section class="resume-section">
+          <h3 class="heading-sm text-gradient resume-section-title">EDUCATION</h3>
+          <div class="resume-item">
+            <div class="resume-item-header">
+              <h4 class="resume-role">Bachelor of Technology</h4>
+              <span class="resume-date">2020 – 2024</span>
+            </div>
+            <p class="resume-company">Relevant University Name</p>
+          </div>
+        </section>
+        
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand text-gradient">HT.</div>
+        <div class="footer-links">
+          <a href="index.html" class="footer-link">Home</a>
+          <a href="index.html#work" class="footer-link">Work</a>
+          <a href="resume.html" class="footer-link">Resume</a>
+        </div>
+        <div class="footer-socials">
+          <a href="https://github.com/gitwhisperer" target="_blank" rel="noopener" class="footer-social" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </a>
+          <a href="https://linkedin.com/in/harshit-tinker" target="_blank" rel="noopener" class="footer-social" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© <span id="year">2026</span> Harshit Tinker. All rights reserved.</p>
+        <p class="footer-tagline">Built with clean code, shipped with confidence.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="scripts/main.js" defer></script>
+</body>
+</html>

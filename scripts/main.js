@@ -118,40 +118,41 @@
     const sections = $$('section[id]');
     const navLinks = $$('.nav-link[data-section]');
     
-    let scrollTicking = false;
-    
-    const onScroll = () => {
-      if (!scrollTicking) {
-        requestAnimationFrame(() => {
-          const scrollY = window.scrollY;
-          
-          // Nav background on scroll
-          if (nav) {
-            nav.classList.toggle('scrolled', scrollY > 50);
-          }
-          
-          // Active section highlighting
-          let currentSection = '';
-          sections.forEach(section => {
-            const sectionTop = section.offsetTop - 150;
-            const sectionHeight = section.offsetHeight;
-            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-              currentSection = section.getAttribute('id');
-            }
-          });
-          
-          navLinks.forEach(link => {
-            link.classList.toggle('active', link.dataset.section === currentSection);
-          });
-          
-          scrollTicking = false;
-        });
-        scrollTicking = true;
-      }
+    if (!nav) return;
+
+    // 1. Optimized Navbar scroll toggle (no heavy RAF needed for just a class toggle)
+    let lastScrollY = window.scrollY;
+    const updateNav = () => {
+      const scrollY = window.scrollY;
+      nav.classList.toggle('scrolled', scrollY > 50);
+      lastScrollY = scrollY;
     };
-    
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // Initial call
+
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    // 2. Efficient Section Highlighting using IntersectionObserver
+    // This replaces the heavy loop that called offsetTop/offsetHeight on every scroll frame
+    if (sections.length && navLinks.length && 'IntersectionObserver' in window) {
+      const options = {
+        root: null,
+        rootMargin: '-20% 0px -70% 0px', // Trigger when section is in top-ish part of viewport
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+              link.classList.toggle('active', link.dataset.section === id);
+            });
+          }
+        });
+      }, options);
+
+      sections.forEach(section => observer.observe(section));
+    }
   }
 
   // ============================================
