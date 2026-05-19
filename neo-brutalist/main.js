@@ -105,15 +105,15 @@ function shouldUseVerticalParallax() {
   return !prefersReducedMotion;
 }
 
+const horizontalWrapper = document.getElementById('horizontal-wrapper');
+const horizontalTrack = document.getElementById('horizontal-track');
+
 function updateDimensions() {
   handleScroll();
 }
 
 updateDimensions();
 window.addEventListener('resize', updateDimensions);
-
-const horizontalWrapper = document.getElementById('horizontal-wrapper');
-const horizontalTrack = document.getElementById('horizontal-track');
 
 function handleScroll() {
   const scrollY = window.scrollY;
