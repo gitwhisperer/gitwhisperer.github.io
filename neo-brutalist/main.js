@@ -13,7 +13,6 @@ if (typeof reducedMotionQuery.addEventListener === 'function') {
   reducedMotionQuery.addListener(syncMotionPreference);
 }
 
-// Set Current Year
 const yearSpan = document.getElementById('year');
 if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
@@ -21,12 +20,9 @@ let loaderDismissed = false;
 
 function hideLoader() {
   if (loaderDismissed) return;
-
   const loader = document.getElementById('brutal-loader');
   loaderDismissed = true;
-
   if (!loader) return;
-
   loader.classList.add('hidden');
   setTimeout(() => loader.remove(), 600);
 }
@@ -71,14 +67,12 @@ function initHoverPalette() {
   document.querySelectorAll('.site-nav-link, .site-nav-cta').forEach((el) => {
     const hoverClass = Array.from(el.classList).find((className) => className.startsWith('nav-hover-'));
     const palette = hoverClass ? hoverPalette[hoverClass] : null;
-
     if (!palette) return;
 
     const applyHoverTint = () => {
       el.style.setProperty('background-color', palette.background, 'important');
       el.style.setProperty('color', palette.color, 'important');
     };
-
     const clearHoverTint = () => {
       el.style.removeProperty('background-color');
       el.style.removeProperty('color');
@@ -107,6 +101,9 @@ function shouldUseVerticalParallax() {
 
 const horizontalWrapper = document.getElementById('horizontal-wrapper');
 const horizontalTrack = document.getElementById('horizontal-track');
+const scrollHint = document.getElementById('scroll-hint');
+const backToTop = document.getElementById('back-to-top');
+const mainFooter = document.querySelector('.main-footer');
 
 function updateDimensions() {
   handleScroll();
@@ -119,12 +116,9 @@ function handleScroll() {
   const scrollY = window.scrollY;
   const useVerticalParallax = shouldUseVerticalParallax();
 
-  // Horizontal Scroll Logic
   if (horizontalWrapper && horizontalTrack) {
     const rect = horizontalWrapper.getBoundingClientRect();
     const wrapperTop = rect.top;
-    
-    // Check if we are in desktop layout (assuming max-width 900px breakpoint)
     const isDesktop = window.innerWidth > 900;
     
     if (isDesktop) {
@@ -134,8 +128,13 @@ function handleScroll() {
         const progress = Math.min(Math.max(scrolled / scrollableHeight, 0), 1);
         const maxTranslate = horizontalTrack.scrollWidth - window.innerWidth;
         horizontalTrack.style.transform = `translate3d(-${progress * maxTranslate}px, 0, 0)`;
+        
+        if (progress > 0.05 && scrollHint) {
+          scrollHint.classList.add('hidden');
+        }
       } else if (wrapperTop > 0) {
         horizontalTrack.style.transform = `translate3d(0, 0, 0)`;
+        if (scrollHint) scrollHint.classList.remove('hidden');
       } else {
         const maxTranslate = horizontalTrack.scrollWidth - window.innerWidth;
         horizontalTrack.style.transform = `translate3d(-${maxTranslate}px, 0, 0)`;
@@ -145,13 +144,12 @@ function handleScroll() {
     }
   }
 
-  // Vertical Parallax Logic
   parallaxElements.forEach(el => {
     const parentSection = el.closest('.vertical-section, .resume-main');
     if(!parentSection) return;
 
     if (!useVerticalParallax) {
-      el.style.transform = 'none';
+      el.style.transform = 'translateZ(0)';
       return;
     }
     
@@ -169,6 +167,21 @@ function handleScroll() {
     }
   });
 
+  if (backToTop && mainFooter) {
+    const footerRect = mainFooter.getBoundingClientRect();
+    const footerVisible = footerRect.top < window.innerHeight;
+    
+    if (scrollY > 600 && !footerVisible) {
+      backToTop.classList.add('visible');
+      backToTop.classList.remove('hidden-footer');
+    } else {
+      backToTop.classList.remove('visible');
+      if (footerVisible) {
+        backToTop.classList.add('hidden-footer');
+      }
+    }
+  }
+
   ticking = false;
 }
 
@@ -179,7 +192,6 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-// Dynamic Hero Role Cycler
 const roles = ["SOFTWARE ENGINEER", "PROBLEM SOLVER", "SYSTEMS ARCHITECT", "FULL-STACK DEV"];
 const dynamicRoleEl = document.getElementById('dynamic-role');
 let roleIndex = 0;
@@ -195,7 +207,6 @@ if (dynamicRoleEl) {
   }, 3000);
 }
 
-// Form Logic
 const form = document.getElementById('neo-contact');
 const formContainer = document.getElementById('form-container');
 const successBox = document.getElementById('form-success');
@@ -288,5 +299,135 @@ if (resetBtn) {
     if (form) form.reset();
     if (successBox) successBox.style.display = 'none';
     if (formContainer) formContainer.style.display = 'block';
+  });
+}
+
+if (backToTop) {
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+const cursor = document.getElementById('custom-cursor');
+const cursorDot = document.getElementById('cursor-dot');
+let mouseX = 0, mouseY = 0;
+let cursorX = 0, cursorY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  if (cursorDot) {
+    cursorDot.style.left = mouseX - 3 + 'px';
+    cursorDot.style.top = mouseY - 3 + 'px';
+  }
+});
+
+function animateCursor() {
+  cursorX += (mouseX - cursorX) * 0.15;
+  cursorY += (mouseY - cursorY) * 0.15;
+  if (cursor) {
+    cursor.style.left = cursorX - 10 + 'px';
+    cursor.style.top = cursorY - 10 + 'px';
+  }
+  requestAnimationFrame(animateCursor);
+}
+if (window.innerWidth > 768) {
+  animateCursor();
+}
+
+const hoverElements = document.querySelectorAll('a, button, .nb-btn, .tag, .icon-btn, .site-nav-link, .site-nav-cta');
+hoverElements.forEach(el => {
+  el.addEventListener('mouseenter', () => cursor && cursor.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursor && cursor.classList.remove('hover'));
+});
+
+document.addEventListener('mousedown', () => cursor && cursor.classList.add('click'));
+document.addEventListener('mouseup', () => cursor && cursor.classList.remove('click'));
+
+const easterFlash = document.getElementById('easter-flash');
+const easterMessage = document.getElementById('easter-message');
+let konamiIndex = 0;
+const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+const easterMessages = [
+  "YOU FOUND ME!",
+  "HACKER MODE ACTIVATED",
+  "WELL DONE, TINKER",
+  "SECRET UNLOCKED",
+  "YOU ARE A TRUE TINKERER"
+];
+
+function showEasterEgg(msg) {
+  if (easterFlash) {
+    easterFlash.classList.add('active');
+    setTimeout(() => easterFlash.classList.remove('active'), 500);
+  }
+  if (easterMessage) {
+    easterMessage.textContent = msg || easterMessages[Math.floor(Math.random() * easterMessages.length)];
+    easterMessage.classList.add('active');
+    setTimeout(() => easterMessage.classList.remove('active'), 2000);
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.keyCode === konamiCode[konamiIndex]) {
+    konamiIndex++;
+    if (konamiIndex === konamiCode.length) {
+      showEasterEgg("KONAMI CODE ACTIVATED!");
+      document.body.style.filter = 'hue-rotate(180deg)';
+      setTimeout(() => { document.body.style.filter = ''; }, 3000);
+      konamiIndex = 0;
+    }
+  } else {
+    konamiIndex = 0;
+  }
+  
+  if (e.key === 'h' && e.ctrlKey) {
+    e.preventDefault();
+    showEasterEgg("HELLO TINKER!");
+  }
+});
+
+let clickCount = 0;
+document.addEventListener('click', (e) => {
+  clickCount++;
+  if (clickCount === 10) {
+    showEasterEgg("10 CLICKS! YOU ARE PERSISTENT");
+    clickCount = 0;
+  }
+});
+
+let scrollDistance = 0;
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  scrollDistance += Math.abs(window.scrollY - lastScroll);
+  lastScroll = window.scrollY;
+  if (scrollDistance > 50000) {
+    showEasterEgg("SCROLL MASTER!");
+    scrollDistance = 0;
+  }
+}, { passive: true });
+
+const whoSection = document.getElementById('who');
+if (whoSection) {
+  let whoClicks = 0;
+  whoSection.addEventListener('click', () => {
+    whoClicks++;
+    if (whoClicks === 5) {
+      showEasterEgg("WHO ARE YOU? I AM HARSHIT!");
+      whoClicks = 0;
+    }
+  });
+}
+
+const logo = document.querySelector('.site-nav-mark');
+if (logo) {
+  let logoClicks = 0;
+  logo.addEventListener('click', (e) => {
+    e.preventDefault();
+    logoClicks++;
+    if (logoClicks === 7) {
+      showEasterEgg("HT FOREVER!");
+      logoClicks = 0;
+    }
   });
 }

@@ -26,6 +26,7 @@
     initBackToTop();
     initEmailProtection();
     initTypingAnimation();
+    initEasterEggs();
   }
 
   // ============================================
@@ -466,6 +467,136 @@
   }
 
   // ============================================
+  // EASTER EGGS
+  // ============================================
+  
+  function initEasterEggs() {
+    // 1. Konami Code
+    const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+    let konamiIndex = 0;
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.keyCode === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+          activateEasterEgg('KONAMI CODE ACTIVATED! 🎮', 'matrix');
+          konamiIndex = 0;
+        }
+      } else {
+        konamiIndex = 0;
+      }
+      
+      // 2. Ctrl+H secret
+      if (e.key === 'h' && e.ctrlKey) {
+        e.preventDefault();
+        activateEasterEgg('HELLO TINKER! 🔧', 'flash');
+      }
+      
+      // 3. Type "tinker" anywhere
+      if (e.key === 't' && !e.ctrlKey && !e.metaKey) {
+        trackSecretTyping('tinker');
+      }
+    });
+    
+    // 4. Logo click easter egg
+    const brand = $('.nav-brand');
+    if (brand) {
+      let brandClicks = 0;
+      brand.addEventListener('click', (e) => {
+        brandClicks++;
+        if (brandClicks === 5) {
+          activateEasterEgg('HT FOREVER! 💎', 'flash');
+          brandClicks = 0;
+        }
+      });
+    }
+    
+    // 5. Scroll distance tracker
+    let scrollDistance = 0;
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      scrollDistance += Math.abs(window.scrollY - lastScroll);
+      lastScroll = window.scrollY;
+      if (scrollDistance > 50000) {
+        activateEasterEgg('SCROLL MASTER! 🏆', 'flash');
+        scrollDistance = 0;
+      }
+    }, { passive: true });
+    
+    // 6. Click counter
+    let clickCount = 0;
+    document.addEventListener('click', () => {
+      clickCount++;
+      if (clickCount === 50) {
+        activateEasterEgg('50 CLICKS! YOU ARE PERSISTENT! 🖱️', 'flash');
+        clickCount = 0;
+      }
+    });
+    
+    // Helper functions
+    const typedSequence = { current: '' };
+    
+    function trackSecretTyping(secret) {
+      typedSequence.current += 't';
+      if (typedSequence.current.length > secret.length) {
+        typedSequence.current = typedSequence.current.slice(-secret.length);
+      }
+      if (typedSequence.current === secret) {
+        activateEasterEgg('YOU CAN SPELL TINKER! 🔧✨', 'matrix');
+        typedSequence.current = '';
+      }
+    }
+    
+    function activateEasterEgg(message, type) {
+      // Flash effect
+      const flash = document.createElement('div');
+      flash.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 245, 212, 0.3); z-index: 10000;
+        pointer-events: none; opacity: 0; transition: opacity 0.2s;
+      `;
+      document.body.appendChild(flash);
+      
+      requestAnimationFrame(() => {
+        flash.style.opacity = '1';
+        setTimeout(() => {
+          flash.style.opacity = '0';
+          setTimeout(() => flash.remove(), 300);
+        }, 200);
+      });
+      
+      // Message popup
+      const popup = document.createElement('div');
+      popup.textContent = message;
+      popup.style.cssText = `
+        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        background: #0a0a0b; color: #00f5d4; padding: 2rem 3rem;
+        font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem;
+        font-weight: 700; border: 3px solid #00f5d4; z-index: 10001;
+        pointer-events: none; opacity: 0; transition: opacity 0.3s;
+        box-shadow: 0 0 30px rgba(0, 245, 212, 0.5);
+      `;
+      document.body.appendChild(popup);
+      
+      requestAnimationFrame(() => {
+        popup.style.opacity = '1';
+        setTimeout(() => {
+          popup.style.opacity = '0';
+          setTimeout(() => popup.remove(), 300);
+        }, 2000);
+      });
+      
+      // Matrix effect for special easter eggs
+      if (type === 'matrix') {
+        document.body.style.filter = 'hue-rotate(180deg)';
+        setTimeout(() => {
+          document.body.style.filter = '';
+        }, 3000);
+      }
+    }
+  }
+
+  // ============================================
   // SMOOTH HOVER GLOW ON PROJECT CARDS
   // ============================================
   
@@ -483,5 +614,8 @@
       });
     });
   }
+
+  // Initialize easter eggs
+  initEasterEggs();
 
 })();
