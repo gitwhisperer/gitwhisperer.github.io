@@ -309,40 +309,71 @@ if (backToTop) {
 }
 
 const cursor = document.getElementById('custom-cursor');
-const cursorDot = document.getElementById('cursor-dot');
+const cursorDefault = cursor?.querySelector('.cursor-default');
+const cursorPointer = cursor?.querySelector('.cursor-pointer');
+const cursorInput = cursor?.querySelector('.cursor-input');
 let mouseX = 0, mouseY = 0;
-let cursorX = 0, cursorY = 0;
+
+function setCursorSVG(type) {
+  if (!cursor) return;
+  if (cursorDefault) cursorDefault.style.display = type === 'default' ? 'block' : 'none';
+  if (cursorPointer) cursorPointer.style.display = type === 'pointer' ? 'block' : 'none';
+  if (cursorInput) cursorInput.style.display = type === 'input' ? 'block' : 'none';
+}
 
 document.addEventListener('mousemove', (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
-  if (cursorDot) {
-    cursorDot.style.left = mouseX - 3 + 'px';
-    cursorDot.style.top = mouseY - 3 + 'px';
-  }
-});
-
-function animateCursor() {
-  cursorX += (mouseX - cursorX) * 0.15;
-  cursorY += (mouseY - cursorY) * 0.15;
   if (cursor) {
-    cursor.style.left = cursorX - 10 + 'px';
-    cursor.style.top = cursorY - 10 + 'px';
+    cursor.style.left = mouseX - 8 + 'px';
+    cursor.style.top = mouseY - 8 + 'px';
   }
-  requestAnimationFrame(animateCursor);
-}
-if (window.innerWidth > 768) {
-  animateCursor();
-}
-
-const hoverElements = document.querySelectorAll('a, button, .nb-btn, .tag, .icon-btn, .site-nav-link, .site-nav-cta');
-hoverElements.forEach(el => {
-  el.addEventListener('mouseenter', () => cursor && cursor.classList.add('hover'));
-  el.addEventListener('mouseleave', () => cursor && cursor.classList.remove('hover'));
 });
 
-document.addEventListener('mousedown', () => cursor && cursor.classList.add('click'));
-document.addEventListener('mouseup', () => cursor && cursor.classList.remove('click'));
+const linkElements = document.querySelectorAll('a, .nb-btn, .tag, .icon-btn, .site-nav-link, .site-nav-cta, .arrow-up-btn');
+linkElements.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor && cursor.classList.add('hover-link');
+    setCursorSVG('pointer');
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor && cursor.classList.remove('hover-link');
+    setCursorSVG('default');
+  });
+});
+
+const textElements = document.querySelectorAll('p, span, h1, h2, h3, h4, h5, h6, li, label, .project-desc, .who-text, .subtitle, .service-description');
+textElements.forEach(el => {
+  el.addEventListener('mouseenter', () => cursor && cursor.classList.add('hover-text'));
+  el.addEventListener('mouseleave', () => cursor && cursor.classList.remove('hover-text'));
+});
+
+const btnElements = document.querySelectorAll('.nb-btn, .site-nav-cta, .submit-btn, .icon-btn, .arrow-up-btn, button');
+btnElements.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor && cursor.classList.add('hover-btn');
+    setCursorSVG('pointer');
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor && cursor.classList.remove('hover-btn');
+    setCursorSVG('default');
+  });
+});
+
+const inputElements = document.querySelectorAll('input, textarea');
+inputElements.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor && cursor.classList.add('hover-input');
+    setCursorSVG('input');
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor && cursor.classList.remove('hover-input');
+    setCursorSVG('default');
+  });
+});
+
+document.addEventListener('mousedown', () => cursor && cursor.classList.add('clicking'));
+document.addEventListener('mouseup', () => cursor && cursor.classList.remove('clicking'));
 
 const easterFlash = document.getElementById('easter-flash');
 const easterMessage = document.getElementById('easter-message');
@@ -431,3 +462,55 @@ if (logo) {
     }
   });
 }
+
+// Additional Easter Eggs
+
+// 1. Type "tinker" anywhere
+let tinkerSequence = '';
+document.addEventListener('keydown', (e) => {
+  if (!e.ctrlKey && !e.metaKey && e.key.length === 1) {
+    tinkerSequence += e.key.toLowerCase();
+    if (tinkerSequence.length > 6) {
+      tinkerSequence = tinkerSequence.slice(-6);
+    }
+    if (tinkerSequence === 'tinker') {
+      showEasterEgg("YOU CAN SPELL TINKER!");
+      tinkerSequence = '';
+    }
+  }
+});
+
+// 2. Double-tap the HT logo
+let logoLastClick = 0;
+if (logo) {
+  logo.addEventListener('click', (e) => {
+    const now = Date.now();
+    if (now - logoLastClick < 400) {
+      showEasterEgg("DOUBLE TAP DETECTED!");
+    }
+    logoLastClick = now;
+  });
+}
+
+// 3. Idle detection - if user doesn't interact for 30 seconds
+let idleTimer;
+function resetIdleTimer() {
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(() => {
+    showEasterEgg("ARE YOU STILL THERE?");
+  }, 30000);
+}
+['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(event => {
+  document.addEventListener(event, resetIdleTimer, { passive: true });
+});
+resetIdleTimer();
+
+// 5. Right-click easter egg
+let rightClickCount = 0;
+document.addEventListener('contextmenu', (e) => {
+  rightClickCount++;
+  if (rightClickCount === 5) {
+    showEasterEgg("INSPECTING THE CODE?");
+    rightClickCount = 0;
+  }
+});

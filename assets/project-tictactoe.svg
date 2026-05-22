@@ -1,19 +1,165 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
-  <rect width="640" height="360" fill="#faf8f5"/>
-  <g stroke="#e8e5e1" stroke-width="6" stroke-linecap="round">
-    <line x1="200" y1="60" x2="200" y2="300"/>
-    <line x1="320" y1="60" x2="320" y2="300"/>
-    <line x1="80" y1="140" x2="440" y2="140"/>
-    <line x1="80" y1="220" x2="440" y2="220"/>
-  </g>
-  <g fill="none" stroke="#0f766e" stroke-width="10">
-    <circle cx="140" cy="100" r="28"/>
-    <circle cx="260" cy="180" r="28"/>
-  </g>
-  <g stroke="#d97706" stroke-width="10">
-    <line x1="340" y1="90" x2="380" y2="130"/>
-    <line x1="380" y1="90" x2="340" y2="130"/>
-    <line x1="120" y1="240" x2="160" y2="280"/>
-    <line x1="160" y1="240" x2="120" y2="280"/>
-  </g>
+<svg width="100%" viewBox="0 0 680 700" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Super Tic Tac Toe – Mid Game (Heading to Tie)</title>
+  <desc>A mid-game Super Tic Tac Toe board. X has won top-left, mid-right, and bot-left. O has won top-center, mid-left, and bot-center. Top-right and mid-center are drawn. Bot-right is in progress. The game is heading to a tie.</desc>
+
+  <!-- ═══ MAIN BACKGROUND ═══ -->
+  <rect x="40" y="40" width="600" height="600" rx="8" fill="rgb(38,38,36)"/>
+
+  <!-- ═══ SUB-BOARD BASE FILLS ═══ -->
+  <rect x="48"  y="48"  width="188" height="188" rx="4" fill="rgb(48,48,46)"/>
+  <rect x="244" y="48"  width="188" height="188" rx="4" fill="rgb(48,48,46)"/>
+  <rect x="440" y="48"  width="188" height="188" rx="4" fill="rgb(48,48,46)"/>
+  <rect x="48"  y="244" width="188" height="188" rx="4" fill="rgb(48,48,46)"/>
+  <rect x="244" y="244" width="188" height="188" rx="4" fill="rgb(48,48,46)"/>
+  <rect x="440" y="244" width="188" height="188" rx="4" fill="rgb(48,48,46)"/>
+  <rect x="48"  y="440" width="188" height="188" rx="4" fill="rgb(48,48,46)"/>
+  <rect x="244" y="440" width="188" height="188" rx="4" fill="rgb(48,48,46)"/>
+  <rect x="440" y="440" width="188" height="188" rx="4" fill="rgb(48,48,46)"/>
+
+  <!-- ═══ WON / DRAW OVERLAYS ═══ -->
+  <!-- X won (blue tint): TL, MR, BL -->
+  <rect x="48"  y="48"  width="188" height="188" rx="4" fill="rgba(91,156,246,0.16)"/>
+  <rect x="440" y="244" width="188" height="188" rx="4" fill="rgba(91,156,246,0.16)"/>
+  <rect x="48"  y="440" width="188" height="188" rx="4" fill="rgba(91,156,246,0.16)"/>
+  <!-- O won (orange tint): TC, ML, BC -->
+  <rect x="244" y="48"  width="188" height="188" rx="4" fill="rgba(251,146,60,0.16)"/>
+  <rect x="48"  y="244" width="188" height="188" rx="4" fill="rgba(251,146,60,0.16)"/>
+  <rect x="244" y="440" width="188" height="188" rx="4" fill="rgba(251,146,60,0.16)"/>
+  <!-- Draw (neutral tint): TR, MC -->
+  <rect x="440" y="48"  width="188" height="188" rx="4" fill="rgba(140,138,130,0.14)"/>
+  <rect x="244" y="244" width="188" height="188" rx="4" fill="rgba(140,138,130,0.14)"/>
+
+  <!-- ═══ INNER GRID LINES ═══ -->
+  <!-- TL (bx=48, by=48) -->
+  <line x1="110.67" y1="48"  x2="110.67" y2="236" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="173.33" y1="48"  x2="173.33" y2="236" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="48"  y1="110.67" x2="236" y2="110.67" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="48"  y1="173.33" x2="236" y2="173.33" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <!-- TC (bx=244, by=48) -->
+  <line x1="306.67" y1="48"  x2="306.67" y2="236" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="369.33" y1="48"  x2="369.33" y2="236" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="244" y1="110.67" x2="432" y2="110.67" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="244" y1="173.33" x2="432" y2="173.33" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <!-- TR (bx=440, by=48) -->
+  <line x1="502.67" y1="48"  x2="502.67" y2="236" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="565.33" y1="48"  x2="565.33" y2="236" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="440" y1="110.67" x2="628" y2="110.67" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="440" y1="173.33" x2="628" y2="173.33" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <!-- ML (bx=48, by=244) -->
+  <line x1="110.67" y1="244" x2="110.67" y2="432" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="173.33" y1="244" x2="173.33" y2="432" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="48"  y1="306.67" x2="236" y2="306.67" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="48"  y1="369.33" x2="236" y2="369.33" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <!-- MC (bx=244, by=244) -->
+  <line x1="306.67" y1="244" x2="306.67" y2="432" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="369.33" y1="244" x2="369.33" y2="432" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="244" y1="306.67" x2="432" y2="306.67" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="244" y1="369.33" x2="432" y2="369.33" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <!-- MR (bx=440, by=244) -->
+  <line x1="502.67" y1="244" x2="502.67" y2="432" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="565.33" y1="244" x2="565.33" y2="432" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="440" y1="306.67" x2="628" y2="306.67" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="440" y1="369.33" x2="628" y2="369.33" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <!-- BL (bx=48, by=440) -->
+  <line x1="110.67" y1="440" x2="110.67" y2="628" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="173.33" y1="440" x2="173.33" y2="628" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="48"  y1="502.67" x2="236" y2="502.67" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="48"  y1="565.33" x2="236" y2="565.33" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <!-- BC (bx=244, by=440) -->
+  <line x1="306.67" y1="440" x2="306.67" y2="628" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="369.33" y1="440" x2="369.33" y2="628" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="244" y1="502.67" x2="432" y2="502.67" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="244" y1="565.33" x2="432" y2="565.33" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <!-- BR (bx=440, by=440) -->
+  <line x1="502.67" y1="440" x2="502.67" y2="628" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="565.33" y1="440" x2="565.33" y2="628" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="440" y1="502.67" x2="628" y2="502.67" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+  <line x1="440" y1="565.33" x2="628" y2="565.33" stroke="rgba(222,220,209,0.3)" stroke-width="1"/>
+
+  <!-- ═══ MAIN GRID DIVIDERS ═══ -->
+  <line x1="236" y1="40" x2="236" y2="640" stroke="rgb(250,249,245)" stroke-width="3"/>
+  <line x1="432" y1="40" x2="432" y2="640" stroke="rgb(250,249,245)" stroke-width="3"/>
+  <line x1="40"  y1="236" x2="640" y2="236" stroke="rgb(250,249,245)" stroke-width="3"/>
+  <line x1="40"  y1="432" x2="640" y2="432" stroke="rgb(250,249,245)" stroke-width="3"/>
+
+  <!-- ═══ BIG X SYMBOLS — won boards ═══ -->
+  <!-- TL (48,48): big X, padding 22 → corners at (70,70)–(214,214) -->
+  <line x1="70"  y1="70"  x2="214" y2="214" stroke="#5B9CF6" stroke-width="10" stroke-linecap="round" opacity="0.92"/>
+  <line x1="214" y1="70"  x2="70"  y2="214" stroke="#5B9CF6" stroke-width="10" stroke-linecap="round" opacity="0.92"/>
+  <!-- MR (440,244): big X → corners at (462,266)–(606,410) -->
+  <line x1="462" y1="266" x2="606" y2="410" stroke="#5B9CF6" stroke-width="10" stroke-linecap="round" opacity="0.92"/>
+  <line x1="606" y1="266" x2="462" y2="410" stroke="#5B9CF6" stroke-width="10" stroke-linecap="round" opacity="0.92"/>
+  <!-- BL (48,440): big X → corners at (70,462)–(214,606) -->
+  <line x1="70"  y1="462" x2="214" y2="606" stroke="#5B9CF6" stroke-width="10" stroke-linecap="round" opacity="0.92"/>
+  <line x1="214" y1="462" x2="70"  y2="606" stroke="#5B9CF6" stroke-width="10" stroke-linecap="round" opacity="0.92"/>
+
+  <!-- ═══ BIG O SYMBOLS — won boards ═══ -->
+  <!-- TC (244,48): center=(338,142) r=66 -->
+  <circle cx="338" cy="142" r="66" fill="none" stroke="#FB923C" stroke-width="10" opacity="0.92"/>
+  <!-- ML (48,244): center=(142,338) r=66 -->
+  <circle cx="142" cy="338" r="66" fill="none" stroke="#FB923C" stroke-width="10" opacity="0.92"/>
+  <!-- BC (244,440): center=(338,534) r=66 -->
+  <circle cx="338" cy="534" r="66" fill="none" stroke="#FB923C" stroke-width="10" opacity="0.92"/>
+
+  <!-- ═══ TR (440,48) DRAW BOARD — pattern: O X O / X X O / X O X ═══ -->
+  <!-- Cols from 440: 471.33, 534, 596.67  |  Rows from 48: 79.33, 142, 204.67 -->
+  <!-- (0,0)=O --> <circle cx="471.33" cy="79.33"  r="17" fill="none" stroke="#FB923C" stroke-width="2.5" opacity="0.75"/>
+  <!-- (0,1)=X --> <line x1="517"    y1="62.33"  x2="551"    y2="96.33"  stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+                   <line x1="551"    y1="62.33"  x2="517"    y2="96.33"  stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <!-- (0,2)=O --> <circle cx="596.67" cy="79.33" r="17" fill="none" stroke="#FB923C" stroke-width="2.5" opacity="0.75"/>
+  <!-- (1,0)=X --> <line x1="454.33" y1="125"    x2="488.33" y2="159"    stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+                   <line x1="488.33" y1="125"    x2="454.33" y2="159"    stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <!-- (1,1)=X --> <line x1="517"    y1="125"    x2="551"    y2="159"    stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+                   <line x1="551"    y1="125"    x2="517"    y2="159"    stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <!-- (1,2)=O --> <circle cx="596.67" cy="142"   r="17" fill="none" stroke="#FB923C" stroke-width="2.5" opacity="0.75"/>
+  <!-- (2,0)=X --> <line x1="454.33" y1="187.67" x2="488.33" y2="221.67" stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+                   <line x1="488.33" y1="187.67" x2="454.33" y2="221.67" stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <!-- (2,1)=O --> <circle cx="534"    cy="204.67" r="17" fill="none" stroke="#FB923C" stroke-width="2.5" opacity="0.75"/>
+  <!-- (2,2)=X --> <line x1="579.67" y1="187.67" x2="613.67" y2="221.67" stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+                   <line x1="613.67" y1="187.67" x2="579.67" y2="221.67" stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <!-- DRAW label -->
+  <text x="534" y="247" fill="rgba(200,198,190,0.55)" font-family="'Anthropic Sans', -apple-system, sans-serif" font-size="11" font-weight="600" text-anchor="middle" letter-spacing="1">DRAW</text>
+
+  <!-- ═══ MC (244,244) DRAW BOARD — pattern: X O X / O O X / X X O ═══ -->
+  <!-- Cols from 244: 275.33, 338, 400.67  |  Rows from 244: 275.33, 338, 400.67 -->
+  <!-- (0,0)=X --> <line x1="258.33" y1="258.33" x2="292.33" y2="292.33" stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+                   <line x1="292.33" y1="258.33" x2="258.33" y2="292.33" stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <!-- (0,1)=O --> <circle cx="338"    cy="275.33" r="17" fill="none" stroke="#FB923C" stroke-width="2.5" opacity="0.75"/>
+  <!-- (0,2)=X --> <line x1="383.67" y1="258.33" x2="417.67" y2="292.33" stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+                   <line x1="417.67" y1="258.33" x2="383.67" y2="292.33" stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <!-- (1,0)=O --> <circle cx="275.33" cy="338"    r="17" fill="none" stroke="#FB923C" stroke-width="2.5" opacity="0.75"/>
+  <!-- (1,1)=O --> <circle cx="338"    cy="338"    r="17" fill="none" stroke="#FB923C" stroke-width="2.5" opacity="0.75"/>
+  <!-- (1,2)=X --> <line x1="383.67" y1="321"    x2="417.67" y2="355"    stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+                   <line x1="417.67" y1="321"    x2="383.67" y2="355"    stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <!-- (2,0)=X --> <line x1="258.33" y1="383.67" x2="292.33" y2="417.67" stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+                   <line x1="292.33" y1="383.67" x2="258.33" y2="417.67" stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <!-- (2,1)=X --> <line x1="321"    y1="383.67" x2="355"    y2="417.67" stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+                   <line x1="355"    y1="383.67" x2="321"    y2="417.67" stroke="#5B9CF6" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <!-- (2,2)=O --> <circle cx="400.67" cy="400.67" r="17" fill="none" stroke="#FB923C" stroke-width="2.5" opacity="0.75"/>
+  <!-- DRAW label -->
+  <text x="338" y="443" fill="rgba(200,198,190,0.55)" font-family="'Anthropic Sans', -apple-system, sans-serif" font-size="11" font-weight="600" text-anchor="middle" letter-spacing="1">DRAW</text>
+
+  <!-- ═══ BR (440,440) IN-PROGRESS BOARD — pattern: X O _ / _ X O / X _ _ ═══ -->
+  <!-- Cols from 440: 471.33, 534, 596.67  |  Rows from 440: 471.33, 534, 596.67 -->
+  <!-- Active board highlight ring -->
+  <rect x="441" y="441" width="186" height="186" rx="3" fill="none" stroke="rgba(250,249,245,0.22)" stroke-width="2"/>
+  <!-- (0,0)=X --> <line x1="454.33" y1="454.33" x2="488.33" y2="488.33" stroke="#5B9CF6" stroke-width="3" stroke-linecap="round"/>
+                   <line x1="488.33" y1="454.33" x2="454.33" y2="488.33" stroke="#5B9CF6" stroke-width="3" stroke-linecap="round"/>
+  <!-- (0,1)=O --> <circle cx="534"    cy="471.33" r="17" fill="none" stroke="#FB923C" stroke-width="3"/>
+  <!-- (1,1)=X --> <line x1="517"    y1="517"    x2="551"    y2="551"    stroke="#5B9CF6" stroke-width="3" stroke-linecap="round"/>
+                   <line x1="551"    y1="517"    x2="517"    y2="551"    stroke="#5B9CF6" stroke-width="3" stroke-linecap="round"/>
+  <!-- (1,2)=O --> <circle cx="596.67" cy="534"    r="17" fill="none" stroke="#FB923C" stroke-width="3"/>
+  <!-- (2,0)=X --> <line x1="454.33" y1="579.67" x2="488.33" y2="613.67" stroke="#5B9CF6" stroke-width="3" stroke-linecap="round"/>
+                   <line x1="488.33" y1="579.67" x2="454.33" y2="613.67" stroke="#5B9CF6" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- ═══ OUTER BORDER ═══ -->
+  <rect x="40" y="40" width="600" height="600" rx="6" fill="none" stroke="rgb(250,249,245)" stroke-width="5"/>
+
+  <!-- ═══ SCORE HEADER ═══ -->
+  <text x="100" y="26" fill="#5B9CF6" font-family="'Anthropic Sans', -apple-system, sans-serif" font-size="13" font-weight="700" text-anchor="middle">X  3</text>
+  <text x="340" y="26" fill="rgba(250,249,245,0.6)" font-family="'Anthropic Sans', -apple-system, sans-serif" font-size="11" font-weight="400" text-anchor="middle" letter-spacing="0.5">2 DRAWN · HEADING TO TIE</text>
+  <text x="580" y="26" fill="#FB923C" font-family="'Anthropic Sans', -apple-system, sans-serif" font-size="13" font-weight="700" text-anchor="middle">3  O</text>
+
+  <!-- ═══ TITLE ═══ -->
+  <text x="340" y="665" fill="rgb(250,249,245)" font-family="'Anthropic Sans', sans-serif" font-size="15" font-weight="500" text-anchor="middle">Super Tic Tac Toe</text>
 </svg>

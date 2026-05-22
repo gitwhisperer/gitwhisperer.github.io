@@ -48,8 +48,11 @@
 </head>
 <body id="top">
 
-  <div class="custom-cursor" id="custom-cursor"></div>
-  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="custom-cursor" id="custom-cursor">
+    <svg class="cursor-default" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="#FFF" stroke="#000" stroke-width="2" d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.85a.5.5 0 0 0-.85.35Z"></path></svg>
+    <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" style="display:none"><path fill="#FFF" stroke="#000" stroke-width="1.5" d="M9.5 3.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5.5h5.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-2.12l3.46 3.46a1.5 1.5 0 0 1-2.12 2.12l-3.46-3.46V18.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5V3.5Z"/></svg>
+    <svg class="cursor-input" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" style="display:none"><path fill="#FFF" stroke="#000" stroke-width="2" d="M11 2h2v20h-2zM7 4h2v16H7zM15 4h2v16h-2z"/></svg>
+  </div>
 
   <div id="brutal-loader" class="brutal-loader">
     <div class="loader-grid">
@@ -64,6 +67,7 @@
 
   <div class="easter-egg-flash" id="easter-flash"></div>
   <div class="easter-egg-message" id="easter-message"></div>
+  <div class="grain-overlay"></div>
 
   <nav class="site-nav retro-shadow" aria-label="Primary">
     <a href="#hero" class="site-nav-brand">
@@ -125,19 +129,19 @@
             <div class="project-layout">
               <div class="project-image combo-image-bg">
                 <div class="project-image-combo vh-combo">
-                  <img src="../assets/vh-gems.png" class="desktop-ss retro-shadow vh-desktop" alt="VH Gems and Jewels Desktop" loading="lazy">
-                  <img src="../assets/vh-gems-mobile.png" class="mobile-ss retro-shadow vh-mobile" alt="VH Gems and Jewels Mobile" loading="lazy">
+                  <img src="../assets/vh-gems-mobile.png" class="mobile-ss retro-shadow vh-mobile vh-mobile-left" alt="VH Gems and Jewels Mobile" loading="lazy">
+                  <img src="../assets/vh-gems.png" class="desktop-ss retro-shadow vh-desktop vh-desktop-right" alt="VH Gems and Jewels Desktop" loading="lazy">
                 </div>
               </div>
               <div class="project-info">
                 <h3 class="project-massive-title">VH GEMS<br>AND JEWELS</h3>
-                <h4 class="project-subtitle">E-COMMERCE PLATFORM</h4>
+                <h4 class="project-subtitle">3D WEB EXPERIENCE</h4>
                 <div class="tags">
-                  <span class="tag tag-blue">REACT</span>
-                  <span class="tag tag-green">NODE.JS</span>
-                  <span class="tag tag-yellow">MONGODB</span>
+                  <span class="tag tag-purple">WEBGL</span>
+                  <span class="tag tag-blue">THREE.JS</span>
+                  <span class="tag tag-green">GSAP</span>
                 </div>
-                <p class="project-desc">A premium e-commerce platform for fine jewelry featuring an elegant product catalog, secure payment processing, and a streamlined shopping experience for luxury goods.</p>
+                <p class="project-desc">A luxury jewelry showcase featuring an interactive 3D ring model on the landing page with smooth scroll-driven animations, particle effects, and immersive product visualization.</p>
                 <div class="project-buttons" style="display: flex; gap: 15px; flex-wrap: wrap;">
                   <a href="https://vijayhandajewllers.com" target="_blank" rel="noopener" class="nb-btn btn-visit retro-shadow">
                     VISIT
@@ -157,12 +161,13 @@
               </div>
               <div class="project-info">
                 <h3 class="project-massive-title">TERRA<br>PRAVAH</h3>
-                <h4 class="project-subtitle">INFRASTRUCTURE AUTOMATION</h4>
+                <h4 class="project-subtitle">AI DRAINAGE DESIGN</h4>
                 <div class="tags">
-                  <span class="tag tag-orange">TERRAFORM</span>
-                  <span class="tag tag-blue">AWS</span>
+                  <span class="tag tag-orange">PYTHON</span>
+                  <span class="tag tag-blue">GEOSPATIAL</span>
+                  <span class="tag tag-green">DOCKER</span>
                 </div>
-                <p class="project-desc">Infrastructure-as-code solution for automating cloud resource provisioning, featuring modular Terraform configurations, multi-environment support, and streamlined deployment pipelines.</p>
+                <p class="project-desc">AI-powered platform that automates terrain-optimized drainage network design using geospatial data and DTMs. Streamlines civil infrastructure planning with fluid mechanics and hydrological analysis.</p>
                 <div class="project-buttons" style="display: flex; gap: 15px; flex-wrap: wrap;">
                   <a href="https://terrapravah.vercel.app" target="_blank" rel="noopener" class="nb-btn btn-visit retro-shadow">
                     VISIT
@@ -203,7 +208,7 @@
           <section class="h-panel project-panel" aria-label="Super Tic-Tac-Toe project">
             <div class="project-layout">
               <div class="project-image standard-img-bg" style="background-color: var(--orange);">
-                <img src="../assets/project-tictactoe.svg" class="retro-shadow fit-img" alt="Super Tic-Tac-Toe Game" loading="lazy">
+                <img src="assets/super_tic_tac_toe_midgame.svg" class="retro-shadow fit-img" alt="Super Tic-Tac-Toe Game" loading="lazy">
               </div>
               <div class="project-info">
                 <h3 class="project-massive-title">SUPER<br>TTT</h3>
@@ -249,7 +254,10 @@
     <section class="vertical-section who-panel parallax-bg" id="who">
       <div class="who-layout parallax-element" data-speed="0.15" data-dir="y">
         <div class="who-left">
-          <div class="sticker">WHO?</div>
+          <div class="who-graphic">
+            <span class="who-initial">H</span>
+            <span class="who-sub">T</span>
+          </div>
         </div>
         <div class="who-right">
           <h2 class="who-title">HARSHIT TINKER.</h2>
