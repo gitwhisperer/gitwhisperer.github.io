@@ -334,7 +334,7 @@ const linkElements = document.querySelectorAll('a, .nb-btn, .tag, .icon-btn, .si
 linkElements.forEach(el => {
   el.addEventListener('mouseenter', () => {
     cursor && cursor.classList.add('hover-link');
-    setCursorSVG('pointer');
+    setCursorSVG('default');
   });
   el.addEventListener('mouseleave', () => {
     cursor && cursor.classList.remove('hover-link');
@@ -352,7 +352,7 @@ const btnElements = document.querySelectorAll('.nb-btn, .site-nav-cta, .submit-b
 btnElements.forEach(el => {
   el.addEventListener('mouseenter', () => {
     cursor && cursor.classList.add('hover-btn');
-    setCursorSVG('pointer');
+    setCursorSVG('default');
   });
   el.addEventListener('mouseleave', () => {
     cursor && cursor.classList.remove('hover-btn');
