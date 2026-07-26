@@ -1,29 +1,68 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex, follow" />
-  <link rel="canonical" href="https://bytinker.me/" />
-  <title>Page not found — Harshit Tinker</title>
-  <link rel="stylesheet" href="styles/style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FBFBF9">
+  <meta name="color-scheme" content="light dark">
+  <meta name="robots" content="noindex, follow">
+  <title>404 Page Not Found — Harshit Tinker</title>
+  
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/style.css">
+  
   <style>
-    main { min-height: 60vh; display: grid; place-items: center; }
-    .box { text-align: center; background: var(--card); border: 1px solid var(--line); padding: 24px; border-radius: 16px; box-shadow: var(--shadow); }
-    .box h1 { margin: 0 0 8px; }
+    .error-container {
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 1.5rem;
+    }
+    .error-code {
+      font-family: var(--font-mono);
+      font-size: 6rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+    }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="/">Harshit Tinker</a>
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand">
+        HARSHIT TINKER
+        <span class="nav-brand-tag">SOFTWARE ENGINEER</span>
+      </a>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+      </div>
     </div>
-  </header>
-  <main>
-    <div class="box">
-      <h1>404</h1>
-      <p>That page doesn’t exist. Let’s go <a href="/">home</a>.</p>
+  </nav>
+
+  <main id="main">
+    <div class="container error-container">
+      <div class="error-code">404</div>
+      <h1 class="section-title" style="margin-bottom:1rem;">Page Not Found</h1>
+      <p class="section-description" style="margin-bottom:2rem;">The page you are looking for doesn't exist or has been moved.</p>
+      <a href="index.html" class="btn btn-primary">Return to Home ←</a>
     </div>
   </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">HARSHIT TINKER</div>
+      <div class="footer-copy">© 2026 Harshit Tinker — Software Engineer</div>
+    </div>
+  </footer>
+
+  <script src="scripts/main.js"></script>
 </body>
 </html>

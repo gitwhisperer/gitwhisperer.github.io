@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0a0a0b">
+  <meta name="theme-color" content="#FBFBF9">
+  <meta name="color-scheme" content="light dark">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <title>Node.js API Developer for Hire | Harshit Tinker</title>
   <meta name="description" content="Hire Harshit Tinker for Node.js API development: secure REST APIs, authentication, payments, scalable architecture, and production-ready backend systems.">
@@ -13,12 +14,20 @@
   <meta property="og:description" content="Production-grade backend and API engineering with Node.js.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://bytinker.me/nodejs-api-developer.html">
-  <meta property="og:image" content="https://bytinker.me/assets/harshit.JPG">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://bytinker.me/assets/favicon.svg">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Node.js API Developer for Hire | Harshit Tinker">
   <meta name="twitter:description" content="Production-grade backend and API engineering with Node.js.">
-  <meta name="twitter:image" content="https://bytinker.me/assets/harshit.JPG">
+  <meta name="twitter:image" content="https://bytinker.me/assets/favicon.svg">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles/style.css">
+  
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -45,56 +54,51 @@
         "areaServed": "Worldwide",
         "serviceType": "Backend Development",
         "description": "Custom Node.js REST APIs with auth, payments, security hardening, and scalable architecture."
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Do you build secure APIs for production?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. I implement JWT auth, input validation, rate limiting, role-based access control, and security best practices."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can you integrate payment gateways?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. I integrate payment systems like Stripe and Razorpay with robust webhook handling and transaction safety."
-            }
-          }
-        ]
       }
     ]
   }
   </script>
 </head>
 <body>
-  <div class="bg-mesh" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
+  <!-- Navigation -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand">
+        HARSHIT TINKER
+        <span class="nav-brand-tag">SOFTWARE ENGINEER</span>
+      </a>
+      
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <!-- Icon injected by main.js -->
+        </button>
 
-  <nav class="nav scrolled" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="/" class="nav-brand">Harshit Tinker</a>
-      <ul class="nav-links" style="position: static; transform: none; height: auto; width: auto; padding: 0; border: 0; background: transparent; box-shadow: none;">
-        <li><a href="/" class="nav-link">Home</a></li>
-        <li><a href="/index.html#contact" class="nav-link nav-cta">Contact Me</a></li>
-      </ul>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html#work" class="nav-link">Work</a></li>
+          <li><a href="index.html#services" class="nav-link">Services</a></li>
+          <li><a href="index.html#about" class="nav-link">About</a></li>
+          <li><a href="index.html#contact" class="nav-link nav-cta">Contact Me</a></li>
+        </ul>
+      </div>
     </div>
   </nav>
 
-  <main style="padding-top: 110px;">
+  <main id="main">
     <section class="section" aria-labelledby="node-page-title">
       <div class="container">
         <header class="section-header">
           <p class="eyebrow">Node.js API Developer</p>
-          <h1 id="node-page-title" class="heading-lg section-title">Hire a Node.js API Developer for Scalable Backend Systems</h1>
+          <h1 id="node-page-title" class="section-title">Hire a Node.js API Developer for Scalable Backend Systems</h1>
           <p class="section-description">I design and build backend systems that are secure, fast, and easy to scale. From MVP APIs to production-grade services, I deliver clean engineering without overcomplication.</p>
         </header>
 
-        <div class="services-grid services-grid--three">
+        <div class="services-grid">
           <article class="service-card">
             <h2 class="service-title">API Architecture</h2>
             <p class="service-description">REST API design, modular service layers, versioning strategy, and maintainable folder structures.</p>
@@ -109,41 +113,33 @@
           </article>
         </div>
 
-        <section class="section" style="padding-bottom: 0;">
-          <h2 class="heading-md" style="margin-bottom: 24px;">How I Work (Process)</h2>
-          <div class="process-timeline" style="margin-bottom: var(--space-4xl);">
+        <section class="section" style="padding-bottom: 0; border-bottom: none;">
+          <h2 class="section-title" style="font-size:1.8rem; margin-bottom: 24px;">How I Work (Process)</h2>
+          <div class="process-grid">
             <div class="process-step">
-              <div class="process-step-number">01</div>
-              <div class="process-step-content">
-                <h3 class="process-step-title">Discovery & Scope</h3>
-                <p class="process-step-description">Understanding your exact requirements, architecture needs, and business goals.</p>
-              </div>
+              <div class="process-number">01</div>
+              <h3 class="process-title">Discovery & Scope</h3>
+              <p class="process-description">Understanding your exact requirements, architecture needs, and business goals.</p>
             </div>
             <div class="process-step">
-              <div class="process-step-number">02</div>
-              <div class="process-step-content">
-                <h3 class="process-step-title">Development</h3>
-                <p class="process-step-description">Writing clean, maintainable code with regular progress updates and milestone reviews.</p>
-              </div>
+              <div class="process-number">02</div>
+              <h3 class="process-title">Development</h3>
+              <p class="process-description">Writing clean, maintainable code with regular progress updates and milestone reviews.</p>
             </div>
             <div class="process-step">
-              <div class="process-step-number">03</div>
-              <div class="process-step-content">
-                <h3 class="process-step-title">Testing & QA</h3>
-                <p class="process-step-description">Rigorous testing for performance, security, and responsive design across devices.</p>
-              </div>
+              <div class="process-number">03</div>
+              <h3 class="process-title">Testing & QA</h3>
+              <p class="process-description">Rigorous testing for performance, security, and responsive design across devices.</p>
             </div>
             <div class="process-step">
-              <div class="process-step-number">04</div>
-              <div class="process-step-content">
-                <h3 class="process-step-title">Deployment</h3>
-                <p class="process-step-description">Smooth rollout to production, complete documentation, and handover.</p>
-              </div>
+              <div class="process-number">04</div>
+              <h3 class="process-title">Deployment</h3>
+              <p class="process-description">Smooth rollout to production, complete documentation, and handover.</p>
             </div>
           </div>
 
-          <h2 class="heading-md" style="margin-bottom: 16px;">Frequently Asked Questions</h2>
-          <div class="services-grid services-grid--two">
+          <h2 class="section-title" style="font-size:1.8rem; margin-top:3rem; margin-bottom: 20px;">Frequently Asked Questions</h2>
+          <div class="services-grid">
             <article class="service-card">
               <h3 class="service-title">Can you work with MongoDB and PostgreSQL?</h3>
               <p class="service-description">Yes. I build and optimize APIs with both document and relational databases.</p>
@@ -155,24 +151,23 @@
           </div>
         </section>
 
-        <div style="margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap;">
-          <a href="/index.html#contact" class="btn btn-primary">Start a Backend Project</a>
-          <a href="/index.html#work" class="btn btn-ghost">View My Work</a>
-          <a href="/hire-react-developer.html" class="btn btn-secondary">Need React Frontend?</a>
-          <a href="/freelance-web-developer-india.html" class="btn btn-ghost">Freelance Developer India</a>
+        <div style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="index.html#contact" class="btn btn-primary">Start a Backend Project</a>
+          <a href="index.html#work" class="btn btn-secondary">View My Work</a>
+          <a href="hire-react-developer.html" class="btn btn-ghost">Need React Frontend?</a>
+          <a href="freelance-web-developer-india.html" class="btn btn-ghost">Freelance Developer India</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copyright">© <span id="year"></span> Harshit Tinker.</p>
-      </div>
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">HARSHIT TINKER</div>
+      <div class="footer-copy">© 2026 Harshit Tinker — Software Engineer</div>
     </div>
   </footer>
 
-  <script src="scripts/main.js" defer></script>
+  <script src="scripts/main.js"></script>
 </body>
 </html>

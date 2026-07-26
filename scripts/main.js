@@ -1,621 +1,447 @@
-/**
- * Harshit Tinker Portfolio — Main JavaScript
- * Premium interactions, animations, and form handling
- */
+/* ==========================================================================
+   HARSHIT TINKER - PORTFOLIO INTERACTIVITY SCRIPT (CLEAN EMOJI-FREE ENGINE)
+   ========================================================================== */
 
-(function() {
+(function () {
   'use strict';
 
-  // Utility selectors
-  const $ = (selector, context = document) => context.querySelector(selector);
-  const $$ = (selector, context = document) => [...context.querySelectorAll(selector)];
+  // --------------------------------------------------------------------------
+  // 1. THEME SWITCHER (DARK / LIGHT MODE)
+  // --------------------------------------------------------------------------
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const htmlEl = document.documentElement;
 
-  // ============================================
-  // INITIALIZATION
-  // ============================================
-  
-  document.addEventListener('DOMContentLoaded', init);
-
-  function init() {
-    initLoader();
-    initYear();
-    initNavigation();
-    initScrollEffects();
-    initContactForm();
-    initSmoothScroll();
-    initBackToTop();
-    initEmailProtection();
-    initTypingAnimation();
-    initEasterEggs();
-  }
-
-  // ============================================
-  // LOADING SCREEN
-  // ============================================
-  
-  function initLoader() {
-    const loader = $('#loader');
-    if (!loader) return;
-    
-    const hideLoader = () => {
-      loader.classList.add('loaded');
-    };
-    
-    // Check if page is already loaded
-    if (document.readyState === 'complete') {
-      hideLoader();
+  function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      htmlEl.setAttribute('data-theme', savedTheme);
     } else {
-      // Wait for load event
-      window.addEventListener('load', hideLoader);
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      htmlEl.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
     }
+    updateToggleIcon();
   }
 
-  // ============================================
-  // YEAR UPDATE
-  // ============================================
-  
-  function initYear() {
-    const yearEl = $('#year');
-    if (yearEl) {
-      yearEl.textContent = new Date().getFullYear();
-    }
+  function toggleTheme() {
+    const currentTheme = htmlEl.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    htmlEl.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateToggleIcon();
   }
 
-  // ============================================
-  // NAVIGATION
-  // ============================================
-  
-  function initNavigation() {
-    const nav = $('#nav');
-    const toggle = $('.nav-toggle');
-    const links = $('#nav-links');
-    const navLinks = $$('.nav-link');
+  function updateToggleIcon() {
+    if (!themeToggleBtn) return;
+    const isDark = htmlEl.getAttribute('data-theme') === 'dark';
+    themeToggleBtn.setAttribute('aria-label', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+    themeToggleBtn.innerHTML = isDark
+      ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+         </svg>`
+      : `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+         </svg>`;
+  }
 
-    if (!nav || !toggle || !links) return;
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', toggleTheme);
+  }
+  initTheme();
 
-    // Mobile menu toggle
-    toggle.addEventListener('click', () => {
-      const isOpen = links.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+  // --------------------------------------------------------------------------
+  // 2. MOBILE NAVIGATION TOGGLE
+  // --------------------------------------------------------------------------
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', function () {
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isExpanded);
+      navLinks.classList.toggle('active');
     });
 
-    // Close on link click
-    navLinks.forEach(link => {
+    document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
-        links.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      });
-    });
-
-    // Close on outside click
-    document.addEventListener('click', (e) => {
-      if (links.classList.contains('open') && 
-          !toggle.contains(e.target) && 
-          !links.contains(e.target)) {
-        links.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      }
-    });
-
-    // Close on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && links.classList.contains('open')) {
-        links.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      }
-    });
-  }
-
-  // ============================================
-  // SCROLL EFFECTS
-  // ============================================
-  
-  function initScrollEffects() {
-    const nav = $('#nav');
-    const sections = $$('section[id]');
-    const navLinks = $$('.nav-link[data-section]');
-    
-    if (!nav) return;
-
-    // 1. Optimized Navbar scroll toggle (no heavy RAF needed for just a class toggle)
-    let lastScrollY = window.scrollY;
-    const updateNav = () => {
-      const scrollY = window.scrollY;
-      nav.classList.toggle('scrolled', scrollY > 50);
-      lastScrollY = scrollY;
-    };
-
-    window.addEventListener('scroll', updateNav, { passive: true });
-    updateNav();
-
-    // 2. Efficient Section Highlighting using IntersectionObserver
-    // This replaces the heavy loop that called offsetTop/offsetHeight on every scroll frame
-    if (sections.length && navLinks.length && 'IntersectionObserver' in window) {
-      const options = {
-        root: null,
-        rootMargin: '-20% 0px -70% 0px', // Trigger when section is in top-ish part of viewport
-        threshold: 0
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            navLinks.forEach(link => {
-              link.classList.toggle('active', link.dataset.section === id);
-            });
-          }
-        });
-      }, options);
-
-      sections.forEach(section => observer.observe(section));
-    }
-  }
-
-  // ============================================
-  // EMAIL PROTECTION (Anti-Spam)
-  // ============================================
-  
-  function initEmailProtection() {
-    const emailLinks = $$('.email-link');
-    
-    emailLinks.forEach(link => {
-      const user = link.dataset.user;
-      const domain = link.dataset.domain;
-      
-      if (!user || !domain) return;
-      
-      // Construct email only when needed
-      const constructEmail = () => user + '@' + domain;
-      
-      // Update display text if present
-      const emailText = link.querySelector('.email-text');
-      if (emailText) {
-        emailText.textContent = constructEmail();
-      }
-      
-      // Handle click - open mail client
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.location.href = 'mailto:' + constructEmail();
-      });
-      
-      // Set href for right-click copy
-      link.href = 'mailto:' + constructEmail();
-    });
-  }
-
-  // ============================================
-  // REVEAL ANIMATIONS
-  // ============================================
-  
-  function initRevealAnimations() {
-    const revealElements = $$('[data-reveal], [data-reveal-stagger]');
-    
-    if (!revealElements.length) return;
-    
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px 0px -10% 0px',
-      threshold: 0.1
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-    
-    revealElements.forEach(el => observer.observe(el));
-  }
-
-  // ============================================
-  // SMOOTH SCROLL
-  // ============================================
-  
-  function initSmoothScroll() {
-    $$('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', (e) => {
-        const targetId = anchor.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const target = $(targetId);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
+        navLinks.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
       });
     });
   }
 
-  // ============================================
-  // CONTACT FORM (Formspree Integration)
-  // ============================================
-  
-  function initContactForm() {
-    const form = $('#contact-form');
-    const status = $('#form-status');
-    
-    if (!form) return;
-    
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const formData = new FormData(form);
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalBtnText = submitBtn.innerHTML;
-      
-      // Honeypot check
-      if (formData.get('_gotcha')) {
-        return;
-      }
-      
-      // Show loading state
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `
-        <span>Sending...</span>
-        <svg class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10" opacity="0.25"/>
-          <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round">
-            <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/>
-          </path>
-        </svg>
-      `;
-      
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-        
-        if (response.ok) {
-          showStatus('success', 'Thanks! Your message has been sent. I\'ll get back to you soon.');
-          form.reset();
-        } else {
-          const data = await response.json();
-          if (data.errors) {
-            showStatus('error', data.errors.map(e => e.message).join(', '));
-          } else {
-            showStatus('error', 'Something went wrong. Please try again or email me directly.');
-          }
-        }
-      } catch (error) {
-        showStatus('error', 'Network error. Please check your connection and try again.');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
-      }
-    });
-    
-    function showStatus(type, message) {
-      if (!status) return;
-      
-      status.hidden = false;
-      status.className = `form-status ${type}`;
-      status.textContent = message;
-      
-      // Auto-hide success message after 5 seconds
-      if (type === 'success') {
-        setTimeout(() => {
-          status.hidden = true;
-        }, 5000);
-      }
-    }
-  }
+  // --------------------------------------------------------------------------
+  // 3. BACK TO TOP BUTTON
+  // --------------------------------------------------------------------------
+  const backToTopBtn = document.getElementById('back-to-top');
 
-  // ============================================
-  // MAGNETIC BUTTON EFFECT (Optional Enhancement)
-  // ============================================
-  
-  function initMagneticButtons() {
-    const magneticBtns = $$('.btn-primary, .nav-cta');
-    
-    magneticBtns.forEach(btn => {
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
-      });
-      
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transform = '';
-      });
-    });
-  }
-
-  // ============================================
-  // CURSOR FOLLOWER (Optional Enhancement)
-  // ============================================
-  
-  function initCursorFollower() {
-    // Skip on touch devices
-    if ('ontouchstart' in window) return;
-    
-    const cursor = document.createElement('div');
-    cursor.className = 'cursor-follower';
-    cursor.style.cssText = `
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(0, 245, 212, 0.3);
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.1s ease-out, opacity 0.3s;
-      opacity: 0;
-    `;
-    document.body.appendChild(cursor);
-    
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursor.style.opacity = '1';
-    });
-    
-    document.addEventListener('mouseleave', () => {
-      cursor.style.opacity = '0';
-    });
-    
-    function animateCursor() {
-      cursorX += (mouseX - cursorX) * 0.15;
-      cursorY += (mouseY - cursorY) * 0.15;
-      cursor.style.left = cursorX - 10 + 'px';
-      cursor.style.top = cursorY - 10 + 'px';
-      requestAnimationFrame(animateCursor);
-    }
-    
-    animateCursor();
-    
-    // Grow on interactive elements
-    const interactives = $$('a, button, .bento-card');
-    interactives.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.transform = 'scale(2)';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.transform = 'scale(1)';
-      });
-    });
-  }
-
-  // ============================================
-  // SERVICE WORKER (PWA)
-  // ============================================
-  
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
-    });
-  }
-
-  // ============================================
-  // BACK TO TOP BUTTON
-  // ============================================
-  
-  function initBackToTop() {
-    const backToTop = $('#back-to-top');
-    if (!backToTop) return;
-    
-    const showThreshold = 400;
-    
-    const updateVisibility = () => {
-      const shouldShow = window.scrollY > showThreshold;
-      backToTop.classList.toggle('visible', shouldShow);
-    };
-    
-    window.addEventListener('scroll', updateVisibility, { passive: true });
-    
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-    
-    updateVisibility();
-  }
-
-  // ============================================
-  // TYPING ANIMATION
-  // ============================================
-  
-  function initTypingAnimation() {
-    const typedElement = $('#typed-role');
-    if (!typedElement) return;
-    
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      typedElement.textContent = 'modern web apps';
-      const cursor = $('.hero-role-cursor');
-      if (cursor) cursor.style.display = 'none';
-      return;
-    }
-    
-    const roles = [
-      'web applications',
-      'scalable APIs',
-      'e-commerce sites',
-      'custom scripts',
-      'full-stack apps'
-    ];
-    
-    let roleIndex = 0;
-
-    typedElement.textContent = roles[roleIndex];
-
-    setInterval(() => {
-      roleIndex = (roleIndex + 1) % roles.length;
-      typedElement.textContent = roles[roleIndex];
-    }, 2800);
-  }
-
-  // ============================================
-  // EASTER EGGS
-  // ============================================
-  
-  function initEasterEggs() {
-    // 1. Konami Code
-    const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-    let konamiIndex = 0;
-    
-    document.addEventListener('keydown', (e) => {
-      if (e.keyCode === konamiCode[konamiIndex]) {
-        konamiIndex++;
-        if (konamiIndex === konamiCode.length) {
-          activateEasterEgg('KONAMI CODE ACTIVATED! 🎮', 'matrix');
-          konamiIndex = 0;
-        }
+  if (backToTopBtn) {
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.add('visible');
       } else {
-        konamiIndex = 0;
-      }
-      
-      // 2. Ctrl+H secret
-      if (e.key === 'h' && e.ctrlKey) {
-        e.preventDefault();
-        activateEasterEgg('HELLO TINKER! 🔧', 'flash');
-      }
-      
-      // 3. Type "tinker" anywhere
-      if (e.key === 't' && !e.ctrlKey && !e.metaKey) {
-        trackSecretTyping('tinker');
-      }
-    });
-    
-    // 4. Logo click easter egg
-    const brand = $('.nav-brand');
-    if (brand) {
-      let brandClicks = 0;
-      brand.addEventListener('click', (e) => {
-        brandClicks++;
-        if (brandClicks === 5) {
-          activateEasterEgg('HT FOREVER! 💎', 'flash');
-          brandClicks = 0;
-        }
-      });
-    }
-    
-    // 5. Scroll distance tracker
-    let scrollDistance = 0;
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-      scrollDistance += Math.abs(window.scrollY - lastScroll);
-      lastScroll = window.scrollY;
-      if (scrollDistance > 50000) {
-        activateEasterEgg('SCROLL MASTER! 🏆', 'flash');
-        scrollDistance = 0;
+        backToTopBtn.classList.remove('visible');
       }
     }, { passive: true });
-    
-    // 6. Click counter
-    let clickCount = 0;
-    document.addEventListener('click', () => {
-      clickCount++;
-      if (clickCount === 50) {
-        activateEasterEgg('50 CLICKS! YOU ARE PERSISTENT! 🖱️', 'flash');
-        clickCount = 0;
-      }
-    });
-    
-    // Helper functions
-    const typedSequence = { current: '' };
-    
-    function trackSecretTyping(secret) {
-      typedSequence.current += 't';
-      if (typedSequence.current.length > secret.length) {
-        typedSequence.current = typedSequence.current.slice(-secret.length);
-      }
-      if (typedSequence.current === secret) {
-        activateEasterEgg('YOU CAN SPELL TINKER! 🔧✨', 'matrix');
-        typedSequence.current = '';
-      }
-    }
-    
-    function activateEasterEgg(message, type) {
-      // Flash effect
-      const flash = document.createElement('div');
-      flash.style.cssText = `
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 245, 212, 0.3); z-index: 10000;
-        pointer-events: none; opacity: 0; transition: opacity 0.2s;
-      `;
-      document.body.appendChild(flash);
-      
-      requestAnimationFrame(() => {
-        flash.style.opacity = '1';
-        setTimeout(() => {
-          flash.style.opacity = '0';
-          setTimeout(() => flash.remove(), 300);
-        }, 200);
-      });
-      
-      // Message popup
-      const popup = document.createElement('div');
-      popup.textContent = message;
-      popup.style.cssText = `
-        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-        background: #0a0a0b; color: #00f5d4; padding: 2rem 3rem;
-        font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem;
-        font-weight: 700; border: 3px solid #00f5d4; z-index: 10001;
-        pointer-events: none; opacity: 0; transition: opacity 0.3s;
-        box-shadow: 0 0 30px rgba(0, 245, 212, 0.5);
-      `;
-      document.body.appendChild(popup);
-      
-      requestAnimationFrame(() => {
-        popup.style.opacity = '1';
-        setTimeout(() => {
-          popup.style.opacity = '0';
-          setTimeout(() => popup.remove(), 300);
-        }, 2000);
-      });
-      
-      // Matrix effect for special easter eggs
-      if (type === 'matrix') {
-        document.body.style.filter = 'hue-rotate(180deg)';
-        setTimeout(() => {
-          document.body.style.filter = '';
-        }, 3000);
-      }
-    }
-  }
 
-  // ============================================
-  // SMOOTH HOVER GLOW ON PROJECT CARDS
-  // ============================================
-  
-  function initTiltEffect() {
-    const cards = $$('.bento-card');
-    if (!cards.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    
-    cards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        card.style.setProperty('--mouse-x', x + '%');
-        card.style.setProperty('--mouse-y', y + '%');
-      });
+    backToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
-  // Initialize easter eggs
-  initEasterEggs();
+  // --------------------------------------------------------------------------
+  // 4. EMAIL SPAM-PROTECTED REVEAL LINK
+  // --------------------------------------------------------------------------
+  const emailLinks = document.querySelectorAll('.email-link');
+  emailLinks.forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const user = link.getAttribute('data-user');
+      const domain = link.getAttribute('data-domain');
+      if (user && domain) {
+        const fullEmail = `${user}@${domain}`;
+        const emailText = link.querySelector('.email-text');
+        if (emailText) emailText.textContent = fullEmail;
+        window.location.href = `mailto:${fullEmail}`;
+      }
+    });
+  });
+
+  // --------------------------------------------------------------------------
+  // 5. SITE-DESIGNED FORM VALIDATION & FORMSPREE SUBMISSION
+  // --------------------------------------------------------------------------
+  const contactForm = document.getElementById('contact-form');
+  const formStatus = document.getElementById('form-status');
+
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const messageInput = document.getElementById('message');
+
+  const errorName = document.getElementById('error-name');
+  const errorEmail = document.getElementById('error-email');
+  const errorMessage = document.getElementById('error-message');
+
+  function clearErrors() {
+    [nameInput, emailInput, messageInput].forEach(input => {
+      if (input) input.classList.remove('invalid-input');
+    });
+    [errorName, errorEmail, errorMessage].forEach(err => {
+      if (err) err.style.display = 'none';
+    });
+  }
+
+  function validateForm() {
+    clearErrors();
+    let isValid = true;
+
+    if (!nameInput || !nameInput.value.trim()) {
+      if (nameInput) nameInput.classList.add('invalid-input');
+      if (errorName) errorName.style.display = 'flex';
+      isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailInput || !emailInput.value.trim() || !emailRegex.test(emailInput.value.trim())) {
+      if (emailInput) emailInput.classList.add('invalid-input');
+      if (errorEmail) errorEmail.style.display = 'flex';
+      isValid = false;
+    }
+
+    if (!messageInput || !messageInput.value.trim()) {
+      if (messageInput) messageInput.classList.add('invalid-input');
+      if (errorMessage) errorMessage.style.display = 'flex';
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  [nameInput, emailInput, messageInput].forEach((input, index) => {
+    if (input) {
+      input.addEventListener('input', () => {
+        input.classList.remove('invalid-input');
+        const errNotice = [errorName, errorEmail, errorMessage][index];
+        if (errNotice) errNotice.style.display = 'none';
+      });
+    }
+  });
+
+  if (contactForm && formStatus) {
+    contactForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      if (!validateForm()) {
+        formStatus.hidden = false;
+        formStatus.className = 'form-status error';
+        formStatus.textContent = 'Please fix the highlighted errors above before submitting.';
+        return;
+      }
+
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.innerHTML : 'Send Message ↗';
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Sending...';
+      }
+
+      formStatus.hidden = false;
+      formStatus.className = 'form-status';
+      formStatus.textContent = 'Sending your message to Harshit Tinker...';
+
+      try {
+        const formData = new FormData(contactForm);
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          formStatus.className = 'form-status success';
+          formStatus.textContent = 'Thank you! Your message has been received. Harshit will respond to your email shortly.';
+          contactForm.reset();
+          clearErrors();
+        } else {
+          const data = await response.json();
+          formStatus.className = 'form-status error';
+          if (data && data.errors) {
+            formStatus.textContent = data.errors.map(err => err.message).join(', ');
+          } else {
+            formStatus.textContent = 'Oops! Problem submitting form. Please try again.';
+          }
+        }
+      } catch (err) {
+        formStatus.className = 'form-status error';
+        formStatus.textContent = 'Connection error. Please check your internet connection and try again.';
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        }
+      }
+    });
+  }
+
+  // --------------------------------------------------------------------------
+  // 6. SCROLL REVEAL OBSERVER
+  // --------------------------------------------------------------------------
+  const reveals = document.querySelectorAll('.reveal');
+  if (reveals.length > 0) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.08 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+  }
+
+  // --------------------------------------------------------------------------
+  // 7. OPEN MINIMALIST SUPER TIC-TAC-TOE
+  // --------------------------------------------------------------------------
+  const stttBoardContainer = document.getElementById('sttt-board');
+  const stttTurnEl = document.getElementById('sttt-turn');
+  const stttStatusEl = document.getElementById('sttt-status');
+  const stttResetBtn = document.getElementById('sttt-reset');
+
+  if (stttBoardContainer) {
+    let boardState = Array.from({ length: 9 }, () => Array(9).fill(null));
+    let subboardWinners = Array(9).fill(null);
+    let subboardWinLines = Array(9).fill(-1);
+    let globalWinLineIndex = -1;
+    let activeBoard = -1; // -1 means player can pick any sub-board
+    let currentPlayer = 'X';
+    let gameOver = false;
+
+    const WIN_PATTERNS = [
+      [0, 1, 2], // Pattern 0: Top Row
+      [3, 4, 5], // Pattern 1: Middle Row
+      [6, 7, 8], // Pattern 2: Bottom Row
+      [0, 3, 6], // Pattern 3: Left Col
+      [1, 4, 7], // Pattern 4: Middle Col
+      [2, 5, 8], // Pattern 5: Right Col
+      [0, 4, 8], // Pattern 6: Diagonal Main
+      [2, 4, 6]  // Pattern 7: Diagonal Anti
+    ];
+
+    function check3x3WinDetails(cells) {
+      for (let p = 0; p < WIN_PATTERNS.length; p++) {
+        const [a, b, c] = WIN_PATTERNS[p];
+        if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c]) {
+          return { winner: cells[a], patternIndex: p };
+        }
+      }
+      return { winner: cells.every(c => c !== null) ? 'DRAW' : null, patternIndex: -1 };
+    }
+
+    function initSTTTBoard() {
+      stttBoardContainer.innerHTML = '';
+      boardState = Array.from({ length: 9 }, () => Array(9).fill(null));
+      subboardWinners = Array(9).fill(null);
+      subboardWinLines = Array(9).fill(-1);
+      globalWinLineIndex = -1;
+      activeBoard = -1;
+      currentPlayer = 'X';
+      gameOver = false;
+
+      for (let b = 0; b < 9; b++) {
+        const subboardEl = document.createElement('div');
+        subboardEl.className = 'sttt-subboard';
+        subboardEl.dataset.board = b;
+
+        for (let c = 0; c < 9; c++) {
+          const cellEl = document.createElement('div');
+          cellEl.className = 'sttt-cell';
+          cellEl.dataset.board = b;
+          cellEl.dataset.cell = c;
+          cellEl.addEventListener('click', () => handleCellClick(b, c));
+          subboardEl.appendChild(cellEl);
+        }
+
+        stttBoardContainer.appendChild(subboardEl);
+      }
+
+      updateUI();
+    }
+
+    function updateUI() {
+      // Highlight active subboard target
+      document.querySelectorAll('.sttt-subboard').forEach((sbEl, b) => {
+        sbEl.classList.remove('active-target');
+        if (!gameOver && subboardWinners[b] === null && (activeBoard === -1 || activeBoard === b)) {
+          sbEl.classList.add('active-target');
+        }
+
+        // Draw local animated strike line if won
+        if (subboardWinLines[b] >= 0 && !sbEl.querySelector('.sttt-win-line')) {
+          const lineEl = document.createElement('div');
+          lineEl.className = `sttt-win-line line-pattern-${subboardWinLines[b]}`;
+          sbEl.appendChild(lineEl);
+        }
+
+        // Overlay for conquered subboards
+        if (subboardWinners[b] && subboardWinners[b] !== 'DRAW') {
+          if (!sbEl.querySelector('.sttt-conquered')) {
+            setTimeout(() => {
+              if (!sbEl.querySelector('.sttt-conquered')) {
+                const conqueredOverlay = document.createElement('div');
+                conqueredOverlay.className = `sttt-conquered won-${subboardWinners[b]}`;
+                conqueredOverlay.textContent = subboardWinners[b];
+                sbEl.appendChild(conqueredOverlay);
+              }
+            }, 380);
+          }
+        }
+      });
+
+      // Draw Global Win Giant Strike Line across all 9 subboards
+      if (globalWinLineIndex >= 0 && !stttBoardContainer.querySelector('.sttt-global-win-line')) {
+        const globalLineEl = document.createElement('div');
+        globalLineEl.className = `sttt-global-win-line global-pattern-${globalWinLineIndex}`;
+        stttBoardContainer.appendChild(globalLineEl);
+      }
+
+      if (stttTurnEl) {
+        if (gameOver) {
+          stttTurnEl.textContent = 'MATCH COMPLETED';
+          stttTurnEl.style.color = 'var(--text-main)';
+        } else {
+          stttTurnEl.textContent = activeBoard === -1 ? 'PLAY ANY BOARD' : `BOARD ${activeBoard + 1}`;
+          stttTurnEl.style.color = 'var(--highlight-color)';
+        }
+      }
+
+      if (stttStatusEl) {
+        if (gameOver) {
+          const globalWin = check3x3WinDetails(subboardWinners).winner;
+          stttStatusEl.textContent = globalWin && globalWin !== 'DRAW' ? `VICTORY: PLAYER ${globalWin}!` : `MATCH DRAW!`;
+        } else {
+          stttStatusEl.textContent = currentPlayer === 'X' ? 'YOUR TURN [ X ]' : 'AI COMPUTING [ O ]...';
+        }
+      }
+    }
+
+    function makeMove(b, c) {
+      if (gameOver || boardState[b][c] !== null || (activeBoard !== -1 && activeBoard !== b) || subboardWinners[b] !== null) {
+        return false;
+      }
+
+      boardState[b][c] = currentPlayer;
+      const cellEl = stttBoardContainer.querySelector(`.sttt-cell[data-board="${b}"][data-cell="${c}"]`);
+      if (cellEl) {
+        cellEl.textContent = currentPlayer;
+        cellEl.classList.add('occupied', `val-${currentPlayer}`);
+      }
+
+      // Check sub-board win details
+      const subWinDetails = check3x3WinDetails(boardState[b]);
+      if (subWinDetails.winner) {
+        subboardWinners[b] = subWinDetails.winner;
+        subboardWinLines[b] = subWinDetails.patternIndex;
+      }
+
+      // Check global game win details
+      const globalWinDetails = check3x3WinDetails(subboardWinners);
+      if (globalWinDetails.winner) {
+        gameOver = true;
+        if (globalWinDetails.patternIndex >= 0) {
+          globalWinLineIndex = globalWinDetails.patternIndex;
+        }
+        updateUI();
+        return true;
+      }
+
+      // Determine next active board
+      activeBoard = subboardWinners[c] !== null ? -1 : c;
+      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      updateUI();
+      return true;
+    }
+
+    function handleCellClick(b, c) {
+      if (currentPlayer !== 'X' || gameOver) return;
+
+      const moved = makeMove(b, c);
+      if (moved && !gameOver && currentPlayer === 'O') {
+        setTimeout(makeAIMove, 350);
+      }
+    }
+
+    function makeAIMove() {
+      if (gameOver || currentPlayer !== 'O') return;
+
+      let validMoves = [];
+      let targetBoards = activeBoard === -1 ? [0,1,2,3,4,5,6,7,8].filter(b => subboardWinners[b] === null) : [activeBoard];
+
+      targetBoards.forEach(b => {
+        for (let c = 0; c < 9; c++) {
+          if (boardState[b][c] === null) {
+            validMoves.push({ b, c });
+          }
+        }
+      });
+
+      if (validMoves.length > 0) {
+        const pick = validMoves[Math.floor(Math.random() * validMoves.length)];
+        makeMove(pick.b, pick.c);
+      }
+    }
+
+    if (stttResetBtn) {
+      stttResetBtn.addEventListener('click', initSTTTBoard);
+    }
+
+    initSTTTBoard();
+  }
 
 })();
